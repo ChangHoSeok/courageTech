@@ -4,8 +4,8 @@
 			<tbody>
 				<tr>
 					<td style="padding: 10px">
-						<a href="http://dcms.courage.pe.kr" target="_blank">
-							<img src="http://dcms.courage.pe.kr/dcms/images/templates/company_logo.png" alt="Day Care Center Management System" border="0" style="margin-left: 10px; width: 80px; height: 30px;">
+						<a href="http://tech.courage.pe.kr" target="_blank">
+							<img src="http://tech.courage.pe.kr/images/templates/company_logo.png" alt="Day Care Center Management System" border="0" style="margin-left: 10px; width: 80px; height: 30px;">
 						</a>
 					</td>
 					<td width="328" style="padding: 10px; text-align: right; vertical-align: middle">
@@ -78,7 +78,7 @@
 								<tr>
 									<td align="center" width="110" style="vertical-align: top">
 										<a href="http://tech.courage.pe.kr" style="display: inline-block; min-height: 70px" target="_blank">
-											<img src="http://dcms.courage.pe.kr/dcms/images/templates/company_logo_gray.gif" alt="CyberLine" border="0">
+											<img src="http://tech.courage.pe.kr/images/templates/company_logo_gray.gif" alt="CyberLine" border="0">
 										</a>
 									</td>
 									<td style="font-size: 11px">
