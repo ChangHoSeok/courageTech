@@ -9,7 +9,7 @@
 						</a>
 					</td>
 					<td width="328" style="padding: 10px; text-align: right; vertical-align: middle">
-						이 메일은 ${ } 에 작성되었습니다.
+						본 메일은 ${ } 에 작성되었습니다.
 					</td>
 				</tr>
 				<tr>
@@ -27,8 +27,8 @@
 										</span>
 										<br /><br />
 										<span style="font-weight: bold">석창호</span>
-										님! 전자보육일지 서비스를 이용해 주셔서 감사합니다.<br /><br />
-										전자보육일지 서비스를 이용하기 위해서는 이메일 인증이 필요합니다.<br />
+										님! CourageTech 서비스를 이용해 주셔서 감사합니다.<br /><br />
+										CourageTech 서비스를 이용하기 위해서는 이메일 인증이 필요합니다.<br />
 										아래의 링크를 클릭하여 인증주소를 브라우저의 주소창에 입력해주세요.<br /><br />
 										
 										<table cellpadding="0" cellspacing="0" width="560" style="color: #222; border: solid 1px #F7A118; font-size: 12px; font-weight: bold; background: #fcf1f3">
@@ -82,8 +82,6 @@
 										</a>
 									</td>
 									<td style="font-size: 11px">
-										주소 (137-897) 서울특별시 서초구 양재2동 320-5번지 신성빌딩 5층 | 대표 : 최정수<br />
-										사업자등록번호 : 000-00-00000 | 통신판매업 신고번호 : 제 2005-서울송파-3290호<br />
 										이메일 문의 : <a href="mailto:schkkh@naver.com" style="color: #ad0021" target="_blank">schkkh@naver.com</a> | 전화 : 010-3891-4624<br />
 										Copyrightⓒ <a href="http://tech.courage.pe.kr/" target="_blank">COURAGE TECH</a> All Rights Reserved.
 									</td>
