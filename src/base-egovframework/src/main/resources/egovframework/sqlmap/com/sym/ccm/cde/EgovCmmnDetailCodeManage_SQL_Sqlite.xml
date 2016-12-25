@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+	수정일          수정자                          수정내용
+  ===========      ========    =================================================
+  2011.10.06		이기하     	 	보안 취약점 점검사항 반영 $->#변경
+  2013.11.10		석창호			courage custom 사항 반영
+-->
+<sqlMap namespace="CmmnDetailCodeManage">
+
+	<typeAlias alias="CmmnDetailCodeVO" type="egovframework.com.sym.ccm.cde.service.CmmnDetailCodeVO"/>
+	
+	<resultMap class="CmmnDetailCodeVO" id="cmmnDetailCodeList-resultMap">
+		<result property="codeId"				column="CODE_ID"/>
+		<result property="codeIdNm"				column="CODE_ID_NM"/>
+		<result property="code"					column="CODE"/>
+		<result property="codeNm"				column="CODE_NM"/>
+		<result property="useAt"				column="USE_AT"/>
+		<result property="ordr"					column="ORDR"/>
+		<result property="frstRegisterId"		column="FRST_REGISTER_ID"/>
+		<result property="frstRegisterNm"		column="FRST_REGISTER_NM"/>
+		<result property="frstRegistPnttm"		column="FRST_REGIST_PNTTM"/>
+	</resultMap>
+	
+	<resultMap class="CmmnDetailCodeVO" id="cmmnDetailCodeDetail-resultMap">
+		<result property="codeId"				column="CODE_ID"/>
+		<result property="codeIdNm"				column="CODE_ID_NM"/>
+		<result property="code"					column="CODE"/>
+		<result property="codeNm"				column="CODE_NM"/>
+		<result property="codeDc"				column="CODE_DC"/>
+		<result property="useAt"				column="USE_AT"/>
+		<result property="rm"					column="RM"/>
+		<result property="ordr"					column="ORDR"/>
+		<result property="frstRegisterId"		column="FRST_REGISTER_ID"/>
+		<result property="frstRegisterNm"		column="FRST_REGISTER_NM"/>
+		<result property="frstRegistPnttm"		column="FRST_REGIST_PNTTM"/>
+		<result property="lastUpdusrId"			column="LAST_UPDUSR_ID"/>
+		<result property="lastUpdusrNm"			column="LAST_UPDUSR_NM"/>
+		<result property="lastUpdtPnttm"		column="LAST_UPDT_PNTTM"/>
+	</resultMap>
+	
+	<sql id="incCmmnDetailCodeCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condCodeId">
+				A.CODE_ID = #condCodeId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condCode">
+				A.CODE = #condCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condCodeNm">
+				INSTR(UPPER(REPLACE(A.CODE_NM, ' ', '')), UPPER(REPLACE(#condCodeNm#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condUseAt">
+				B.USE_AT = #condUseAt#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condDetailUseAt">
+				A.USE_AT = #condDetailUseAt#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condFrstRegisterId">
+				A.FRST_REGISTER_ID = #condFrstRegisterId#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+
+	<select id="selectCmmnDetailCodeList" parameterClass="CmmnDetailCodeVO" resultMap="cmmnDetailCodeList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT A.CODE_ID, B.CODE_ID_NM, A.CODE, A.CODE_NM,
+			   A.USE_AT, A.ORDR, A.FRST_REGISTER_ID, A.FRST_REGIST_PNTTM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.FRST_REGISTER_ID) AS FRST_REGISTER_NM
+		  FROM COMTCCMMNDETAILCODE A
+		 INNER JOIN COMTCCMMNCODE B
+		 	ON A.CODE_ID = B.CODE_ID
+		<include refid="incCmmnDetailCodeCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<isEmpty prepend="ORDER BY" property="condOrder">
+			A.CODE_ID ASC, A.ORDR
+		</isEmpty>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+
+	<select id="selectCmmnDetailCodeListTotCnt" parameterClass="CmmnDetailCodeVO" resultClass="int">
+		SELECT COUNT(1)
+		  FROM COMTCCMMNDETAILCODE A
+		 INNER JOIN COMTCCMMNCODE B
+		 	ON A.CODE_ID = B.CODE_ID  
+		<include refid="incCmmnDetailCodeCondition"/>
+	</select>
+
+	<select id="selectCmmnDetailCodeDetail" parameterClass="CmmnDetailCodeVO" resultMap="cmmnDetailCodeDetail-resultMap">
+		SELECT A.CODE_ID, B.CODE_ID_NM, A.CODE, A.CODE_NM,
+			   A.CODE_DC, A.USE_AT, A.RM, A.ORDR,
+			   A.FRST_REGISTER_ID, A.FRST_REGIST_PNTTM, A.LAST_UPDUSR_ID, A.LAST_UPDT_PNTTM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.FRST_REGISTER_ID) AS FRST_REGISTER_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.LAST_UPDUSR_ID) AS LAST_UPDUSR_NM
+		  FROM COMTCCMMNDETAILCODE A
+		 INNER JOIN COMTCCMMNCODE B
+		 	ON A.CODE_ID = B.CODE_ID
+		 WHERE A.CODE_ID = #codeId#
+		   AND A.CODE = #code#
+	</select>
+	
+	<select id="selectCmmnDetailCodeByName" parameterClass="CmmnDetailCodeVO" resultMap="cmmnDetailCodeDetail-resultMap">
+		SELECT A.CODE_ID, B.CODE_ID_NM, A.CODE, A.CODE_NM,
+			   A.CODE_DC, A.USE_AT, A.RM, A.ORDR,
+			   A.FRST_REGISTER_ID, A.FRST_REGIST_PNTTM, A.LAST_UPDUSR_ID, A.LAST_UPDT_PNTTM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.FRST_REGISTER_ID) AS FRST_REGISTER_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.LAST_UPDUSR_ID) AS LAST_UPDUSR_NM
+		  FROM COMTCCMMNDETAILCODE A
+		 INNER JOIN COMTCCMMNCODE B
+		 	ON A.CODE_ID = B.CODE_ID
+		 WHERE A.CODE_ID = #codeId#
+		   AND UPPER(REPLACE(A.CODE_NM, ' ', '')) = UPPER(REPLACE(#codeNm#, ' ', '')) LIMIT 1
+	</select>
+	
+	<select id="selectCmmnDetailCodeMaxOrdr" parameterClass="CmmnDetailCodeVO" resultClass="int">
+		SELECT NVL(MAX(ORDR), 0)
+		  FROM COMTCCMMNDETAILCODE
+		 WHERE CODE_ID = #codeId#
+	</select>
+
+	<insert id="insertCmmnDetailCode" parameterClass="CmmnDetailCodeVO">
+	    INSERT INTO COMTCCMMNDETAILCODE (
+	    	CODE_ID, CODE, CODE_NM,
+	    	CODE_DC, USE_AT, RM,
+	    	ORDR, FRST_REGIST_PNTTM, FRST_REGISTER_ID,
+	    	LAST_UPDT_PNTTM, LAST_UPDUSR_ID
+		) VALUES (
+			#codeId#, #code#, #codeNm#,
+			#codeDc#, #useAt#, #rm#,
+			#ordr#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), #frstRegisterId#,
+			STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), #frstRegisterId#
+		)
+	</insert>
+
+	<update id="updateCmmnDetailCode">
+		UPDATE COMTCCMMNDETAILCODE SET
+           	CODE_NM = #codeNm#,
+           	CODE_DC = #codeDc#,
+           	USE_AT = #useAt#,
+           	RM = #rm#,
+           	ORDR = #ordr#,
+           	LAST_UPDT_PNTTM = STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'),
+           	LAST_UPDUSR_ID = #lastUpdusrId#
+		 WHERE CODE_ID = #codeId#
+		   AND CODE = #code#
+	</update>
+
+	<delete id="deleteCmmnDetailCode">
+		UPDATE COMTCCMMNDETAILCODE SET
+			USE_AT = 'N'
+		 WHERE CODE_ID = #codeId#
+		   AND CODE = #code#
+	</delete>
+</sqlMap>

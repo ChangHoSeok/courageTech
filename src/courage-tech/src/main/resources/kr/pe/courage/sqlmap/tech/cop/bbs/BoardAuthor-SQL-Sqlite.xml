@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="boardAuthorDAO">
+	<typeAlias alias="BoardAuthorVO" type="kr.pe.courage.tech.cop.bbs.service.BoardAuthorVO"/>
+	<typeAlias alias="BoardAuthorCheckVO" type="kr.pe.courage.tech.cop.bbs.service.BoardAuthorCheckVO"/>
+	
+	<resultMap class="BoardAuthorVO" id="listDefault-resultMap">
+		<result property="list"				column="LIST"/>
+		<result property="readng"			column="READNG"/>
+		<result property="sntncWritng"		column="SNTNC_WRITNG"/>
+		<result property="answerWritng"		column="ANSWER_WRITNG"/>
+		<result property="mngrAuthor"		column="MNGR_AUTHOR"/>
+	</resultMap>
+	
+	<resultMap class="BoardAuthorVO" id="selectListForBoardMaster-resultMap" extends="listDefault-resultMap">
+		<result property="authorCode"		column="AUTHOR_CODE"/>
+		<result property="authorNm"			column="AUTHOR_NM"/>
+	</resultMap>
+
+	<resultMap class="BoardAuthorVO" id="selectListForAuthorInfo-resultMap" extends="listDefault-resultMap">
+		<result property="bbsId"			column="BBS_ID"/>
+		<result property="bbsNm"			column="BBS_NM"/>
+	</resultMap>
+	
+	<resultMap class="BoardAuthorCheckVO" id="selectBoardAuthorCheck-resultMap">
+		<result property="list"				column="LIST"/>
+		<result property="readng"			column="READNG"/>
+		<result property="sntncWritng"		column="SNTNC_WRITNG"/>
+		<result property="answerWritng"		column="ANSWER_WRITNG"/>
+		<result property="mngrAuthor"		column="MNGR_AUTHOR"/>
+	</resultMap>
+	
+	<sql id="listCondition">
+		<dynamic prepend="WHERE">
+			
+		</dynamic>
+	</sql>
+	
+	<select id="selectListForBoardMaster" parameterClass="BoardAuthorVO" resultMap="selectListForBoardMaster-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT A.AUTHOR_CODE, A.AUTHOR_NM, B.LIST, B.READNG,
+			   B.SNTNC_WRITNG, B.ANSWER_WRITNG, B.MNGR_AUTHOR
+		  FROM COMTNAUTHORINFO A
+		  LEFT OUTER JOIN COMTNBBSAUTHCREATDTLS B
+			ON A.AUTHOR_CODE = B.AUTHOR_CODE
+		   AND B.BBS_ID = #condBbsId#
+		<include refid="boardAuthorDAO.listCondition"/>
+		 ORDER BY A.AUTHOR_NM ASC
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectListCountForBoardMaster" parameterClass="BoardAuthorVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNAUTHORINFO A
+		  LEFT OUTER JOIN COMTNBBSAUTHCREATDTLS B
+			ON A.AUTHOR_CODE = B.AUTHOR_CODE
+		   AND B.BBS_ID = #condBbsId#
+	</select>
+	
+	<select id="selectListForAuthorInfo" parameterClass="BoardAuthorVO" resultMap="selectListForAuthorInfo-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT A.BBS_ID, A.BBS_NM, B.LIST, B.READNG,
+			   B.SNTNC_WRITNG, B.ANSWER_WRITNG, B.MNGR_AUTHOR
+		  FROM COMTNBBSMASTER A
+		  LEFT OUTER JOIN COMTNBBSAUTHCREATDTLS B
+			ON A.BBS_ID = B.BBS_ID
+		   AND B.AUTHOR_CODE = #condAuthorCode#
+		<include refid="boardAuthorDAO.listCondition"/>
+		 ORDER BY A.BBS_NM ASC
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectListCountForAuthorInfo" parameterClass="BoardAuthorVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNBBSMASTER A
+		  LEFT OUTER JOIN COMTNBBSAUTHCREATDTLS B
+			ON A.BBS_ID = B.BBS_ID
+		   AND B.AUTHOR_CODE = #condAuthorCode#
+	</select>
+	
+	<select id="selectBoardAuthorCheck" parameterClass="BoardAuthorCheckVO" resultMap="selectBoardAuthorCheck-resultMap">
+		SELECT SUM(CASE LIST WHEN 'Y' THEN 1 ELSE 0 END) AS LIST,
+			   SUM(CASE READNG WHEN 'Y' THEN 1 ELSE 0 END) AS READNG,
+			   SUM(CASE SNTNC_WRITNG WHEN 'Y' THEN 1 ELSE 0 END) AS SNTNC_WRITNG,
+			   SUM(CASE ANSWER_WRITNG WHEN 'Y' THEN 1 ELSE 0 END) AS ANSWER_WRITNG,
+			   SUM(CASE MNGR_AUTHOR WHEN 'Y' THEN 1 ELSE 0 END) AS MNGR_AUTHOR
+		  FROM COMTNBBSAUTHCREATDTLS
+		 WHERE BBS_ID = #bbsId#
+		   AND AUTHOR_CODE IN
+		<iterate open="(" close=")" conjunction="," property="auhtorCodes">
+			#auhtorCodes[]#
+		</iterate>
+	</select>
+	
+	<insert id="insert" parameterClass="BoardAuthorVO">
+		INSERT OR REPLACE INTO COMTNBBSAUTHCREATDTLS (
+			AUTHOR_CODE, BBS_ID, LIST, READNG,
+			SNTNC_WRITNG, ANSWER_WRITNG, MNGR_AUTHOR
+		) VALUES (
+			#authorCode#, #bbsId#, #list#, #readng#,
+			#sntncWritng#, #answerWritng#, #mngrAuthor#
+		)
+	</insert>
+	
+	<delete id="delete" parameterClass="BoardAuthorVO">
+		DELETE FROM COMTNBBSAUTHCREATDTLS
+		<isNotEmpty prepend="WHERE" property="authorCode">
+			AUTHOR_CODE = #authorCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="WHERE" property="bbsId">
+			BBS_ID = #bbsId#
+		</isNotEmpty>
+	</delete>
+</sqlMap>

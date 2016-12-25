@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>사용자 지원 View</comment>
+	
+	<!-- 부서관리 -->
+	<entry key="formDeptView">courage/tech/uss/org/dept/formDept.courage.tiles</entry>
+	<entry key="deptTabView">courage/tech/uss/org/dept/deptTabView</entry>
+	<entry key="deptListView">courage/tech/uss/org/dept/_subDeptList</entry>
+	<entry key="deptTreeView">courage/tech/uss/org/dept/_subDeptTree</entry>
+	<entry key="deptDetailView">courage/tech/uss/org/dept/_subDeptDetail</entry>
+	<entry key="deptCreateView">courage/tech/uss/org/dept/_subDeptCreate</entry>
+	<entry key="deptModifyView">courage/tech/uss/org/dept/_subDeptCreate</entry>
+	
+	<!-- 부서관리 팝업 -->
+	<entry key="formDeptPopupView">courage/tech/uss/org/dept/formDeptPopup.courage.popup.tiles</entry>
+	<entry key="deptPopupView">courage/tech/uss/org/dept/deptPopup</entry>
+	<entry key="deptCreateBatchPopupView">courage/tech/uss/org/dept/deptCreateBatchPopup</entry>
+	<entry key="deptBatchErrorListPopupView">courage/tech/uss/org/dept/deptBatchErrorListPopup</entry>
+	
+	<!-- 마이페이지 -->
+	<entry key="avatarListView">courage/tech/uss/mpe/_subAvatarList</entry>
+</properties>

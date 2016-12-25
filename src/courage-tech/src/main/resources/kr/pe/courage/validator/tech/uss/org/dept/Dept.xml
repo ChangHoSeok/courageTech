@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+	<formset>
+		<form name="deptVO">
+			<field property="deptCode" depends="required,mask,minlength,maxlength">
+				<arg0 key="부서코드" />
+				<arg1 name="minlength" key="${var:minlength}" />
+				<arg1 name="maxlength" key="${var:maxlength}" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${onlyLetterNumber}</var-value>
+				</var>
+				<var>
+					<var-name>minlength</var-name>
+					<var-value>3</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>128</var-value>
+				</var>
+			</field>
+			
+			<field property="allDeptNm" depends="required,maxlength">
+				<arg0 key="전체 부서명" />
+				<arg1 name="maxlength" key="${var:maxlength}" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>128</var-value>
+				</var>
+			</field>
+			
+			<field property="lowestDeptNm" depends="required,maxlength">
+				<arg0 key="부서명(약칭)" />
+				<arg1 name="maxlength" key="${var:maxlength}" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>128</var-value>
+				</var>
+			</field>
+			
+			<field property="atmbUpperDeptCode" depends="mask,minlength,maxlength">
+				<arg0 key="차상위 부서코드" />
+				<arg1 name="minlength" key="${var:minlength}" />
+				<arg1 name="maxlength" key="${var:maxlength}" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${onlyLetterNumber}</var-value>
+				</var>
+				<var>
+					<var-name>minlength</var-name>
+					<var-value>3</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>128</var-value>
+				</var>
+			</field>
+			
+			<field property="atmbUpperDeptCode" depends="mask,minlength,maxlength">
+				<arg0 key="최상위 부서코드" />
+				<arg1 name="minlength" key="${var:minlength}" />
+				<arg1 name="maxlength" key="${var:maxlength}" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${onlyLetterNumber}</var-value>
+				</var>
+				<var>
+					<var-name>minlength</var-name>
+					<var-value>3</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>128</var-value>
+				</var>
+			</field>
+			
+			<field property="odr" depends="required,mask,intRange">
+				<arg0 key="차수" />
+				<arg1 key="${var:min}" />
+				<arg2 key="${var:max}" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${onlyNumber}</var-value>
+				</var>
+				<var>
+					<var-name>min</var-name>
+					<var-value>0</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>9999</var-value>
+				</var>
+			</field>
+			
+			<field property="ord" depends="mask,intRange">
+				<arg0 key="서열" />
+				<arg1 key="${var:min}" />
+				<arg2 key="${var:max}" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${onlyNumber}</var-value>
+				</var>
+				<var>
+					<var-name>min</var-name>
+					<var-value>0</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>9999</var-value>
+				</var>
+			</field>
+			
+			<field property="psitnDeptOdr" depends="mask,intRange">
+				<arg0 key="소속부서 차수" />
+				<arg1 key="${var:min}" />
+				<arg2 key="${var:max}" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${onlyNumber}</var-value>
+				</var>
+				<var>
+					<var-name>min</var-name>
+					<var-value>0</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>9999</var-value>
+				</var>
+			</field>
+			
+			<field property="ablSe" depends="required,mask">
+				<arg0 key="폐지구분" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[0|1]*$</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="logFileRceptDAO">
+	<typeAlias alias="LogFileRceptVO" type="kr.pe.courage.tech.das.log.service.LogFileRceptVO"/>
+	
+	<resultMap class="LogFileRceptVO" id="selectList-resultMap">
+		<result property="groupId"				column="GROUP_ID"/>
+		<result property="groupNm"				column="GROUP_NM"/>
+		<result property="rceptId"				column="RCEPT_ID"/>
+		<result property="rceptDt"				column="RCEPT_DT"/>
+		<result property="processSttus"			column="PROCESS_STTUS"/>
+		<result property="rceptTy"				column="RCEPT_TY"/>
+		<result property="frstRegisterId"		column="FRST_REGISTER_ID"/>
+		<result property="frstRegisterNm"		column="FRST_REGISTER_NM"/>
+	</resultMap>
+	
+	<resultMap class="LogFileRceptVO" id="getById-resultMap" extends="selectList-resultMap">
+		<result property="rceptFileId"			column="RCEPT_FILE_ID"/>
+		<result property="rceptDataCnt"			column="RCEPT_DATA_CNT"/>
+		<result property="lastUpdtPnttm"		column="LAST_UPDT_PNTTM"/>
+	</resultMap>
+	
+	<sql id="listCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condGroupId">
+				A.GROUP_ID = #condGroupId#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	<select id="selectList" parameterClass="LogFileRceptVO" resultMap="selectList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT A.GROUP_ID, B.GROUP_NM, RCEPT_ID,
+			   STRFTIME('%Y-%m-%d %H:%M:%f', RCEPT_DT) AS RCEPT_DT, PROCESS_STTUS, RCEPT_TY,
+			   FRST_REGISTER_ID,
+			   (SELECT USER_NM
+				  FROM COMTNEMPLYRINFO
+				 WHERE ESNTL_ID = A.FRST_REGISTER_ID) AS FRST_REGISTER_NM
+		  FROM CURG_LOGFILERCEPT A
+		 INNER JOIN CURG_LOGCLGROUP B
+		 	ON A.GROUP_ID = B.GROUP_ID
+		<include refid="logFileRceptDAO.listCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectListCount" parameterClass="LogFileRceptVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM CURG_LOGFILERCEPT A
+		 INNER JOIN CURG_LOGCLGROUP B
+		 	ON A.GROUP_ID = B.GROUP_ID
+		<include refid="logFileRceptDAO.listCondition"/>
+	</select>
+	
+	<select id="getById" parameterClass="LogFileRceptVO" resultMap="getById-resultMap">
+		SELECT A.GROUP_ID, B.GROUP_NM, RCEPT_ID,
+			   STRFTIME('%Y-%m-%d %H:%M:%f', RCEPT_DT) AS RCEPT_DT, PROCESS_STTUS, RCEPT_TY,
+			   FRST_REGISTER_ID, RCEPT_FILE_ID, STRFTIME('%Y-%m-%d %H:%M:%f', LAST_UPDT_PNTTM) AS LAST_UPDT_PNTTM,
+			   (SELECT USER_NM
+				  FROM COMTNEMPLYRINFO
+				 WHERE ESNTL_ID = A.FRST_REGISTER_ID) AS FRST_REGISTER_NM,
+			   (SELECT COUNT(*)
+			      FROM CURG_LOGDETAIL
+			     WHERE GROUP_ID = A.GROUP_ID
+			       AND RCEPT_ID = A.RCEPT_ID) AS RCEPT_DATA_CNT
+		  FROM CURG_LOGFILERCEPT A
+		 INNER JOIN CURG_LOGCLGROUP B
+			ON A.GROUP_ID = B.GROUP_ID
+		 WHERE A.GROUP_ID = #groupId#
+		    AND A.RCEPT_ID = #rceptId#
+	</select>
+	
+	<insert id="insert" parameterClass="LogFileRceptVO">
+		INSERT INTO CURG_LOGFILERCEPT (
+			GROUP_ID, RCEPT_ID, RCEPT_DT, RCEPT_FILE_ID,
+			PROCESS_STTUS, RCEPT_TY, FRST_REGISTER_ID, FRST_REGIST_PNTTM,
+			LAST_UPDUSR_ID, LAST_UPDT_PNTTM
+		) VALUES (
+			#groupId#, #rceptId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), #rceptFileId#,
+			#processSttus#, #rceptTy#, #frstRegisterId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'),
+			#lastUpdusrId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		)
+	</insert>
+	
+	<update id="updateProcessSttus" parameterClass="LogFileRceptVO">
+		UPDATE CURG_LOGFILERCEPT SET
+			PROCESS_STTUS = #processSttus#,
+			LAST_UPDUSR_ID = 'COURAGE_SYSTEM_00000',
+			LAST_UPDT_PNTTM = STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		 WHERE GROUP_ID = #groupId#
+		   AND RCEPT_ID = #rceptId#
+	</update>
+	
+	<delete id="truncateLogFileRcept" parameterClass="LogFileRceptVO">
+		DELETE FROM CURG_LOGFILERCEPT
+		 WHERE GROUP_ID = #groupId#
+	</delete>
+	
+	<delete id="delete" parameterClass="LogFileRceptVO">
+		DELETE FROM CURG_LOGFILERCEPT
+		 WHERE GROUP_ID = #groupId#
+		   AND RCEPT_ID = #rceptId#
+	</delete>
+</sqlMap>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ProgrmManage">
+	<typeAlias  alias="ProgrmManageVO" type="egovframework.com.sym.prm.service.ProgrmManageVO"/>
+	
+	<resultMap class="ProgrmManageVO" id="progrmManageList-resultMap">
+		<result property="progrmFileNm"			column="PROGRM_FILE_NM"/>
+		<result property="progrmStrePath"		column="PROGRM_STRE_PATH"/>
+		<result property="progrmKoreanNm"		column="PROGRM_KOREAN_NM"/>
+		<result property="url"					column="URL"/>
+		<result property="progrmDc"				column="PROGRM_DC"/>
+		<result property="progrmSe"				column="PROGRM_SE"/>
+		<result property="progrmFnctSe"			column="PROGRM_FNCT_SE"/>
+		<result property="loginCnfirmAt"		column="LOGIN_CNFIRM_AT"/>
+		<result property="menuLinkCnt"			column="MENU_LINK_CNT"/>
+	</resultMap>
+	
+	<resultMap class="ProgrmManageVO" id="progrmManageDetail-resultMap">
+		<result property="progrmFileNm"			column="PROGRM_FILE_NM"/>
+		<result property="progrmStrePath"		column="PROGRM_STRE_PATH"/>
+		<result property="progrmKoreanNm"		column="PROGRM_KOREAN_NM"/>
+		<result property="url"					column="URL"/>
+		<result property="progrmDc"				column="PROGRM_DC"/>
+		<result property="progrmSe"				column="PROGRM_SE"/>
+		<result property="progrmFnctSe"			column="PROGRM_FNCT_SE"/>
+		<result property="loginCnfirmAt"		column="LOGIN_CNFIRM_AT"/>
+		<result property="requestMethodList"	column="REQUEST_METHOD_LIST"/>
+		<result property="requestSe"			column="REQUEST_SE"/>
+	</resultMap>
+
+	<resultMap class="ProgrmManageVO" id="progrmLoginCheckList-resultMap">
+		<result property="progrmFileNm"			column="PROGRM_FILE_NM"/>
+		<result property="url"					column="URL"/>
+		<result property="progrmFnctSe"			column="PROGRM_FNCT_SE"/>
+	</resultMap>
+
+	<resultMap class="ProgrmManageVO" id="progrmRequestCheckList-resultMap">
+		<result property="requestMethodList"	column="REQUEST_METHOD_LIST"/>
+		<result property="requestSe"			column="REQUEST_SE"/>
+	</resultMap>
+	
+	<sql id="incProgrmManageCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condProgrmFileNm">
+				INSTR(UPPER(REPLACE(PROGRM_FILE_NM, ' ', '')), UPPER(REPLACE(#condProgrmFileNm#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condProgrmStrePath">
+				INSTR(UPPER(REPLACE(PROGRM_STRE_PATH, ' ', '')), UPPER(REPLACE(#condProgrmStrePath#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condProgrmKoreanNm">
+				INSTR(UPPER(REPLACE(PROGRM_KOREAN_NM, ' ', '')), UPPER(REPLACE(#condProgrmKoreanNm#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condUrl">
+				INSTR(UPPER(REPLACE(URL, ' ', '')), UPPER(REPLACE(#condUrl#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condProgrmDc">
+				INSTR(UPPER(REPLACE(PROGRM_DC, ' ', '')), UPPER(REPLACE(#condProgrmDc#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condProgrmSe">
+				PROGRM_SE = #condProgrmSe#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condProgrmFncSe">
+				PROGRM_FNCT_SE = #condProgrmFncSe#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condLoginCheckAt">
+				LOGIN_CNFIRM_AT = #condLoginCheckAt#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condMenuNo">
+				EXISTS(
+					SELECT '0'
+					  FROM COMTNMENUPROGRMREF
+					 WHERE PROGRM_FILE_NM = A.PROGRM_FILE_NM
+					   AND MENU_NO = #condMenuNo#)
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	<!-- 총건수 조회  -->
+	<select id="selectProgrmListTotCnt_S" parameterClass="ProgrmManageVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNPROGRMLIST A
+	     <include refid="ProgrmManage.incProgrmManageCondition"/>
+	</select>
+	
+	<select id="selectProgrmList_D" parameterClass="ProgrmManageVO" resultMap="progrmManageList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT PROGRM_FILE_NM		, PROGRM_STRE_PATH		, PROGRM_KOREAN_NM		,
+			   PROGRM_DC			, URL					, PROGRM_SE				,
+			   PROGRM_FNCT_SE		, LOGIN_CNFIRM_AT		,
+			   (SELECT COUNT(1)
+			      FROM COMTNMENUPROGRMREF
+			     WHERE PROGRM_FILE_NM = A.PROGRM_FILE_NM) AS MENU_LINK_CNT
+		  FROM COMTNPROGRMLIST A
+		<include refid="ProgrmManage.incProgrmManageCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select> 
+
+	<!-- 파일명존재여부 조회 -->
+	<select id="selectProgrmNMTotCnt" parameterClass="ProgrmManageVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNPROGRMLIST
+		 WHERE PROGRM_FILE_NM = #progrmFileNm#
+	</select>
+
+	<select id="selectProgrm_D" parameterClass="ProgrmManageVO" resultMap="progrmManageDetail-resultMap">
+		SELECT PROGRM_FILE_NM		, PROGRM_STRE_PATH		, PROGRM_KOREAN_NM		,
+			   PROGRM_DC			, URL					, PROGRM_SE				,
+			   PROGRM_FNCT_SE		, LOGIN_CNFIRM_AT		, REQUEST_METHOD_LIST	,
+			   REQUEST_SE
+		  FROM COMTNPROGRMLIST
+		 WHERE PROGRM_FILE_NM = #progrmFileNm#
+	</select>
+
+	<select id="selectProgrmNm" parameterClass="ProgrmManageVO" resultClass="string">
+		SELECT PROGRM_KOREAN_NM
+		  FROM COMTNPROGRMLIST
+		 WHERE PROGRM_FILE_NM = #progrmFileNm#
+	</select>
+	
+	<insert id="insertProgrm_S" parameterClass="ProgrmManageVO">
+		INSERT INTO COMTNPROGRMLIST (
+			PROGRM_FILE_NM, PROGRM_STRE_PATH, PROGRM_KOREAN_NM, PROGRM_DC,
+			URL, PROGRM_SE, PROGRM_FNCT_SE, LOGIN_CNFIRM_AT,
+			REQUEST_METHOD_LIST, REQUEST_SE
+		) VALUES (
+			#progrmFileNm#, #progrmStrePath#, #progrmKoreanNm#, #progrmDc#,
+			#url#, #progrmSe#, #progrmFnctSe#, #loginCnfirmAt#,
+			#requestMethodList#, #requestSe#
+		)
+	</insert>
+
+	<update id="updateProgrm_S" parameterClass="ProgrmManageVO">
+		UPDATE COMTNPROGRMLIST SET
+			PROGRM_STRE_PATH 	= #progrmStrePath#,
+			PROGRM_KOREAN_NM 	= #progrmKoreanNm#,
+			PROGRM_DC 			= #progrmDc#,
+			URL 				= #url#,
+			PROGRM_SE 			= #progrmSe#,
+			LOGIN_CNFIRM_AT 	= #loginCnfirmAt#,
+			PROGRM_FNCT_SE 		= #progrmFnctSe#,
+			REQUEST_METHOD_LIST = #requestMethodList#,
+			REQUEST_SE 			= #requestSe#
+		 WHERE PROGRM_FILE_NM = #progrmFileNm#
+	</update>
+
+	<delete id="deleteProgrm_S" parameterClass="ProgrmManageVO">
+		DELETE FROM COMTNPROGRMLIST
+		 WHERE PROGRM_FILE_NM = #progrmFileNm#                 
+	</delete>
+	
+	<delete id="deleteProgrmMenuMapping" parameterClass="ProgrmManageVO">
+		DELETE FROM COMTNMENUPROGRMREF
+		 WHERE PROGRM_FILE_NM = #progrmFileNm#
+	</delete>
+	
+	<delete id="deleteProgrmAuthorMapping" parameterClass="ProgrmManageVO">
+		DELETE FROM COMTNAUTHORPROGRMRELATE
+		 WHERE PROGRM_FILE_NM = #progrmFileNm#
+	</delete>
+
+	<!-- 메뉴정보 총건수 조회 -->
+	<select id="selectProgrmListTotCnt" parameterClass="progrmManageVO" resultClass="int">
+		SELECT COUNT(PROGRM_FILE_NM)  
+		  FROM COMTNPROGRMLIST
+	</select>
+	
+	<select id="selectProgrmListPopup" parameterClass="progrmManageVO" resultMap="progrmManageList-resultMap">
+		SELECT PROGRM_FILE_NM		, PROGRM_STRE_PATH		, PROGRM_KOREAN_NM		,
+			   PROGRM_DC			, URL					, PROGRM_SE				,
+			   PROGRM_FNCT_SE		, LOGIN_CNFIRM_AT		,
+			   (SELECT COUNT(1)
+			      FROM COMTNMENUPROGRMREF
+			     WHERE PROGRM_FILE_NM = A.PROGRM_FILE_NM) AS MENU_LINK_CNT
+		  FROM COMTNPROGRMLIST A
+	  	<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condProgrmKoreanNm">
+				INSTR(UPPER(REPLACE(PROGRM_KOREAN_NM, ' ', '')), UPPER(REPLACE(#condProgrmKoreanNm#, ' ', ''))) > 0
+			</isNotEmpty>
+	  	</dynamic>
+	</select>
+	
+	<select id="selectProgrmManageIncludeList" parameterClass="progrmManageVO" resultMap="progrmManageList-resultMap">
+		SELECT PROGRM_FILE_NM		, PROGRM_STRE_PATH		, PROGRM_KOREAN_NM		,
+			   PROGRM_DC			, URL					, PROGRM_SE				,
+			   PROGRM_FNCT_SE		, LOGIN_CNFIRM_AT		,
+			   (SELECT COUNT(1)
+			      FROM COMTNMENUPROGRMREF
+			     WHERE PROGRM_FILE_NM = A.PROGRM_FILE_NM) AS MENU_LINK_CNT
+		  FROM COMTNPROGRMLIST A
+	  	<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="inProgrmFileNmArray">
+				PROGRM_FILE_NM IN
+					<iterate property="inProgrmFileNmArray" open="(" close=")" conjunction=",">
+						#inProgrmFileNmArray[]#
+					</iterate>
+			</isNotEmpty>
+			<isEmpty prepend="AND" property="inProgrmFileNmArray">
+				PROGRM_FILE_NM = ''
+			</isEmpty>
+	  	</dynamic>
+	</select>
+	
+	<select id="selectProgrmLoginCheckList" resultMap="progrmLoginCheckList-resultMap">
+		SELECT A.PROGRM_FILE_NM, A.URL, A.PROGRM_FNCT_SE
+		  FROM COMTNPROGRMLIST A
+		 WHERE A.LOGIN_CNFIRM_AT = 'Y'
+	</select>
+	
+	<select id="selectProgrmRequestCheckList" parameterClass="progrmManageVO" resultMap="progrmRequestCheckList-resultMap">
+		SELECT REQUEST_METHOD_LIST, REQUEST_SE
+		  FROM COMTNPROGRMLIST
+		 WHERE URL LIKE #url# || '%';
+	</select>
+</sqlMap>

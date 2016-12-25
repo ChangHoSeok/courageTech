@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>협업 View 매핑</comment>
+	 
+	<!-- 게시판 마스터 -->
+	<entry key="formBoardMasterView">courage/tech/cop/bbs/formBoardMaster.courage.tiles</entry>
+	<entry key="boardMasterListView">courage/tech/cop/bbs/boardMasterList</entry>
+	<entry key="boardMasterDetailView">courage/tech/cop/bbs/boardMasterDetail</entry>
+	<entry key="boardMasterCreateView">courage/tech/cop/bbs/boardMasterCreate</entry>
+	<entry key="boardMasterModifyView">courage/tech/cop/bbs/boardMasterCreate</entry>
+	
+	<!-- 게시판 -->
+	<entry key="formBoardView">courage/tech/cop/bbs/formBoard.courage.tiles</entry>
+	<entry key="boardListView">courage/tech/cop/bbs/boardList</entry>
+	<entry key="boardDetailView">courage/tech/cop/bbs/boardDetail</entry>
+	<entry key="boardContentsView">courage/tech/cop/bbs/boardContents</entry>
+	<entry key="boardCreateView">courage/tech/cop/bbs/boardCreate</entry>
+	<entry key="boardModifyView">courage/tech/cop/bbs/boardCreate</entry>
+	<entry key="noticeRollingListView">courage/tech/cop/bbs/_subNoticeRollingList</entry>
+	
+	<entry key="formBoardPopupView">courage/tech/cop/bbs/formBoardPopup.courage.popup.tiles</entry>
+	<entry key="boardListPopupView">courage/tech/cop/bbs/boardListPopup</entry>
+	<entry key="boardDetailPopupView">courage/tech/cop/bbs/boardDetailPopup</entry>
+
+	<!-- 댓글 -->
+	<entry key="formAnswerView">courage/tech/cop/bbs/_subFormAnswer</entry>
+	<entry key="answerListView">courage/tech/cop/bbs/_subAnswerList</entry>
+	<entry key="answerCreateView">courage/tech/cop/bbs/_subAnswerCreate</entry>
+	<entry key="answerModifyView">courage/tech/cop/bbs/_subAnswerCreate</entry>
+	
+	<!-- 게시판 권한관리 -->
+	<entry key="formBoardAuthorView">courage/tech/cop/bbs/formBoardAuthor.courage.tiles</entry>
+	<entry key="boardAuthorListView">courage/tech/cop/bbs/boardAuthorList</entry>
+</properties>

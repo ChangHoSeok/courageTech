@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<!-- <properties resource="sqlmap.properties" />   -->
+	<settings
+		cacheModelsEnabled="true"
+    	enhancementEnabled="true"
+		lazyLoadingEnabled="true"
+		useStatementNamespaces="true"/>
+	
+	<sqlMap resource="kr/pe/courage/sqlmap/common/sqlite/query-common.xml"/>
+	<sqlMap resource="kr/pe/courage/sqlmap/common/sqlite/query-common-hiercode.xml"/>
+	<sqlMap resource="kr/pe/courage/sqlmap/common/sqlite/query-common-hierdetailcode.xml"/>
+	<sqlMap resource="kr/pe/courage/sqlmap/common/sqlite/query-common-code.xml"/>
+	<sqlMap resource="kr/pe/courage/sqlmap/common/sqlite/query-common-detail-code.xml"/>
+	<sqlMap resource="kr/pe/courage/sqlmap/common/sqlite/query-common-storage.xml"/>
+</sqlMapConfig>

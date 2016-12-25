@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - DispatcherServlet application context for Application's web tier. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+			http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
+			http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+
+	<!-- The controllers are autodetected POJOs labeled with the @Controller annotation. -->
+	<context:component-scan base-package="egovframework">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+
+	<context:component-scan base-package="kr.pe.courage">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+	
+	<mvc:default-servlet-handler />
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" p:order="1">
+		<property name="interceptors">
+			<list>
+				<ref bean="executeTimeInterceptor" />
+				<ref bean="requestCheckInterceptor" />
+				<ref bean="loginCheckInterceptor" />
+				<ref bean="authenticationInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="webBindingInitializer">
+			<bean class="egovframework.com.cmm.web.EgovBindingInitializer" />
+		</property>
+		<property name="customArgumentResolvers">
+			<list>
+				<bean class="egovframework.rte.ptl.mvc.bind.CommandMapArgumentResolver" />
+			</list>
+		</property>
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonHttpMessageConverter"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- MessageConverter -->
+	<bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json" />
+	</bean>
+
+	<!-- 로그인 체크가 필요한 URL과 로그인 여부를 체크해줄 인터셉터를 등록한다. -->
+	<!-- <bean id="selectAnnotaionMapper" class="egovframework.rte.ptl.mvc.handler.SimpleUrlAnnotationHandlerMapping" p:order="2"> <property name="interceptors"> <list> 
+		<ref local="authenticInterceptor" /> 로그인 체크 <ref local="IpObtainInterceptor" /> IP 정보기록 </list> </property> -->
+	<!-- 로그인 체크가 필요한 URL 리스트 -->
+	<!-- <property name="urls"> <set> <value>/**/*.do</value> </set> </property> </bean> -->
+	
+	<!-- Exception Resolver -->
+	<!-- @ExceptionHandler 정의된걸 우선순위로 하고 없을경우 SimpleMappingExceptionResolver 사용 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver" p:order="0" />
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" p:order="1">
+		<property name="defaultErrorView" value="courage/tech/common/error.error.tiles" />
+		<property name="warnLogCategory" value="error" />
+		
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.dao.DataAccessException">courage/tech/common/error.error.tiles</prop>
+				<prop key="org.springframework.transaction.TransactionException">courage/tech/common/error.error.tiles</prop>
+				<prop key="egovframework.rte.fdl.cmmn.exception.EgovBizException">courage/tech/common/error.error.tiles</prop>
+				<prop key="kr.pe.courage.common.exception.SQLiteBusyException">courage/tech/common/errorBusy.error.tiles</prop>
+				<prop key="org.springframework.web.HttpSessionRequiredException">courage/tech/common/errorSession.error.tiles</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 파일다운로드 View -->
+	<bean id="fileDownView" class="kr.pe.courage.common.web.view.FileDownView" />
+
+	<!-- json View custom -->
+	<bean id="jsonViewExtension" class="kr.pe.courage.common.web.view.MappingJacksonJsonViewExtension" p:contentType="application/json;charset=UTF-8" />
+
+	<!-- json View -->
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" p:contentType="application/json;charset=UTF-8" />
+
+	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
+
+	<!-- Tiles 뷰페이지 -->
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView"
+		p:order="1" />
+
+	<!-- jsp 페이지 뷰 -->
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:viewClass="org.springframework.web.servlet.view.JstlView"
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" p:order="2" />
+		
+	<!-- jxls View -->
+	<bean id="jxlsView" class="kr.pe.courage.common.web.view.JxlsView" />
+
+	<!-- For Pagination Tag -->
+	<bean id="imageRenderer" class="egovframework.com.cmm.ImagePaginationRenderer" />
+	<bean id="portalImageRenderer" class="egovframework.com.cmm.PortalImagePaginationRenderer" />
+
+	<bean id="paginationManager" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
+		<property name="rendererType">
+			<map>
+				<entry key="image" value-ref="imageRenderer" />
+				<entry key="portalImage" value-ref="portalImageRenderer" />
+			</map>
+		</property>
+	</bean>
+	<!-- For Pagination Tag -->
+</beans>

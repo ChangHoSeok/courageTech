@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+	<formset>
+		<form name="boardAuthorVO">
+			<field property="authorCodes" depends="required">
+				<arg0 key="권한코드" />
+			</field>
+			<field property="bbsIds" depends="required">
+				<arg0 key="게시판ID" />
+			</field>
+			<field property="lists" depends="required">
+				<arg0 key="목록" />
+			</field>
+			<field property="readngs" depends="required">
+				<arg0 key="열람" />
+			</field>
+			<field property="sntncWritngs" depends="required">
+				<arg0 key="글 작성" />
+			</field>
+			<field property="answerWritngs" depends="required">
+				<arg0 key="댓글 작성" />
+			</field>
+			<field property="mngrAuthors" depends="required">
+				<arg0 key="관리자 권한" />
+			</field>
+		</form>
+	</formset>
+</form-validation>

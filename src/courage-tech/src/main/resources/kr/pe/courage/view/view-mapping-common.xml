@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>공통 View 매핑</comment>
+	
+	<!-- Error View -->
+	<entry key="errorSystemView">courage/tech/common/error.error.tiles</entry>
+	<entry key="error404View">courage/tech/common/error404.error.tiles</entry>
+	<entry key="error505View">courage/tech/common/error.error.tiles</entry>
+	<entry key="errorAccessView">courage/tech/common/errorAccess.error.tiles</entry>
+	<entry key="errorSessionView">courage/tech/common/errorSession.error.tiles</entry>
+	<entry key="errorAuthView">courage/tech/common/errorAuth.error.tiles</entry>
+	<entry key="errorInvalidAccessView">courage/tech/common/errorInvalidAccess.error.tiles</entry>
+</properties>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="courageCommonCode">
+	<typeAlias  alias="CommonCodeVO" type="kr.pe.courage.common.code.CommonCodeVO"/>
+	
+	<resultMap class="CommonCodeVO" id="commonCodeList-resultMap">
+		<result property="codeId"			column="CODE_ID"/>
+		<result property="codeIdNm"			column="CODE_ID_NM"/>
+		<result property="useAt"			column="USE_AT"/>
+	</resultMap>
+
+	<resultMap class="CommonCodeVO" id="commonCode-resultMap">
+		<result property="codeId"			column="CODE_ID"/>
+		<result property="codeIdNm"			column="CODE_ID_NM"/>
+		<result property="codeIdDc"			column="CODE_ID_DC"/>
+		<result property="useAt"			column="USE_AT"/>
+		<result property="frstRegisterId"	column="FRST_REGISTER_ID"/>
+	</resultMap>
+	
+	<resultMap class="CommonCodeVO" id="commonOperationCodeList-resultMap">
+		<result property="code"				column="CODE"/>
+		<result property="codeNm"			column="CODE_NM"/>
+		<result property="useAt"			column="USE_AT"/>
+	</resultMap>
+	
+	<select id="selectList" parameterClass="CommonCodeVO" resultMap="commonCodeList-resultMap">
+		SELECT CODE_ID, CODE_ID_NM, USE_AT
+		  FROM COMTCCMMNCODE
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="useAt">
+				USE_AT = #useAt#
+			</isNotEmpty>
+		</dynamic>
+		 ORDER BY CODE_ID ASC
+	</select>
+	
+	<select id="getById" parameterClass="CommonCodeVO" resultMap="commonCode-resultMap">
+		SELECT CODE_ID, CODE_ID_NM, CODE_ID_DC,
+			   USE_AT, FRST_REGISTER_ID
+		  FROM COMTCCMMNCODE
+		 WHERE CODE_ID = #codeId#
+	</select>
+	
+	<select id="selectCommonCodeOperationList" parameterClass="CommonCodeVO" resultMap="commonOperationCodeList-resultMap">
+		SELECT CODE_ID AS CODE, CODE_ID_NM AS CODE_NM, USE_AT
+		  FROM COMTCCMMNCODE
+		 ORDER BY CODE_ID ASC
+	</select>
+</sqlMap>

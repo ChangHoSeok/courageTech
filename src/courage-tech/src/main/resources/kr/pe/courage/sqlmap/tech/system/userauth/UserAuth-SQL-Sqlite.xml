@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="userAuthDAO">
+	<typeAlias alias="UserAuthVO" type="kr.pe.courage.tech.system.userauth.service.UserAuthVO"/>
+	
+	<resultMap class="UserAuthVO" id="selectList-resultMap">
+	    <result property="esntlId"			column="ESNTL_ID"/>
+	    <result property="mberSe"			column="MBER_SE"/>
+	    <result property="emplyrId"			column="EMPLYR_ID"/>
+	    <result property="userNm"			column="USER_NM"/>
+	    <result property="authorNm"			column="AUTHOR_NM"/>
+	</resultMap>
+	
+	<sql id="listCondition">
+        <isNotEmpty prepend="AND" property="condMberSe">
+            MBER_SE = #condMberSe#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="condEmplyrId">
+            INSTR(EMPLYR_ID, #condEmplyrId#) > 0
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="condUserNm">
+            INSTR(USER_NM, #condUserNm#) > 0
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="condAuthor">
+			EXISTS (SELECT '0' FROM COMTNEMPLYRSCRTYESTBS WHERE ESNTL_ID = A.ESNTL_ID AND AUTHOR_CODE = #condAuthor#)
+		</isNotEmpty>
+	</sql>
+	
+	<select id="selectList" parameterClass="UserAuthVO" resultMap="selectList-resultMap">
+	    <include refid="courageCommon.prefixPagination"/>
+	    SELECT ESNTL_ID, MBER_SE, EMPLYR_ID, USER_NM,
+			   (SELECT GROUP_CONCAT(BB.AUTHOR_NM)
+			   	  FROM COMTNEMPLYRSCRTYESTBS AA
+			   	 INNER JOIN COMTNAUTHORINFO BB
+			   	 	ON AA.AUTHOR_CODE = BB.AUTHOR_CODE
+			   	 WHERE ESNTL_ID = A.ESNTL_ID) AS AUTHOR_NM
+		  FROM COMTNEMPLYRINFO A
+		 WHERE EMPLYR_STTUS_CODE = 'P'
+		<include refid="userAuthDAO.listCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectListCount" parameterClass="UserAuthVO" resultClass="int">
+	    SELECT COUNT(*)
+		  FROM COMTNEMPLYRINFO A
+		 WHERE EMPLYR_STTUS_CODE = 'P'
+		<include refid="userAuthDAO.listCondition"/>
+	</select>
+</sqlMap>

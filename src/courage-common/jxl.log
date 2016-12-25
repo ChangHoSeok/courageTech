@@ -1,0 +1,139 @@
+2016-01-04 18:00:18,205 [DEBUG] org.springframework.test.context.junit4.SpringJUnit4ClassRunner  - SpringJUnit4ClassRunner constructor called with [class kr.pe.courage.common.code.CommonCodeTest].
+2016-01-04 18:00:18,267 [INFO ] org.springframework.test.context.TestContextManager  - @TestExecutionListeners is not present for class [class kr.pe.courage.common.code.CommonCodeTest]: using defaults.
+2016-01-04 18:00:18,298 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved @ProfileValueSourceConfiguration [null] for test class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,298 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,298 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved @ProfileValueSourceConfiguration [null] for test class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,298 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,298 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved @ProfileValueSourceConfiguration [null] for test class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,298 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,298 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved @ProfileValueSourceConfiguration [null] for test class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,298 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,314 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved @ProfileValueSourceConfiguration [null] for test class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,314 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,314 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved @ProfileValueSourceConfiguration [null] for test class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,314 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,314 [DEBUG] org.springframework.test.context.support.DependencyInjectionTestExecutionListener  - Performing dependency injection for test context [[TestContext@1e04cbf testClass = CommonCodeTest, locations = array<String>['classpath*:courage/spring/common/context-*.xml,classpath*:kr/pe/courage/spring/common/context-*.xml'], testInstance = null(kr.pe.courage.common.code.CommonCodeTest), testMethod = [null], testException = [null]]].
+2016-01-04 18:00:18,314 [DEBUG] org.springframework.test.context.support.AbstractGenericContextLoader  - Loading ApplicationContext for locations [classpath*:courage/spring/common/context-*.xml,classpath*:kr/pe/courage/spring/common/context-*.xml].
+2016-01-04 18:00:18,454 [DEBUG] org.springframework.core.io.support.PathMatchingResourcePatternResolver  - Looking for matching resources in directory tree [D:\workspace\gtsa\courage-common\target\test-classes\courage\spring\common]
+2016-01-04 18:00:18,454 [DEBUG] org.springframework.core.io.support.PathMatchingResourcePatternResolver  - Searching directory [D:\workspace\gtsa\courage-common\target\test-classes\courage\spring\common] for files matching pattern [D:/workspace/gtsa/courage-common/target/test-classes/courage/spring/common/context-*.xml,classpath*:kr/pe/courage/spring/common/context-*.xml]
+2016-01-04 18:00:18,454 [DEBUG] org.springframework.core.io.support.PathMatchingResourcePatternResolver  - Resolved location pattern [classpath*:courage/spring/common/context-*.xml,classpath*:kr/pe/courage/spring/common/context-*.xml] to resources []
+2016-01-04 18:00:18,454 [DEBUG] org.springframework.beans.factory.xml.XmlBeanDefinitionReader  - Loaded 0 bean definitions from location pattern [classpath*:courage/spring/common/context-*.xml,classpath*:kr/pe/courage/spring/common/context-*.xml]
+2016-01-04 18:00:18,486 [INFO ] org.springframework.context.support.GenericApplicationContext  - Refreshing org.springframework.context.support.GenericApplicationContext@a6aeed: startup date [Mon Jan 04 18:00:18 KST 2016]; root of context hierarchy
+2016-01-04 18:00:18,486 [DEBUG] org.springframework.context.support.GenericApplicationContext  - Bean factory for org.springframework.context.support.GenericApplicationContext@a6aeed: org.springframework.beans.factory.support.DefaultListableBeanFactory@13a317a: defining beans [org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+2016-01-04 18:00:18,517 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+2016-01-04 18:00:18,517 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Creating instance of bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+2016-01-04 18:00:18,548 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Eagerly caching bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor' to allow for resolving potential circular references
+2016-01-04 18:00:18,564 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+2016-01-04 18:00:18,579 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+2016-01-04 18:00:18,579 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Creating instance of bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+2016-01-04 18:00:18,579 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Eagerly caching bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor' to allow for resolving potential circular references
+2016-01-04 18:00:18,579 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+2016-01-04 18:00:18,579 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalRequiredAnnotationProcessor'
+2016-01-04 18:00:18,579 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Creating instance of bean 'org.springframework.context.annotation.internalRequiredAnnotationProcessor'
+2016-01-04 18:00:18,579 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Eagerly caching bean 'org.springframework.context.annotation.internalRequiredAnnotationProcessor' to allow for resolving potential circular references
+2016-01-04 18:00:18,579 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'org.springframework.context.annotation.internalRequiredAnnotationProcessor'
+2016-01-04 18:00:18,579 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+2016-01-04 18:00:18,579 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Creating instance of bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+2016-01-04 18:00:18,595 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Eagerly caching bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor' to allow for resolving potential circular references
+2016-01-04 18:00:18,595 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+2016-01-04 18:00:18,595 [DEBUG] org.springframework.context.support.GenericApplicationContext  - Unable to locate MessageSource with name 'messageSource': using default [org.springframework.context.support.DelegatingMessageSource@19d0a1]
+2016-01-04 18:00:18,595 [DEBUG] org.springframework.context.support.GenericApplicationContext  - Unable to locate ApplicationEventMulticaster with name 'applicationEventMulticaster': using default [org.springframework.context.event.SimpleApplicationEventMulticaster@a4e2e3]
+2016-01-04 18:00:18,595 [INFO ] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@13a317a: defining beans [org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+2016-01-04 18:00:18,610 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+2016-01-04 18:00:18,610 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+2016-01-04 18:00:18,610 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'org.springframework.context.annotation.internalRequiredAnnotationProcessor'
+2016-01-04 18:00:18,610 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+2016-01-04 18:00:18,610 [DEBUG] org.springframework.context.support.GenericApplicationContext  - Unable to locate LifecycleProcessor with name 'lifecycleProcessor': using default [org.springframework.context.support.DefaultLifecycleProcessor@2a15cd]
+2016-01-04 18:00:18,610 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'lifecycleProcessor'
+2016-01-04 18:00:18,626 [DEBUG] org.springframework.beans.factory.annotation.InjectionMetadata  - Found injected element on class [kr.pe.courage.common.code.CommonCodeTest]: ResourceElement for private kr.pe.courage.common.code.ICommonCodeService kr.pe.courage.common.code.CommonCodeTest.commonCodeService
+2016-01-04 18:00:18,626 [DEBUG] org.springframework.beans.factory.annotation.InjectionMetadata  - Processing injected method of bean 'kr.pe.courage.common.code.CommonCodeTest': ResourceElement for private kr.pe.courage.common.code.ICommonCodeService kr.pe.courage.common.code.CommonCodeTest.commonCodeService
+2016-01-04 18:00:18,626 [ERROR] org.springframework.test.context.TestContextManager  - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1989f84] to prepare test instance [null(kr.pe.courage.common.code.CommonCodeTest)]
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'kr.pe.courage.common.code.CommonCodeTest': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'courageCommonCodeService' is defined
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:301)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1073)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:373)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:110)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:287)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:289)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'courageCommonCodeService' is defined
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1094)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:276)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:437)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:411)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:543)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:147)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:84)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:298)
+	... 26 more
+2016-01-04 18:00:18,642 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved @ProfileValueSourceConfiguration [null] for test class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,642 [DEBUG] org.springframework.test.annotation.ProfileValueUtils  - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [kr.pe.courage.common.code.CommonCodeTest]
+2016-01-04 18:00:18,642 [DEBUG] org.springframework.test.context.support.DependencyInjectionTestExecutionListener  - Performing dependency injection for test context [[TestContext@1e04cbf testClass = CommonCodeTest, locations = array<String>['classpath*:courage/spring/common/context-*.xml,classpath*:kr/pe/courage/spring/common/context-*.xml'], testInstance = null(kr.pe.courage.common.code.CommonCodeTest), testMethod = [null], testException = [null]]].
+2016-01-04 18:00:18,642 [DEBUG] org.springframework.beans.factory.annotation.InjectionMetadata  - Processing injected method of bean 'kr.pe.courage.common.code.CommonCodeTest': ResourceElement for private kr.pe.courage.common.code.ICommonCodeService kr.pe.courage.common.code.CommonCodeTest.commonCodeService
+2016-01-04 18:00:18,642 [ERROR] org.springframework.test.context.TestContextManager  - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1989f84] to prepare test instance [null(kr.pe.courage.common.code.CommonCodeTest)]
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'kr.pe.courage.common.code.CommonCodeTest': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'courageCommonCodeService' is defined
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:301)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1073)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:373)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:110)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:287)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:289)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'courageCommonCodeService' is defined
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1094)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:276)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:437)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:411)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:543)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:147)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:84)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:298)
+	... 26 more
+2016-01-04 18:00:18,642 [DEBUG] org.springframework.test.context.support.DirtiesContextTestExecutionListener  - After test class: context [[TestContext@1e04cbf testClass = CommonCodeTest, locations = array<String>['classpath*:courage/spring/common/context-*.xml,classpath*:kr/pe/courage/spring/common/context-*.xml'], testInstance = [null], testMethod = [null], testException = [null]]], dirtiesContext [false].
+2016-01-04 18:00:18,642 [INFO ] org.springframework.context.support.GenericApplicationContext  - Closing org.springframework.context.support.GenericApplicationContext@a6aeed: startup date [Mon Jan 04 18:00:18 KST 2016]; root of context hierarchy
+2016-01-04 18:00:18,642 [DEBUG] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'lifecycleProcessor'
+2016-01-04 18:00:18,642 [INFO ] org.springframework.beans.factory.support.DefaultListableBeanFactory  - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@13a317a: defining beans [org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy

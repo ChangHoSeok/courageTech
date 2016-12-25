@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="boardMasterDAO">
+	<typeAlias alias="BoardMasterVO" type="kr.pe.courage.tech.cop.bbs.service.BoardMasterVO"/>
+	
+	<resultMap class="BoardMasterVO" id="selectList-resultMap">
+		<result property="bbsId"				column="BBS_ID"/>
+		<result property="bbsNm"				column="BBS_NM"/>
+		<result property="bbsTyCode"			column="BBS_TY_CODE"/>
+		<result property="bbsAttrbCode"			column="BBS_ATTRB_CODE"/>
+		<result property="replyPosblAt"			column="REPLY_POSBL_AT"/>
+		<result property="answerPosblAt"		column="ANSWER_POSBL_AT"/>
+		<result property="fileAtchPosblAt"		column="FILE_ATCH_POSBL_AT"/>
+		<result property="mvpPosblAt"			column="MVP_POSBL_AT"/>
+		<result property="useAt"				column="USE_AT"/>
+	</resultMap>
+	
+	<resultMap class="BoardMasterVO" id="getById-resultMap">
+		<result property="bbsId"				column="BBS_ID"/>
+		<result property="bbsNm"				column="BBS_NM"/>
+		<result property="bbsIntrcn"			column="BBS_INTRCN"/>
+		<result property="bbsTyCode"			column="BBS_TY_CODE"/>
+		<result property="bbsAttrbCode"			column="BBS_ATTRB_CODE"/>
+		<result property="replyPosblAt"			column="REPLY_POSBL_AT"/>
+		<result property="answerPosblAt"		column="ANSWER_POSBL_AT"/>
+		<result property="fileAtchPosblAt"		column="FILE_ATCH_POSBL_AT"/>
+		<result property="atchPosblFileNumber"	column="ATCH_POSBL_FILE_NUMBER"/>
+		<result property="atchPosblFileSize"	column="ATCH_POSBL_FILE_SIZE"/>
+		<result property="mvpPosblAt"			column="MVP_POSBL_AT"/>
+		<result property="mvpPosblFileNumber"	column="MVP_POSBL_FILE_NUMBER"/>
+		<result property="mvpPosblFileSize"		column="MVP_POSBL_FILE_SIZE"/>
+		<result property="useAt"				column="USE_AT"/>
+		<result property="frstRegisterId"		column="FRST_REGISTER_ID"/>
+		<result property="frstRegistPnttm"		column="FRST_REGIST_PNTTM"/>
+		<result property="lastUpdusrId"			column="LAST_UPDUSR_ID"/>
+		<result property="lastUpdtPnttm"		column="LAST_UPDT_PNTTM"/>
+		<result property="frstRegisterNm"		column="FRST_REGISTER_NM"/>
+		<result property="lastUpdusrNm"			column="LAST_UPDUSR_NM"/>
+	</resultMap>
+	
+	<sql id="listCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condBbsNm">
+				INSTR(BBS_NM, #condBbsNm#) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condBbsTyCode">
+				BBS_TY_CODE = #condBbsTyCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condAttrbCode">
+				BBS_ATTRB_CODE = #condAttrbCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condReplyPosblAt">
+				REPLY_POSBL_AT = #condReplyPosblAt#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condAnswerPosblAt">
+				ANSWER_POSBL_AT = #condAnswerPosblAt#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condFileAtchPosblAt">
+				FILE_ATCH_POSBL_AT = #condFileAtchPosblAt#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condMvpPosblAt">
+				MVP_POSBL_AT = #condMvpPosblAt#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condUseAt">
+				USE_AT = #condUseAt#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	<select id="selectList" parameterClass="BoardMasterVO" resultMap="selectList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT BBS_ID, BBS_NM, BBS_TY_CODE,
+			   BBS_ATTRB_CODE, REPLY_POSBL_AT, ANSWER_POSBL_AT,
+			   FILE_ATCH_POSBL_AT, MVP_POSBL_AT, USE_AT
+		  FROM COMTNBBSMASTER
+		<include refid="boardMasterDAO.listCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectListCount" parameterClass="BoardMasterVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNBBSMASTER
+		<include refid="boardMasterDAO.listCondition"/>
+	</select>
+	
+	<select id="getById" parameterClass="BoardMasterVO" resultMap="getById-resultMap">
+		SELECT BBS_ID, BBS_NM, BBS_INTRCN, BBS_TY_CODE,
+			   BBS_ATTRB_CODE, REPLY_POSBL_AT, ANSWER_POSBL_AT, FILE_ATCH_POSBL_AT,
+			   ATCH_POSBL_FILE_NUMBER, ATCH_POSBL_FILE_SIZE, MVP_POSBL_AT, MVP_POSBL_FILE_NUMBER,
+			   MVP_POSBL_FILE_SIZE, USE_AT, FRST_REGISTER_ID, STRFTIME('%Y-%m-%d %H:%M', FRST_REGIST_PNTTM) AS FRST_REGIST_PNTTM,
+			   LAST_UPDUSR_ID, STRFTIME('%Y-%m-%d %H:%M', LAST_UPDT_PNTTM) AS LAST_UPDT_PNTTM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.FRST_REGISTER_ID) AS FRST_REGISTER_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.LAST_UPDUSR_ID) AS LAST_UPDUSR_NM
+		  FROM COMTNBBSMASTER A
+		 WHERE BBS_ID = #bbsId#
+	</select>
+	
+	<insert id="insert" parameterClass="BoardMasterVO">
+		INSERT INTO COMTNBBSMASTER (
+			BBS_ID, BBS_NM, BBS_INTRCN, BBS_TY_CODE,
+			BBS_ATTRB_CODE, REPLY_POSBL_AT, ANSWER_POSBL_AT, FILE_ATCH_POSBL_AT,
+			ATCH_POSBL_FILE_NUMBER, ATCH_POSBL_FILE_SIZE, MVP_POSBL_AT, MVP_POSBL_FILE_NUMBER,
+			MVP_POSBL_FILE_SIZE, USE_AT, FRST_REGISTER_ID, FRST_REGIST_PNTTM,
+			LAST_UPDUSR_ID, LAST_UPDT_PNTTM
+		) VALUES (
+			#bbsId#, #bbsNm#, #bbsIntrcn#, #bbsTyCode#,
+			#bbsAttrbCode#, #replyPosblAt#, #answerPosblAt#, #fileAtchPosblAt#,
+			#atchPosblFileNumber#, #atchPosblFileSize#, #mvpPosblAt#, #mvpPosblFileNumber#,
+			#mvpPosblFileSize#, #useAt#, #frstRegisterId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'),
+			#lastUpdusrId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		)
+	</insert>
+	
+	<update id="update" parameterClass="BoardMasterVO">
+		UPDATE COMTNBBSMASTER SET
+			BBS_NM					= #bbsNm#,
+			BBS_INTRCN				= #bbsIntrcn#,
+			BBS_TY_CODE				= #bbsTyCode#,
+			BBS_ATTRB_CODE			= #bbsAttrbCode#,
+			REPLY_POSBL_AT			= #replyPosblAt#,
+			ANSWER_POSBL_AT			= #answerPosblAt#,
+			FILE_ATCH_POSBL_AT		= #fileAtchPosblAt#,
+			ATCH_POSBL_FILE_NUMBER	= #atchPosblFileNumber#,
+			ATCH_POSBL_FILE_SIZE	= #atchPosblFileSize#,
+			MVP_POSBL_AT			= #mvpPosblAt#,
+			MVP_POSBL_FILE_NUMBER	= #mvpPosblFileNumber#,
+			MVP_POSBL_FILE_SIZE		= #mvpPosblFileSize#,
+			USE_AT					= #useAt#,
+			LAST_UPDUSR_ID			= #lastUpdusrId#,
+			LAST_UPDT_PNTTM 		= STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		 WHERE BBS_ID = #bbsId#
+	</update>
+	
+	<delete id="delete" parameterClass="BoardMasterVO">
+		DELETE FROM COMTNBBSMASTER
+		 WHERE BBS_ID = #bbsId#
+	</delete>
+	
+	<select id="isExistsUseBoard" parameterClass="string" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNBBSMASTER
+		 WHERE BBS_ID = #bbsId#
+		   AND USE_AT = 'Y'
+	</select>
+	
+	<select id="selectCommonCodeListForBoardMaster" parameterClass="kr.pe.courage.common.code.CommonCodeVO" resultMap="courageCommonCode.commonOperationCodeList-resultMap">
+		SELECT BBS_ID AS CODE, BBS_NM AS CODE_NM, 'Y' AS USE_AT
+		  FROM COMTNBBSMASTER
+		 ORDER BY BBS_NM ASC
+	</select>
+</sqlMap>

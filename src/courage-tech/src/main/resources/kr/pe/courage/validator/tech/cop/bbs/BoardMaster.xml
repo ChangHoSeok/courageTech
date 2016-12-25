@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+	<formset>
+		<form name="boardMasterVO">
+			<field property="bbsNm" depends="required">
+				<arg0 key="게시판 명" />
+			</field>
+			<field property="bbsTyCode" depends="required">
+				<arg0 key="게시판 유형" />
+			</field>
+			<field property="bbsAttrbCode" depends="required">
+				<arg0 key="게시판 속성" />
+			</field>
+			<field property="replyPosblAt" depends="required">
+				<arg0 key="답글가능" />
+			</field>
+			<field property="answerPosblAt" depends="required">
+				<arg0 key="댓글가능" />
+			</field>
+			<field property="fileAtchPosblAt" depends="required">
+				<arg0 key="파일첨부" />
+			</field>
+			<field property="mvpPosblAt" depends="required">
+				<arg0 key="동영상첨부" />
+			</field>
+			<field property="useAt" depends="required">
+				<arg0 key="사용여부" />
+			</field>
+		</form>
+	</formset>
+</form-validation>

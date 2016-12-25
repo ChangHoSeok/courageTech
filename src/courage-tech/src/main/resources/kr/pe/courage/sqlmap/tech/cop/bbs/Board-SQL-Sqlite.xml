@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="boardDAO">
+	<typeAlias alias="BoardVO" type="kr.pe.courage.tech.cop.bbs.service.BoardVO"/>
+	
+	<resultMap class="BoardVO" id="selectList-resultMap">
+		<result property="bbsId"				column="BBS_ID"/>
+		<result property="nttId"				column="NTT_ID"/>
+		<result property="nttNo"				column="NTT_NO"/>
+		<result property="nttSj"				column="NTT_SJ"/>
+		<result property="parntsSntncNo"		column="PARNTS_SNTNC_NO"/>
+		<result property="rdcnt"				column="RDCNT"/>
+		<result property="useAt"				column="USE_AT"/>
+		<result property="ntcrNm"				column="NTCR_NM"/>
+		<result property="atchFileId"			column="ATCH_FILE_ID"/>
+		<result property="mvpRegistSe"			column="MVP_REGIST_SE"/>
+		<result property="thumbUrl"				column="THUMB_URL"/>
+		<result property="noticeAt"				column="NOTICE_AT"/>
+		<result property="frstRegisterId"		column="FRST_REGISTER_ID"/>
+		<result property="frstRegistPnttm"		column="FRST_REGIST_PNTTM"/>
+		<result property="answerCnt"			column="ANSWER_CNT"/>
+		<result property="replyCnt"				column="REPLY_CNT"/>
+		<result property="frstRegisterNm"		column="FRST_REGISTER_NM"/>
+	</resultMap>
+	
+	<resultMap class="BoardVO" id="getById-resultMap" extends="selectList-resultMap">
+		<result property="nttCn"				column="NTT_CN"/>
+		<result property="groupNo"				column="GROUP_NO"/>
+		<result property="sortOrdr"				column="SORT_ORDR"/>
+		<result property="mvpFileId"			column="MVP_FILE_ID"/>
+		<result property="mvpUrl"				column="MVP_URL"/>
+		<result property="mvpThumbId"			column="MVP_THUMB_ID"/>
+		<result property="noticeBgnDe"			column="NOTICE_BGNDE"/>
+		<result property="noticeEndDe"			column="NOTICE_ENDDE"/>
+		<result property="lastUpdusrId"			column="LAST_UPDUSR_ID"/>
+		<result property="lastUpdtPnttm"		column="LAST_UPDT_PNTTM"/>
+		<result property="lastUpdusrNm"			column="LAST_UPDUSR_NM"/>
+	</resultMap>
+	
+	<resultMap class="BoardVO" id="selectNoticeRollingList-resultMap">
+		<result property="bbsId"				column="BBS_ID"/>
+		<result property="nttId"				column="NTT_ID"/>
+		<result property="nttNo"				column="NTT_NO"/>
+		<result property="nttSj"				column="NTT_SJ"/>
+	</resultMap>
+	
+	<sql id="listOrder">
+		ORDER BY NOTICE_ODR ASC, GROUP_NO DESC, SORT_ORDR ASC
+	</sql>
+	
+	<sql id="listCondition">
+		<isNotEmpty prepend="AND" property="useAt">
+			A.USE_AT = #useAt#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="condNttSj">
+			INSTR(A.NTT_SJ, #condNttSj#) > 0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="condNttCn">
+			INSTR(A.NTT_CN_TEXT, #condNttCn#) > 0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="condFrstRegisterNm">
+			EXISTS (
+				SELECT 'O'
+				  FROM COMTNEMPLYRINFO
+				 WHERE ESNTL_ID = A.FRST_REGISTER_ID
+				   AND INSTR(USER_NM, #condFrstRegisterNm#) > 0)
+		</isNotEmpty>
+	</sql>
+	
+	<select id="selectList" parameterClass="BoardVO" resultMap="selectList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT * FROM (
+			SELECT BBS_ID, NTT_ID, NTT_NO, NTT_SJ,
+				   RDCNT, USE_AT, NTCR_NM, ATCH_FILE_ID,
+				   MVP_REGIST_SE, THUMB_URL, FRST_REGISTER_ID, STRFTIME('%Y-%m-%d %H:%M:%f', FRST_REGIST_PNTTM) AS FRST_REGIST_PNTTM,
+				   PARNTS_SNTNC_NO, GROUP_NO, SORT_ORDR, 1 AS NOTICE_ODR,
+				   NOTICE_AT,
+				   (SELECT COUNT(*)
+				   	  FROM COMTNANSWER
+				   	 WHERE BBS_ID = A.BBS_ID
+				   	   AND NTT_ID = A.NTT_ID) AS ANSWER_CNT,
+				   (SELECT COUNT(*)
+				   	  FROM COMTNBBS
+				   	 WHERE BBS_ID = A.BBS_ID
+				   	   AND PARNTS_SNTNC_NO = A.NTT_ID) AS REPLY_CNT,
+				   (SELECT USER_NM
+				      FROM COMTNEMPLYRINFO
+				     WHERE ESNTL_ID = A.FRST_REGISTER_ID) AS FRST_REGISTER_NM
+			  FROM COMTNBBS A
+			 WHERE BBS_ID = #bbsId#
+			   AND NOTICE_AT = 'Y'
+			
+			UNION ALL
+			
+			SELECT BBS_ID, NTT_ID, NTT_NO, NTT_SJ,
+				   RDCNT, USE_AT, NTCR_NM, ATCH_FILE_ID,
+				   MVP_REGIST_SE, THUMB_URL, FRST_REGISTER_ID, STRFTIME('%Y-%m-%d %H:%M:%f', FRST_REGIST_PNTTM) AS FRST_REGIST_PNTTM,
+				   PARNTS_SNTNC_NO, GROUP_NO, SORT_ORDR, 2 AS NOTICE_ODR,
+				   NOTICE_AT,
+				   (SELECT COUNT(*)
+				   	  FROM COMTNANSWER
+				   	 WHERE BBS_ID = A.BBS_ID
+				   	   AND NTT_ID = A.NTT_ID) AS ANSWER_CNT,
+				   (SELECT COUNT(*)
+				   	  FROM COMTNBBS
+				   	 WHERE BBS_ID = A.BBS_ID
+				   	   AND PARNTS_SNTNC_NO = A.NTT_ID) AS REPLY_CNT,
+				   (SELECT USER_NM
+				      FROM COMTNEMPLYRINFO
+				     WHERE ESNTL_ID = A.FRST_REGISTER_ID) AS FRST_REGISTER_NM
+			  FROM COMTNBBS A
+			 WHERE BBS_ID = #bbsId#
+			   AND NOTICE_AT = 'N'
+		) A
+		<include refid="boardDAO.listCondition"/>
+		<include refid="boardDAO.listOrder"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectListCount" parameterClass="BoardVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNBBS A
+		 WHERE BBS_ID = #bbsId#
+		<include refid="boardDAO.listCondition"/>
+	</select>
+	
+	<select id="getById" parameterClass="BoardVO" resultMap="getById-resultMap">
+		SELECT BBS_ID, NTT_ID, NTT_NO, NTT_SJ,
+			   NTT_CN, PARNTS_SNTNC_NO, GROUP_NO, SORT_ORDR,
+			   RDCNT, USE_AT, NTCR_NM, ATCH_FILE_ID,
+			   MVP_REGIST_SE, MVP_FILE_ID, MVP_URL, MVP_THUMB_ID,
+			   THUMB_URL, FRST_REGISTER_ID, STRFTIME('%Y-%m-%d %H:%M:%f', FRST_REGIST_PNTTM) AS FRST_REGIST_PNTTM, LAST_UPDUSR_ID,
+			   STRFTIME('%Y-%m-%d %H:%M:%f', LAST_UPDT_PNTTM) AS LAST_UPDT_PNTTM, NOTICE_AT, NOTICE_BGNDE, NOTICE_ENDDE,
+			   (SELECT COUNT(*)
+			   	  FROM COMTNANSWER
+			   	 WHERE BBS_ID = A.BBS_ID
+			   	   AND NTT_ID = A.NTT_ID) AS ANSWER_CNT,
+			   (SELECT COUNT(*)
+			   	  FROM COMTNBBS
+			   	 WHERE BBS_ID = A.BBS_ID
+			   	   AND PARNTS_SNTNC_NO = A.NTT_ID) AS REPLY_CNT,
+			   (SELECT USER_NM
+			      FROM COMTNEMPLYRINFO
+			     WHERE ESNTL_ID = A.FRST_REGISTER_ID) AS FRST_REGISTER_NM,
+			   (SELECT USER_NM
+			      FROM COMTNEMPLYRINFO
+			     WHERE ESNTL_ID = A.LAST_UPDUSR_ID) AS LAST_UPDUSR_NM
+		  FROM COMTNBBS A
+		 WHERE BBS_ID = #bbsId#
+		   AND NTT_ID = #nttId#
+	</select>
+	
+	<select id="isExistsNTT" parameterClass="string" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNBBS
+		 WHERE BBS_ID = #bbsId#
+	</select>
+	
+	<select id="selectBoardGroupNo" parameterClass="BoardVO" resultClass="int">
+		SELECT IFNULL(MAX(GROUP_NO), 0) + 1 AS GROUP_NO
+		  FROM COMTNBBS
+		 WHERE BBS_ID = #bbsId#
+	</select>
+	
+	<select id="selectBoardGroupSortOrdr" parameterClass="BoardVO" resultClass="int">
+		SELECT IFNULL(MAX(SORT_ORDR), 0) + 1 AS SORT_ORDR
+		  FROM COMTNBBS
+		 WHERE BBS_ID = #bbsId#
+		   AND GROUP_NO = #groupNo#
+	</select>
+	
+	<insert id="insert" parameterClass="BoardVO">
+		<selectKey keyProperty="nttNo" resultClass="int">
+			SELECT IFNULL(MAX(NTT_NO), 0) + 1 AS NTT_NO
+			  FROM COMTNBBS
+			 WHERE BBS_ID = #bbsId#
+		</selectKey>
+		
+		INSERT INTO COMTNBBS (
+			BBS_ID, NTT_ID, NTT_NO, NTT_SJ,
+			NTT_CN, NTT_CN_TEXT, PARNTS_SNTNC_NO, GROUP_NO,
+			SORT_ORDR, RDCNT, USE_AT, NTCR_NM,
+			PASSWORD, ATCH_FILE_ID, MVP_REGIST_SE, MVP_FILE_ID,
+			MVP_URL, MVP_THUMB_ID, THUMB_URL, NOTICE_AT,
+			NOTICE_BGNDE, NOTICE_ENDDE, FRST_REGISTER_ID, FRST_REGIST_PNTTM,
+			LAST_UPDUSR_ID, LAST_UPDT_PNTTM
+		) VALUES (
+			#bbsId#, #nttId#, #nttNo#, #nttSj#,
+			#nttCn#, #nttCnText#, #parntsSntncNo#, #groupNo#,
+			#sortOrdr#, #rdcnt#, #useAt#, #ntcrNm#,
+			#password#, #atchFileId#, #mvpRegistSe#, #mvpFileId#,
+			#mvpUrl#, #mvpThumbId#, #thumbUrl#, #noticeAt#,
+			#noticeBgnDe#, #noticeEndDe#, #frstRegisterId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'),
+			#lastUpdusrId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		)
+	</insert>
+	
+	<update id="update" parameterClass="BoardVO">
+		UPDATE COMTNBBS SET
+			NTT_SJ			= #nttSj#,
+			NTT_CN			= #nttCn#,
+			NTT_CN_TEXT		= #nttCnText#,
+			ATCH_FILE_ID	= #atchFileId#,
+			MVP_REGIST_SE	= #mvpRegistSe#,
+			MVP_FILE_ID		= #mvpFileId#,
+			MVP_URL			= #mvpUrl#,
+			MVP_THUMB_ID	= #mvpThumbId#,
+			THUMB_URL		= #thumbUrl#,
+			NOTICE_AT		= #noticeAt#,
+			NOTICE_BGNDE	= #noticeBgnDe#,
+			NOTICE_ENDDE	= #noticeEndDe#,
+			LAST_UPDUSR_ID	= #lastUpdusrId#,
+			LAST_UPDT_PNTTM	= STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		 WHERE BBS_ID = #bbsId#
+		   AND NTT_ID = #nttId#
+	</update>
+	
+	<update id="updateBoardRdcntIncrs" parameterClass="BoardVO">
+		UPDATE COMTNBBS SET
+			RDCNT = RDCNT + 1
+		 WHERE BBS_ID = #bbsId#
+		   AND NTT_ID = #nttId#
+	</update>
+	
+	<delete id="delete" parameterClass="BoardVO">
+		DELETE FROM COMTNBBS
+		 WHERE BBS_ID = #bbsId#
+		   AND NTT_ID = #nttId#
+	</delete>
+	
+	<select id="selectNoticeRollingList" resultMap="selectNoticeRollingList-resultMap">
+		SELECT A.BBS_ID, A.NTT_ID, A.NTT_NO, A.NTT_SJ
+		  FROM COMTNBBS A
+		 INNER JOIN COMTNBBSMASTER B
+			ON A.BBS_ID = B.BBS_ID
+		 WHERE B.BBS_TY_CODE = 'BBST02'
+		   AND A.USE_AT = 'Y'
+		   AND B.USE_AT = 'Y'
+		   AND STRFTIME('%Y%m%d', 'now', 'localtime') BETWEEN A.NOTICE_BGNDE AND A.NOTICE_ENDDE
+		 ORDER BY GROUP_NO DESC, SORT_ORDR ASC
+		 LIMIT 5
+	</select>
+</sqlMap>

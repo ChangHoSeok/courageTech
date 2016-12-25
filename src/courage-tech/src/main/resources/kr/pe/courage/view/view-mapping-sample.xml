@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>샘플 View</comment>
+	 
+	<!-- RAS 암호화 관련 -->
+	<entry key="formRSAEncptView">courage/tech/sample/encpt/formRSAEncpt.courage.tiles</entry>
+	<entry key="rsaEncptCreateView">courage/tech/sample/encpt/rsaEncptCreate</entry>
+	<entry key="rsaEncptDetailView">courage/tech/sample/encpt/rsaEncptDetail</entry>
+</properties>

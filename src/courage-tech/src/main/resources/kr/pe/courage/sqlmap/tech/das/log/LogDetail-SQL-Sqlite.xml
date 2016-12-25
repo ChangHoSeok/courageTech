@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="logDetailDAO">
+	<typeAlias alias="LogDetailVO" type="kr.pe.courage.tech.das.log.service.LogDetailVO"/>
+	
+	<resultMap class="LogDetailVO" id="selectList-resultMap">
+		
+	</resultMap>
+	
+	<resultMap class="LogDetailVO" id="selectStdrDataList-resultMap">
+		<result property="groupId"			column="GROUP_ID"/>
+		<result property="logDataChrctr2"	column="LOG_DATA_CHRCTR_2"/>
+	</resultMap>
+	
+	<sql id="listCondition">
+		<dynamic prepend="WHERE">
+			
+		</dynamic>
+	</sql>
+	
+	<select id="selectList" parameterClass="LogDetailVO" resultMap="selectList-resultMap">
+		
+	</select>
+	
+	<select id="selectListCount" parameterClass="LogDetailVO" resultClass="int">
+		
+	</select>
+	
+	<select id="selectDetailChartDataGroupId" parameterClass="LogDetailVO" resultClass="string">
+		SELECT A.GROUP_ID
+		  FROM CURG_LOGDETAIL A
+		 WHERE LOG_DATA_CHRCTR_2 = #condStanDe#
+		<isNotEmpty prepend="AND" property="condGroupId">
+			A.GROUP_ID = #condGroupId#
+		</isNotEmpty>
+		 GROUP BY GROUP_ID
+	</select>
+	
+	<select id="selectDetailChartDataMap" parameterClass="LogDetailVO" resultClass="java.util.HashMap">
+		SELECT LOG_DATA_NUMBER_1, LOG_DATA_NUMBER_3
+		  FROM CURG_LOGDETAIL
+		 WHERE GROUP_ID = #condGroupId#
+		   AND LOG_DATA_CHRCTR_2 = #condStanDe#
+		<isEmpty prepend="AND" property="condUnlimited">
+			LOG_DATA_NUMBER_3 BETWEEN #condLimitPTStart# AND #condLimitPTEnd#
+		</isEmpty>
+		   AND LOG_DATA_CHRCTR_3 BETWEEN #condStanDe# || #condStartHour# || '0000' AND #condStanDe# || #condEndHour# || '0000'
+	</select>
+	
+	<select id="selectStdrDataList" parameterClass="LogDetailVO" resultMap="selectStdrDataList-resultMap">
+		SELECT GROUP_ID, LOG_DATA_CHRCTR_2
+		  FROM CURG_LOGDETAIL
+		 WHERE GROUP_ID = #groupId#
+		   AND RCEPT_ID = #rceptId#
+		 GROUP BY GROUP_ID, LOG_DATA_CHRCTR_2
+	</select>
+	
+	<insert id="insert" parameterClass="LogDetailVO">
+		INSERT INTO CURG_LOGDETAIL (
+			GROUP_ID, RCEPT_ID, LOG_DT, LOG_DATA_CHRCTR_1,
+			LOG_DATA_CHRCTR_2, LOG_DATA_CHRCTR_3, LOG_DATA_CHRCTR_4, LOG_DATA_CHRCTR_5,
+			LOG_DATA_NUMBER_1, LOG_DATA_NUMBER_2, LOG_DATA_NUMBER_3, LOG_DATA_NUMBER_4,
+			LOG_DATA_NUMBER_5
+		) VALUES (
+			#groupId#, #rceptId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), #logDataChrctr1#,
+			#logDataChrctr2#, #logDataChrctr3#, #logDataChrctr4#, #logDataChrctr5#,
+			#logDataNumber1#, #logDataNumber2#, #logDataNumber3#, #logDataNumber4#,
+			#logDataNumber5#
+		)
+	</insert>
+	
+	<delete id="deleteLogDetailForRceptUnit" parameterClass="LogDetailVO">
+		DELETE FROM CURG_LOGDETAIL
+		 WHERE GROUP_ID = #groupId#
+		   AND RCEPT_ID = #rceptId#
+	</delete>
+	
+	<delete id="truncateLogDetail" parameterClass="LogDetailVO">
+		DELETE FROM CURG_LOGDETAIL
+		 WHERE GROUP_ID = #groupId#
+	</delete>
+</sqlMap>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="messagePushDAO">
+	<typeAlias alias="MessagePushVO" type="kr.pe.courage.common.push.MessagePushVO"/>
+	
+	<resultMap class="MessagePushVO" id="selectPushMessageList-resultMap">
+		<result property="mssageId"				column="MSSAGE_ID"/>
+		<result property="mssageCn"				column="MSSAGE_CN"/>
+		<result property="frstRegisterId"		column="FRST_REGISTER_ID"/>
+		<result property="frstRegistPnttm"		column="FRST_REGIST_PNTTM"/>
+	</resultMap>
+	
+	<resultMap class="MessagePushVO" id="selectList-resultMap" extends="selectPushMessageList-resultMap">
+		<result property="mssageSndngAt"		column="MSSAGE_SNDNG_AT"/>
+		<result property="frstRegisterNm"		column="FRST_REGISTER_NM"/>
+	</resultMap>
+	
+	<sql id="listCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condMssageSndngAt">
+				MSSAGE_SNDNG_AT = #condMssageSndngAt#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condFrstRegisterId">
+				FRST_REGISTER_ID = #condFrstRegisterId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condFrstRegisterNm">
+				EXISTS (
+					SELECT 'O'
+					  FROM COMTNEMPLYRINFO
+					 WHERE ESNTL_ID = FRST_REGISTER_ID
+					   AND INSTR(USER_NM, #condFrstRegisterNm#) > 0)
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	<select id="selectPushMessageList" resultMap="selectPushMessageList-resultMap">
+		SELECT MSSAGE_ID, MSSAGE_CN, FRST_REGISTER_ID, FRST_REGIST_PNTTM
+		  FROM CURG_PUSHMSSAGE
+		 WHERE MSSAGE_SNDNG_AT = 'N'
+		 ORDER BY FRST_REGIST_PNTTM ASC
+	</select>
+	
+	<update id="updateSndngAt" parameterClass="MessagePushVO">
+		UPDATE CURG_PUSHMSSAGE SET
+			MSSAGE_SNDNG_AT = #mssageSndngAt#
+		 WHERE MSSAGE_ID = #mssageId#
+	</update>
+	
+	<select id="selectListCount" parameterClass="MessagePushVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM CURG_PUSHMSSAGE
+		<include refid="messagePushDAO.listCondition"/>
+	</select>
+	
+	<select id="selectList" parameterClass="MessagePushVO" resultMap="selectList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+	    SELECT MSSAGE_ID, MSSAGE_CN, MSSAGE_SNDNG_AT,
+	    	   FRST_REGISTER_ID, STRFTIME('%Y-%m-%d %H:%M', FRST_REGIST_PNTTM) AS FRST_REGIST_PNTTM,
+	    	   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = FRST_REGISTER_ID) AS FRST_REGISTER_NM
+		  FROM CURG_PUSHMSSAGE
+		<include refid="messagePushDAO.listCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<insert id="insert" parameterClass="MessagePushVO">
+		INSERT INTO CURG_PUSHMSSAGE (
+			MSSAGE_ID, MSSAGE_CN, MSSAGE_SNDNG_AT,
+			FRST_REGISTER_ID, FRST_REGIST_PNTTM
+		) VALUES (
+			#mssageId#, #mssageCn#, #mssageSndngAt#,
+			#frstRegisterId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		)
+	</insert>
+</sqlMap>

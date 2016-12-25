@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings
+		cacheModelsEnabled="true"
+    	enhancementEnabled="true"
+		lazyLoadingEnabled="true"
+		useStatementNamespaces="true"/>
+	
+	<!-- 	pagination 사용 및 order include 사용하기 위해 반드시 참조
+			공통을 사용하지 않을 시 전자정부프레임웍 설정 사용 또는 구현하여 사용
+	 -->
+	<sqlMap resource="egovframework/sqlmap/com/uss/umt/EgovUserManage_SQL_Cubrid.xml" />
+</sqlMapConfig>

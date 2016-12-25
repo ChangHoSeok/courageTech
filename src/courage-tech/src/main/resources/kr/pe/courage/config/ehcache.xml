@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">
+	
+    <diskStore path="java.io.tmpdir" />
+    
+    <!-- 
+		eternal : 캐시의 영구성 지정여부 (영구설정시 만료되지 않음)
+		maxElementsInMemory : 메모리에 캐시될 수 있는 최대 갯수
+		overflowToDisk : 메모리 한도 도달시 디스크에 옮길지 여부
+		diskPersistent : VM 종료시 VM 재시작에 대비하여 디스크로 백업할지 여부
+		timeToIdleSeconds : 지정된 시간 동안 사용되지 않으면 캐시에서 삭제 (초), 0 : 만료제한 없음
+		timeToLiveSeconds : 지정된 시간이 지나면 캐시에서 삭제 (초), 0 : 무제한
+		memoryStoreEvictionPolicy : maxElementsInMemory 도달 시 캐시삭제 순위 LRU, FIFO, LFU
+	 -->
+
+	<defaultCache eternal="false"
+	    maxElementsInMemory="1000"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="LRU" />
+	
+	<cache name="naviCache"
+	    eternal="false"
+	    maxElementsInMemory="1000"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="0"
+		memoryStoreEvictionPolicy="LRU" />
+	
+	<cache name="progrmNmCache"
+	    eternal="false"
+	    maxElementsInMemory="10000"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="0"
+		memoryStoreEvictionPolicy="LRU" />
+	
+	<cache name="progrmRequestCheckCache"
+	    eternal="false"
+	    maxElementsInMemory="10000"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="0"
+		memoryStoreEvictionPolicy="LRU" />
+	
+	<cache name="authCheckCache"
+	    eternal="false"
+	    maxElementsInMemory="2000"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="0"
+		memoryStoreEvictionPolicy="LRU" />
+
+	<cache name="boardAuthorCache"
+	    eternal="false"
+	    maxElementsInMemory="2000"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="0"
+		memoryStoreEvictionPolicy="LRU" />
+	
+	<cache name="deptTreeCache"
+	    eternal="false"
+	    maxElementsInMemory="10000"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="0"
+		memoryStoreEvictionPolicy="LRU" />
+	
+	<cache name="noticeRollingListCache"
+	    eternal="false"
+	    maxElementsInMemory="100"
+		overflowToDisk="false"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="300"
+		memoryStoreEvictionPolicy="LRU" />
+</ehcache>

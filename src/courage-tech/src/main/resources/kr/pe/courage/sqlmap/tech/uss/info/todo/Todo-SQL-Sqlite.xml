@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="todoDAO">
+	<typeAlias alias="TodoVO" type="kr.pe.courage.tech.uss.info.todo.service.TodoVO"/>
+	
+	<resultMap class="TodoVO" id="selectList-resultMap">
+		<result property="groupId"			column="GROUP_ID"/>
+		<result property="todoId"			column="TODO_ID"/>
+		<result property="sj"				column="SJ"/>
+		<result property="comptAt"			column="COMPT_AT"/>
+		<result property="comptDt"			column="COMPT_DT"/>
+		<result property="registerId"		column="REGISTER_ID"/>
+		<result property="registDt"			column="REGIST_DT"/>
+		<result property="updusrId"			column="UPDUSR_ID"/>
+		<result property="updtDt"			column="UPDT_DT"/>
+	</resultMap>
+	
+	<resultMap class="TodoVO" id="getById-resultMap" extends="selectList-resultMap">
+		<result property="dc"				column="DC"/>
+	</resultMap>
+	
+	<sql id="listCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condGroupId">
+				GROUP_ID = #condGroupId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condSj">
+				INSTR(REPLACE(UPPER(SJ), ' ', ''), REPLACE(UPPER(#condSj#), ' ', '')) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condDc">
+				INSTR(REPLACE(UPPER(DC), ' ', ''), REPLACE(UPPER(#condDc#), ' ', '')) > 0
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	<select id="selectList" parameterClass="TodoVO" resultMap="selectList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT GROUP_ID, TODO_ID, SJ,
+			   COMPT_AT, COMPT_DT, REGISTER_ID,
+			   REGIST_DT, UPDUSR_ID, UPDT_DT
+		  FROM TODO
+		<include refid="listCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectListCount" parameterClass="TodoVO" resultClass="int">
+		SELECT COUNT(1)
+		  FROM TODO
+		<include refid="listCondition"/>
+	</select>
+	
+	<select id="getById" parameterClass="TodoVO" resultMap="getById-resultMap">
+		SELECT GROUP_ID, TODO_ID, SJ,
+			   DC, COMPT_AT, COMPT_DT,
+			   REGISTER_ID, REGIST_DT, UPDUSR_ID,
+			   UPDT_DT
+		  FROM TODO
+		 WHERE GROUP_ID = #groupId#
+		   AND TODO_ID = #todoId#
+	</select>
+	
+	<select id="isExist" parameterClass="TodoVO" resultClass="int">
+		SELECT COUNT(1)
+		  FROM TODO
+		 WHERE GROUP_ID = #groupId#
+		   AND TODO_ID = #todoId#
+	</select>
+	
+	<insert id="insert" parameterClass="TodoVO">
+		INSERT INTO TODO (
+			GROUP_ID, TODO_ID, SJ, DC,
+			COMPT_AT, COMPT_DT, REGISTER_ID, REGIST_DT
+		) VALUES (
+			#groupId#, #todoId#, #sj#, #dc#,
+			#comptAt#, #comptDt#, #registerId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		)
+	</insert>
+	
+	<update id="update" parameterClass="TodoVO">
+		UPDATE TODO SET
+			SJ = #sj#,
+			DC = #dc#,
+			COMPT_AT = #comptAt#,
+			COMPT_DT = #comptDt#,
+			UPDUSR_ID = #updusrId#,
+			UPDT_DT = STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		 WHERE GROUP_ID = #groupId#
+		   AND TODO_ID = #todoId#
+	</update>
+	
+	<update id="updateTodoCompt" parameterClass="TodoVO">
+		UPDATE TODO SET
+			COMPT_AT = #comptAt#,
+			COMPT_DT = #comptDt#
+		 WHERE GROUP_ID = #groupId#
+		   AND TODO_ID = #todoId#
+	</update>
+	
+	<delete id="delete" parameterClass="TodoVO">
+		DELETE FROM TODO
+		 WHERE GROUP_ID = #groupId#
+		   AND TODO_ID = #todoId#
+	</delete>
+	
+	<delete id="deleteTodoGroup" parameterClass="String">
+		DELETE FROM TODO
+		 WHERE GROUP_ID = #groupId#
+	</delete>
+</sqlMap>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>페이지 설정 정보</comment>
+	
+	<!-- 
+		page.enable = 1 (페이징 사용), 0 (페이징 미사용)
+		page.size = 설정된 수 만큼 페이징 표시 5로 설정된 경우 << < 1 2 3 4 5 > >> 형태로 표시
+		page.recordCount = 한 페이지에 표시되는 게시물의 수
+	 -->
+	
+	<!-- 공통코드 -->
+	<entry key="commonCode.page.enable">1</entry>
+	<entry key="commonCode.page.size">10</entry>
+	<entry key="commonCode.page.recordCount">30</entry>
+	
+	<!-- 공통상세코드 -->
+	<entry key="commonDetailCode.page.enable">0</entry>
+	<entry key="commonDetailCode.page.size">10</entry>
+	<entry key="commonDetailCode.page.recordCount">15</entry>
+	
+	<entry key="commonDetailCodePopup.page.enable">1</entry>
+	<entry key="commonDetailCodePopup.page.size">10</entry>
+	<entry key="commonDetailCodePopup.page.recordCount">15</entry>
+	
+	<!-- 프로그램관리 -->
+	<entry key="progrm.page.enable">1</entry>
+	<entry key="progrm.page.size">10</entry>
+	<entry key="progrm.page.recordCount">30</entry>
+	
+	<entry key="progrmPopup.page.enable">1</entry>
+	<entry key="progrmPopup.page.size">10</entry>
+	<entry key="progrmPopup.page.recordCount">10</entry>
+	
+	<!-- 메뉴관리 -->
+	<entry key="menu.page.enable">0</entry>
+	<entry key="menu.page.size">10</entry>
+	<entry key="menu.page.recordCount">30</entry>
+
+	<!-- 메뉴관리 (팝업) -->
+	<entry key="menuPopup.page.enable">0</entry>
+	<entry key="menuPopup.page.size">10</entry>
+	<entry key="menuPopup.page.recordCount">30</entry>
+
+	<!-- 권한관리 -->
+	<entry key="auth.page.enable">1</entry>
+	<entry key="auth.page.size">10</entry>
+	<entry key="auth.page.recordCount">30</entry>
+	
+	<!-- 사용자관리 -->
+	<entry key="user.page.enable">1</entry>
+	<entry key="user.page.size">10</entry>
+	<entry key="user.page.recordCount">30</entry>
+	
+	<!-- 사용자 권한 관리 -->
+	<entry key="userauth.page.enable">1</entry>
+	<entry key="userauth.page.size">10</entry>
+	<entry key="userauth.page.recordCount">30</entry>
+	
+	<!-- todogroup -->
+	<entry key="uss.info.todogroup.page.enable">1</entry>
+	<entry key="uss.info.todogroup.page.size">10</entry>
+	<entry key="uss.info.todogroup.page.recordCount">30</entry>
+	
+	<!-- Push 메시지 -->
+	<entry key="messagePush.page.enable">1</entry>
+	<entry key="messagePush.page.size">10</entry>
+	<entry key="messagePush.page.recordCount">30</entry>
+	
+	<!-- 게시판 Master -->
+	<entry key="boardMaster.page.enable">1</entry>
+	<entry key="boardMaster.page.size">10</entry>
+	<entry key="boardMaster.page.recordCount">30</entry>
+	
+	<!-- 게시판 -->
+	<entry key="board.page.enable">1</entry>
+	<entry key="board.page.size">10</entry>
+	<entry key="board.page.recordCount">30</entry>
+	
+	<!-- 댓글 -->
+	<entry key="answer.page.enable">0</entry>
+	<entry key="answer.page.size">10</entry>
+	<entry key="answer.page.recordCount">50</entry>
+	
+	<!-- 게시판 권한관리 -->
+	<entry key="boardAuthor.page.enable">0</entry>
+	<entry key="boardAuthor.page.size">10</entry>
+	<entry key="boardAuthor.page.recordCount">30</entry>
+	
+	<!-- 로그분류그룹 -->
+	<entry key="logClGroup.page.enable">1</entry>
+	<entry key="logClGroup.page.size">10</entry>
+	<entry key="logClGroup.page.recordCount">30</entry>
+
+	<!-- 로그파일접수 -->
+	<entry key="logFileRcept.page.enable">1</entry>
+	<entry key="logFileRcept.page.size">10</entry>
+	<entry key="logFileRcept.page.recordCount">30</entry>
+	
+	<!-- 부서관리 -->
+	<entry key="dept.page.enable">1</entry>
+	<entry key="dept.page.size">10</entry>
+	<entry key="dept.page.recordCount">30</entry>
+</properties>

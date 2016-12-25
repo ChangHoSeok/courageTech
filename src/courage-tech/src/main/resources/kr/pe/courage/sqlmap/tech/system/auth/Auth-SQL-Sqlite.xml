@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="authDAO">
+	<select id="selectAuthCommonCodeList" parameterClass="kr.pe.courage.common.code.CommonCodeVO" resultMap="courageCommonCode.commonOperationCodeList-resultMap">
+	    SELECT AUTHOR_CODE AS CODE, AUTHOR_NM AS CODE_NM, 'Y' AS USE_AT
+		  FROM COMTNAUTHORINFO
+		 ORDER BY AUTHOR_CODE ASC
+	</select>
+</sqlMap>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.1">
+	
+	<description>
+		<![CDATA[<p>Courage Framework Common Tag Lib</p>]]>
+	</description>
+	<tlib-version>1.2</tlib-version>
+	<short-name>cmmTags</short-name>
+	<uri>http://tech.courage.pe.kr/cmm/tags</uri>
+
+	<tag>
+		<description>
+			== ajax 호출시 hashchange cache를 사용하지 않을때 사용 ==
+			url hash에 반복되는 특정값을 붙여 hash되지 않도록 처리
+			name		: input name
+			id			: input id
+		</description>
+		<name>ajaxToken</name>
+		<tag-class>kr.pe.courage.common.tags.CmmAjaxTokenTag</tag-class>
+		<body-content>empty</body-content>
+		
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>
+			-- 조회조건 유지를 위해 Hidden elements 삽입 --
+			condObject : 조회조건을 포함하고 있는 Object
+		</description>
+		<name>conditionInput</name>
+		<tag-class>kr.pe.courage.common.tags.ConditionInputTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>condObject</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>
+			-- 숫자형식 표시 (1,234,567,890) --
+			value : 숫자("123456790")
+			format : 표시 구분자 (","으로 할경우 1,234,567,890)
+		</description>
+		<name>numFormat</name>
+		<tag-class>kr.pe.courage.common.tags.NumberFormatTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>format</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>
+			-- 문자열 포맷 변경 --
+			value : 포맷 변경할 문자열값("12345")
+			format : 변경할 포맷 양식("000-00")
+			pattern : 포맷 구분자('-')
+		</description>
+		<name>strFormat</name>
+		<tag-class>kr.pe.courage.common.tags.StringFormatTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>format</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>pattern</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>
+			-- 파일 사이즈 포멧변환(BTYE, KB, MB, GB, TB) --
+			value : 파일사이즈
+			format : BTYE => 1
+			KB => 2
+			MB => 3
+			GB => 4
+			TB => 5
+		</description>
+		<name>fileSizeFormat</name>
+		<tag-class>kr.pe.courage.common.tags.FileSizeFormatTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>format</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>
+			-- 줄바꿈과 스페이스를 html 스타일로 바꿔준다. --
+			source : 바꿀 소스
+		</description>
+		<name>strToHtmlStyle</name>
+		<tag-class>kr.pe.courage.common.tags.StrToHtmlStyleTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>source</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>escapeXml</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>
+			-- XSS 방지로 인하여 변형된 lt, gt, amp, quot, apos, 본래 Tag 형식으로 변환한다. --
+			source : 바꿀 소스
+		</description>
+		<name>convHtmlTag</name>
+		<tag-class>kr.pe.courage.common.tags.ConvHtmlTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>source</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>
+			-- PropertiesMap에 등록된 설정정보 조회 --
+			key : properties key
+		</description>
+		<name>property</name>
+		<tag-class>kr.pe.courage.common.tags.PropertiesTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>key</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>

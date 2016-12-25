@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://getahead.org/dwr/dwr30.dtd">
+
+<dwr>
+	<allow>
+		<convert match="egovframework.com.sym.ccm.cde.service.CmmnDetailCodeVO" javascript="CmmnDetailCodeVO" converter="bean" />
+		
+		<create creator="spring" javascript="cmmnDetailCodeManageService">
+			<param name="beanName" value="cmmnDetailCodeManageService" />
+			<include method="selectCmmnDetailCodeDetail" />
+		</create>
+	</allow>
+</dwr>

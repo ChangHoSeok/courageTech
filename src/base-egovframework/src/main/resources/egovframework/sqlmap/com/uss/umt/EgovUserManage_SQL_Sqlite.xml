@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+
+    <typeAlias  alias="egovMap"      type = "egovframework.rte.psl.dataaccess.util.EgovMap"/>
+    <typeAlias  alias="UserManageVO"       type = "egovframework.com.uss.umt.service.UserManageVO"/>
+    
+	<resultMap class="UserManageVO" id="userManageList-resultMap">
+		<result property="esntlId"           column="ESNTL_ID"/>
+		<result property="orgnztNm"          column="ORGNZT_NM"/>
+		<result property="emplyrId"          column="EMPLYR_ID"/>
+		<result property="userNm"            column="USER_NM"/>
+		<result property="emailAdres"        column="EMAIL_ADRES"/>
+		<result property="clsfNm"            column="CLSF_NM"/>
+		<result property="authorNm"          column="AUTHOR_NM"/>
+	</resultMap>
+	
+	<resultMap class="UserManageVO" id="userManageDetail-resultMap">
+		<result property="esntlId"           column="ESNTL_ID"/>
+		<result property="orgnztNm"          column="ORGNZT_NM"/>
+		<result property="emplyrId"          column="EMPLYR_ID"/>
+		<result property="userNm"            column="USER_NM"/>
+		<result property="emailAdres"        column="EMAIL_ADRES"/>
+		<result property="clsfNm"            column="CLSF_NM"/>
+		<result property="authorNm"          column="AUTHOR_NM"/>
+	</resultMap>
+
+	<resultMap class="UserManageVO" id="userManageDetailKorsafe-resultMap">
+		<result property="esntlId"			column="ESNTL_ID"/>
+		<result property="emplyrId"			column="EMPLYR_ID"/>
+		<result property="userNm"			column="USER_NM"/>
+		<result property="password"			column="PASSWORD"/>
+		<result property="passwordHint"		column="PASSWORD_HINT"/>
+		<result property="passwordCnsr"		column="PASSWORD_CNSR"/>
+		<result property="emplyrSttusCode"	column="EMPLYR_STTUS_CODE"/>
+		<result property="crtfcDnValue"		column="CRTFC_DN_VALUE"/>
+		<result property="sbscrbDe"			column="SBSCRB_DE"/>
+		<result property="emplRegistSe"		column="EMPL_REGIST_SE"/>
+	</resultMap>
+	
+	<sql id="incUserManageCondition">
+		<isNotEmpty prepend="AND" property="condUserNm">
+			INSTR(UPPER(REPLACE(USER_NM, ' ', '')), UPPER(REPLACE(#condUserNm#, ' ', ''))) > 0
+		</isNotEmpty>
+	</sql>
+	
+    <select id="selectUserListTotCnt_S" parameterClass="UserManageVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNEMPLYRINFO
+		<include refid="User.incUserManageCondition"/>
+    </select>
+
+    <select id="selectUserList_S" parameterClass="UserManageVO" resultMap="userManageList-resultMap">
+    	<include refid="courageCommon.prefixPagination"/>
+			SELECT USER_UID AS ESNTL_ID			, USER_NAME AS USER_NM	, USER_ID AS EMPLYR_ID,
+				   ORG_DISPLAY_NAME AS ORGNZT_NM, GRADE_NAME AS CLSF_NM	, SYSMAIL AS EMAIL_ADRES,
+				   (SELECT REPLACE(WM_CONCAT(AA.AUTHOR_NM),',',', ')
+                      FROM COMTNAUTHORINFO AA
+                     INNER JOIN COMTNEMPLYRSCRTYESTBS BB
+                    	ON AA.AUTHOR_CODE = BB.AUTHOR_CODE
+                     WHERE BB.USER_UID = A.USER_UID) AS AUTHOR_NM
+			  FROM VCN_USERLIST A
+			 WHERE IS_EXISTENCE = '1'
+			   AND IS_DELETED = '0'
+		<include refid="User.incUserManageCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<include refid="courageCommon.suffixPagination"/>
+    </select>
+    
+    <select id="selectUser_S" parameterClass="UserManageVO" resultMap="userManageDetail-resultMap">
+		SELECT USER_UID AS ESNTL_ID			, USER_NAME AS USER_NM	, USER_ID AS EMPLYR_ID,
+			   ORG_DISPLAY_NAME AS ORGNZT_NM, GRADE_NAME AS CLSF_NM	, SYSMAIL AS EMAIL_ADRES,
+			   (SELECT REPLACE(WM_CONCAT(AA.AUTHOR_NM),',',', ')
+				  FROM COMTNAUTHORINFO AA
+				 INNER JOIN COMTNEMPLYRSCRTYESTBS BB
+					ON AA.AUTHOR_CODE = BB.AUTHOR_CODE
+				 WHERE BB.USER_UID = A.USER_UID) AS AUTHOR_NM
+		  FROM VCN_USERLIST A
+		 WHERE USER_UID = #esntlId#
+    </select>
+    
+    <select id="selectUser_Korsafe" parameterClass="UserManageVO" resultMap="userManageDetailKorsafe-resultMap">
+		SELECT ESNTL_ID, USER_NM, EMPLYR_ID, PASSWORD,
+			   PASSWORD_HINT, PASSWORD_CNSR, EMPLYR_STTUS_CODE, CRTFC_DN_VALUE,
+			   TO_CHAR(SBSCRB_DE, 'YYYYMMDD') AS SBSCRB_DE, EMPL_REGIST_SE
+		  FROM COMTNEMPLYRINFO A
+		 WHERE ESNTL_ID = #esntlId#
+    </select>
+    
+    <select id="selectLoginUser" parameterClass="UserManageVO" resultMap="userManageDetail-resultMap">
+		SELECT USER_UID AS ESNTL_ID			, USER_NAME AS USER_NM	, USER_ID AS EMPLYR_ID,
+			   ORG_DISPLAY_NAME AS ORGNZT_NM, GRADE_NAME AS CLSF_NM	, SYSMAIL AS EMAIL_ADRES,
+			   (SELECT REPLACE(WM_CONCAT(AA.AUTHOR_NM),',',', ')
+				  FROM COMTNAUTHORINFO AA
+				 INNER JOIN COMTNEMPLYRSCRTYESTBS BB
+					ON AA.AUTHOR_CODE = BB.AUTHOR_CODE
+				 WHERE BB.USER_UID = A.USER_UID) AS AUTHOR_NM
+		  FROM COMTNEMPLYRINFO A
+		 WHERE EMPLYR_ID = #emplyrId#
+		   AND IS_EXISTENCE = '1'
+		   AND IS_DELETED = '0'
+    </select>
+    
+    <select id="isExistsUser" parameterClass="UserManageVO" resultClass="int">
+    	SELECT COUNT(1)
+    	  FROM COMTNEMPLYRINFO
+    	 WHERE EMPLYR_ID = #emplyrId#
+    </select>
+    
+    <insert id="insertUser_S" parameterClass="UserManageVO">
+		INSERT INTO COMTNEMPLYRINFO(
+			ESNTL_ID			, GROUP_ID			, ORGNZT_ID		, EMPLYR_ID				,
+			USER_NM				, PASSWORD			, EMPL_NO		, IHIDNUM				, SEXDSTN_CODE	,
+			BRTHDY				, FXNUM				, HOUSE_ADRES	, PASSWORD_HINT			, PASSWORD_CNSR	,
+			HOUSE_END_TELNO		, AREA_NO			, DETAIL_ADRES	, ZIP					, OFFM_TELNO	,
+			MBTLNUM				, EMAIL_ADRES		, OFCPS_NM		, HOUSE_MIDDLE_TELNO	, PSTINST_CODE	,
+			EMPLYR_STTUS_CODE	, CRTFC_DN_VALUE	, SBSCRB_DE		, EMPL_REGIST_SE		, CLSF_NM
+		) VALUES ( 
+			#esntlId#			, #groupId#			, #orgnztId#	, #emplyrId#			,
+			#userNm#			, #password#		, #emplNo#		, #ihidnum#				, #sexdstnCode#		,
+			#brthdy#			, #fxnum#			, #houseAdres#	, #passwordHint#		, #passwordCnsr#	,
+			#houseEndTelno#		, #areaNo#			, #detailAdres#	, #zip#					, #offmTelno#		,
+			#mbtlnum#			, #emailAdres#		, #ofcpsNm#		, #houseMiddleTelno#	, #pstinstCode#		,
+			#emplyrSttusCode#	, #crtfcDnValue#	, #sbscrbDe#	, #emplRegistSe#		, #clsfNm#
+		)
+    </insert>
+    
+    <insert id="insertUser_Korsafe" parameterClass="UserManageVO">
+		INSERT INTO COMTNEMPLYRINFO(
+			ESNTL_ID			, EMPLYR_ID			, USER_NM		, PASSWORD		, PASSWORD_HINT		,
+			PASSWORD_CNSR		, EMPLYR_STTUS_CODE	, CRTFC_DN_VALUE, SBSCRB_DE		, EMPL_REGIST_SE
+		) VALUES ( 
+			#esntlId#			, #emplyrId#		, #userNm#		, #password#	, #passwordHint#	,
+			#passwordCnsr#		, #emplyrSttusCode#	, #crtfcDnValue#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), #emplRegistSe#
+		)
+    </insert>
+    
+    <update id="deleteUser_S" parameterClass="UserManageVO">
+		UPDATE COMTNEMPLYRINFO SET
+			USER_NM = NULL,
+			EMPLYR_ID = NULL,
+			PASSWORD = NULL,
+			PASSWORD_HINT = NULL,
+			PASSWORD_CNSR = NULL,
+			EMPLYR_STTUS_CODE	= 'D',
+			CRTFC_DN_VALUE = NULL
+		 WHERE ESNTL_ID = #esntlId#
+    </update>
+    
+    <update id="updateUser_S" parameterClass="UserManageVO">
+		UPDATE COMTNEMPLYRINFO SET
+            ORGNZT_ID			= #orgnztId#,
+			USER_NM				= #userNm#,
+			PASSWORD			= #password#,
+			FXNUM				= #fxnum#,
+			OFFM_TELNO			= #offmTelno#,
+			MBTLNUM				= #mbtlnum#,
+			EMAIL_ADRES			= #emailAdres#,
+			OFCPS_NM			= #ofcpsNm#,
+			CLSF_NM				= #clsfNm#,
+			EMPL_REGIST_SE		= #emplRegistSe#
+		 WHERE ESNTL_ID = #esntlId#
+    </update>
+    
+    <update id="updateUser_Korsafe" parameterClass="UserManageVO">
+		UPDATE COMTNEMPLYRINFO SET
+			USER_NM				= #userNm#,
+			PASSWORD_HINT		= #passwordHint#,
+			PASSWORD_CNSR		= #passwordCnsr#
+		 WHERE ESNTL_ID = #esntlId#
+    </update>
+    
+    <update id="updateUserPassword" parameterClass="UserManageVO">
+    	UPDATE COMTNEMPLYRINFO SET
+    		PASSWORD = #password#
+    	 WHERE ESNTL_ID = #esntlId#
+    </update>
+    
+    <update id="updateUserSttus" parameterClass="UserManageVO">
+    	UPDATE COMTNEMPLYRINFO SET
+    		EMPLYR_STTUS_CODE	= #emplyrSttusCode#
+    	 WHERE ESNTL_ID = #esntlId#
+    </update>
+</sqlMap>

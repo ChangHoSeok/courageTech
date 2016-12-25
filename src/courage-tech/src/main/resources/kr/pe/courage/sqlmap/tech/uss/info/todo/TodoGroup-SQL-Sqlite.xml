@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="todoGroupDAO">
+	<typeAlias alias="TodoGroupVO" type="kr.pe.courage.tech.uss.info.todo.service.TodoGroupVO"/>
+	
+	<resultMap class="TodoGroupVO" id="todoGroupList-resultMap">
+		<result property="groupId"						column="GROUP_ID"/>
+		<result property="groupName"					column="GROUP_NAME"/>
+		<result property="groupDesc"					column="GROUP_DESC"/>
+		<result property="registerId"					column="REGISTER_ID"/>
+		<result property="registDt"						column="REGIST_DT"/>
+		<result property="updusrId"						column="UPDUSR_ID"/>
+		<result property="updtDt"						column="UPDT_DT"/>
+	</resultMap>
+	
+	<sql id="listCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condGroupName">
+				INSTR(REPLACE(UPPER(GROUP_NAME), ' ', ''), REPLACE(UPPER(#condGroupName#), ' ', '')) > 0
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	<select id="selectList" parameterClass="TodoGroupVO" resultMap="todoGroupList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT GROUP_ID, GROUP_NAME, GROUP_DESC,
+			   REGISTER_ID, REGIST_DT, UPDUSR_ID,
+			   UPDT_DT
+		  FROM TODOGROUP
+		<include refid="listCondition"/>
+		<include refid="courageCommon.suffixPagination"/>
+		<include refid="courageCommon.orderby"/>
+	</select>
+	
+	<select id="selectListCount" parameterClass="TodoGroupVO" resultClass="int">
+		SELECT COUNT(1)
+		  FROM TODOGROUP
+		<include refid="listCondition"/>
+	</select>
+	
+	<select id="getById" parameterClass="TodoGroupVO" resultMap="todoGroupList-resultMap">
+		SELECT GROUP_ID, GROUP_NAME, GROUP_DESC,
+			   REGISTER_ID, REGIST_DT, UPDUSR_ID,
+			   UPDT_DT
+		  FROM TODOGROUP
+		 WHERE GROUP_ID = #groupId#
+	</select>
+	
+	<select id="isExist" parameterClass="TodoGroupVO" resultClass="int">
+		SELECT COUNT(1)
+		  FROM TODOGROUP
+		 WHERE GROUP_ID = #groupId#
+	</select>
+	
+	<insert id="insert" parameterClass="TodoGroupVO">
+		INSERT INTO TODOGROUP (
+			GROUP_ID, GROUP_NAME, GROUP_DESC,
+			REGISTER_ID, REGIST_DT
+		) VALUES (
+			#groupId#, #groupName#, #groupDesc#,
+			#registerId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		)
+	</insert>
+	
+	<update id="update" parameterClass="TodoGroupVO">
+		UPDATE TODOGROUP SET
+			GROUP_NAME = #groupName#,
+			GROUP_DESC = #groupDesc#,
+			UPDUSR_ID = #updusrId#,
+			UPDT_DT = STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		 WHERE GROUP_ID = #groupId#
+	</update>
+	
+	<delete id="delete" parameterClass="TodoGroupVO">
+		DELETE FROM TODOGROUP
+		 WHERE GROUP_ID = #groupId#
+	</delete>
+</sqlMap>

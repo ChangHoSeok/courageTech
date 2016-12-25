@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Message</comment>
+	
+	<entry key="courage.tech.title">CT</entry>
+	
+	<!-- 공통 -->
+	<entry key="fail.common.msg">에러가 발생했습니다!</entry>
+	<entry key="fail.common.sql">sql 에러가 발생했습니다! error code: {0}, error msg: {1}</entry>
+	<entry key="info.nodata.msg">해당 데이터가 없습니다.</entry>
+	
+	<entry key="errors.required">{0}은(는) 필수 입력값입니다.</entry>
+	<entry key="errors.minlength">{0}은(는) {1}자 이상 입력해야 합니다.</entry>
+	<entry key="errors.maxlength">{0}은(는) {1}자 이상 입력할수 없습니다.</entry>
+	<entry key="errors.invalid">{0}은(는) 유효하지 않은 값입니다.</entry>
+	<entry key="errors.minInteger">{0}은(는) 유효한 값이 아닙니다. 1 이상의 값을 입력해야 합니다.</entry>
+	<entry key="errors.byte">{0}은(는)  byte타입이어야 합니다.</entry>
+	<entry key="errors.short">{0}은(는)  short타입이어야 합니다.</entry>
+	<entry key="errors.integer">{0}은(는) integer 타입이어야 합니다.</entry>
+	<entry key="errors.long">{0}은(는) long 타입이어야 합니다.</entry>
+	<entry key="errors.float">{0}은(는) float 타입이어야 합니다.</entry>
+	<entry key="errors.double">{0}은(는) double 타입이어야 합니다.</entry>
+	<entry key="errors.date">{0}은(는) 날짜 유형이 아닙니다.</entry>
+	<entry key="errors.range">{0}은(는) {1}과 {2} 사이의 값이어야 합니다.</entry>
+	<entry key="errors.creditcard">{0}은(는) 유효하지 않은 신용카드 번호입니다.</entry>
+	<entry key="errors.email">{0}은(는) 유효하지 않은 이메일 주소입니다.</entry>
+	<entry key="errors.ihidnum">유효하지 않은 주민등록번호입니다.</entry>
+	<entry key="errors.korean">{0}은(는) 한글을 입력하셔야 합니다.</entry>
+	<entry key="errors.ip">유효하지 않은 IP주소입니다.</entry>
+	<entry key="errors.password1">{0}은(는) 8~20자 내에서 입력해야 합니다.</entry>
+	<entry key="errors.password2">{0}은(는) 한글,특수문자,띄어쓰기는 허용되지 않습니다.</entry>
+	<entry key="errors.password3">{0}은(는) 순차적인 숫자를 4개이상 연속해서 사용할수 없습니다.</entry>
+	<entry key="errors.password4">{0}은(는) 반복되는 문자나 숫자를 4개이상 연속해서 사용할 수 없습니다.</entry>
+	<entry key="errors.english">{0}은(는) 영문만 사용하실수 있습니다.</entry>
+	<entry key="errors.notKorean">{0}은(는) 한글을 사용하실수 없습니다.</entry>
+	<entry key="error.security.runtime.error">error</entry>
+	
+	<!-- common button -->
+	<entry key="button.new.create">신규등록</entry>
+	<entry key="button.exel">엑셀 받기</entry>
+	<entry key="button.list">목록</entry>
+	<entry key="button.save">저장</entry>
+	<entry key="button.modify">수정</entry>
+	<entry key="button.cancel">취소</entry>
+	<entry key="button.delete">삭제</entry>
+	
+	<!-- 공통코드 관리 -->
+	<entry key="cmmnCodeVO">공통코드</entry>
+	<entry key="cmmnCodeVO.codeId">코드ID</entry>
+	<entry key="cmmnCodeVO.codeIdNm">코드명</entry>
+	<entry key="cmmnCodeVO.detailCodeCount">상세코드갯수</entry>
+	<entry key="cmmnCodeVO.codeIdDc">코드설명</entry>
+	<entry key="cmmnCodeVO.useAt">사용여부</entry>
+	<entry key="cmmnCodeVO.frstRegisterId">등록자</entry>
+	<entry key="cmmnCodeVO.frstRegistPnttm">등록일시</entry>
+	<entry key="cmmnCodeVO.lastUpdusrId">수정자</entry>
+	<entry key="cmmnCodeVO.lastUpdtPnttm">수정일시</entry>
+	<entry key="cmmnCodeVO.msg.duplicate">중복된 코드가 존재합니다.</entry>
+	
+	<!-- 공통상세코드 관리 -->
+	<entry key="cmmnDetailCodeVO">공통 상세코드</entry>
+	<entry key="cmmnDetailCodeVO.codeId">코드ID</entry>
+	<entry key="cmmnDetailCodeVO.codeIdNm">코드명</entry>
+	<entry key="cmmnDetailCodeVO.code">상세코드</entry>
+	<entry key="cmmnDetailCodeVO.codeNm">상세코드명</entry>
+	<entry key="cmmnDetailCodeVO.codeDc">상세코드 설명</entry>
+	<entry key="cmmnDetailCodeVO.useAt">사용여부</entry>
+	<entry key="cmmnDetailCodeVO.rm">비고</entry>
+	<entry key="cmmnDetailCodeVO.ordr">정렬순서</entry>
+	
+	<!-- 계층코드 관리 -->
+	<entry key="hierCodeVO">계층코드</entry>
+	<entry key="hierCodeVO.groupCdFlag">그룹코드구분</entry>
+	<entry key="hierCodeVO.groupId">그룹아이디</entry>
+	<entry key="hierCodeVO.groupNm">그룹명</entry>
+	<entry key="hierCodeVO.groupDc">그룹설명</entry>
+	<entry key="hierCodeVO.useAt">사용여부</entry>
+	<entry key="hierCodeVO.ordr">정렬순서</entry>
+	<entry key="hierCodeVO.code">코드</entry>
+	<entry key="hierCodeVO.codeNm">코드명</entry>
+	<entry key="hierCodeVO.codeDc">코드설명</entry>
+	<entry key="hierCodeVO.upperCode">상위코드</entry>
+</properties>

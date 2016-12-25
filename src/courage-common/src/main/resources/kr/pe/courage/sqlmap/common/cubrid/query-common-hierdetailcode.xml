@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="courageHierDetailCode">
+	<typeAlias alias="HierCodeVO" type="kr.pe.courage.common.hiercode.HierCodeVO"/>
+	
+	<select id="selectHiercodeDetailList" parameterClass="HierCodeVO" resultClass="HierCodeVO">
+		SELECT
+			GROUP_ID AS GROUPID,
+			CODE,
+			CODE_NM AS CODENM,
+			UPPER_CODE AS UPPERCODE
+		FROM COM_HIER_DETAIL_CODE
+		WHERE GROUP_ID = #groupId#
+		AND USE_AT = 'Y'
+		ORDER BY ORDR
+	</select>
+
+</sqlMap>

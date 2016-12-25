@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="answerDAO">
+	<typeAlias alias="AnswerVO" type="kr.pe.courage.tech.cop.bbs.service.AnswerVO"/>
+	
+	<resultMap class="AnswerVO" id="selectList-resultMap">
+		<result property="bbsId"				column="BBS_ID"/>
+		<result property="nttId"				column="NTT_ID"/>
+		<result property="answerNo"				column="ANSWER_NO"/>
+		<result property="wrterId"				column="WRTER_ID"/>
+		<result property="wrterNm"				column="WRTER_NM"/>
+		<result property="answerCn"				column="ANSWER_CN"/>
+		<result property="useAt"				column="USE_AT"/>
+		<result property="frstRegisterId"		column="FRST_REGISTER_ID"/>
+		<result property="frstRegistPnttm"		column="FRST_REGIST_PNTTM"/>
+		<result property="lastUpdusrId"			column="LAST_UPDUSR_ID"/>
+		<result property="lastUpdtPnttm"		column="LAST_UPDT_PNTTM"/>
+		<result property="frstRegisterNm"		column="FRST_REGISTER_NM"/>
+	</resultMap>
+
+	<resultMap class="AnswerVO" id="getById-resultMap">
+		<result property="bbsId"				column="BBS_ID"/>
+		<result property="nttId"				column="NTT_ID"/>
+		<result property="answerNo"				column="ANSWER_NO"/>
+		<result property="wrterId"				column="WRTER_ID"/>
+		<result property="wrterNm"				column="WRTER_NM"/>
+		<result property="answerCn"				column="ANSWER_CN"/>
+		<result property="useAt"				column="USE_AT"/>
+		<result property="frstRegisterId"		column="FRST_REGISTER_ID"/>
+	</resultMap>
+	
+	<sql id="listOrder">
+		ORDER BY FRST_REGIST_PNTTM ASC
+	</sql>
+	
+	<sql id="listCondition">
+		<isNotEmpty prepend="AND" property="condAnswerCn">
+			INSTR(A.ANSWER_CN, #condAnswerCn#) > 0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="condWrterNm">
+			INSTR(A.WRTER_NM, #condWrterNm#) > 0
+		</isNotEmpty>
+	</sql>
+	
+	<select id="selectListCount" parameterClass="AnswerVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNANSWER A
+		 WHERE BBS_ID = #bbsId#
+		   AND NTT_ID = #nttId#
+		<include refid="answerDAO.listCondition"/>
+	</select>
+	
+	<select id="selectList" parameterClass="AnswerVO" resultMap="selectList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT BBS_ID, NTT_ID, ANSWER_NO, WRTER_ID,
+			   WRTER_NM, ANSWER_CN, USE_AT, FRST_REGISTER_ID,
+			   STRFTIME('%Y-%m-%d %H:%M:%f', FRST_REGIST_PNTTM) AS FRST_REGIST_PNTTM, LAST_UPDUSR_ID, STRFTIME('%Y-%m-%d %H:%M:%f', LAST_UPDT_PNTTM) AS LAST_UPDT_PNTTM,
+			   (SELECT USER_NM
+			      FROM COMTNEMPLYRINFO
+			     WHERE ESNTL_ID = A.FRST_REGISTER_ID) AS FRST_REGISTER_NM
+		  FROM COMTNANSWER A
+		 WHERE BBS_ID = #bbsId#
+		   AND NTT_ID = #nttId#
+		<include refid="answerDAO.listCondition"/>
+		<include refid="answerDAO.listOrder"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="getById" parameterClass="AnswerVO" resultMap="getById-resultMap">
+		SELECT BBS_ID, NTT_ID, ANSWER_NO, WRTER_ID,
+			   WRTER_NM, ANSWER_CN, USE_AT, FRST_REGISTER_ID
+		  FROM COMTNANSWER A
+		 WHERE BBS_ID = #bbsId#
+		   AND NTT_ID = #nttId#
+		   AND ANSWER_NO = #answerNo#
+	</select>
+	
+	<insert id="insert" parameterClass="AnswerVO">
+		<selectKey keyProperty="answerNo" resultClass="int">
+			SELECT IFNULL(MAX(ANSWER_NO), 0) + 1 AS ANSWER_NO
+			  FROM COMTNANSWER
+			 WHERE BBS_ID = #bbsId#
+			   AND NTT_ID = #nttId#
+		</selectKey>
+		
+		INSERT INTO COMTNANSWER (
+			BBS_ID, NTT_ID, ANSWER_NO, WRTER_ID,
+			WRTER_NM, ANSWER_CN, USE_AT, PASSWORD,
+			FRST_REGISTER_ID, FRST_REGIST_PNTTM, LAST_UPDUSR_ID, LAST_UPDT_PNTTM
+		) VALUES (
+			#bbsId#, #nttId#, #answerNo#, #wrterId#,
+			#wrterNm#, #answerCn#, #useAt#, #password#,
+			#frstRegisterId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), #lastUpdusrId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		)
+	</insert>
+	
+	<update id="update" parameterClass="AnswerVO">
+		UPDATE COMTNANSWER SET
+			WRTER_NM		= #wrterNm#,
+			ANSWER_CN		= #answerCn#,
+			LAST_UPDUSR_ID	= #lastUpdusrId#,
+			LAST_UPDT_PNTTM	= STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')
+		 WHERE BBS_ID = #bbsId#
+		   AND NTT_ID = #nttId#
+		   AND ANSWER_NO = #answerNo#
+	</update>
+	
+	<delete id="delete" parameterClass="AnswerVO">
+		DELETE FROM COMTNANSWER
+		 WHERE BBS_ID = #bbsId#
+		   AND NTT_ID = #nttId#
+		   AND ANSWER_NO = #answerNo#
+	</delete>
+</sqlMap>

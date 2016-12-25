@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="logRPSDAO">
+	<typeAlias alias="LogRPSVO" type="kr.pe.courage.tech.das.log.service.LogRPSVO"/>
+	
+	<resultMap class="LogRPSVO" id="selectList-resultMap">
+		
+	</resultMap>
+	
+	<sql id="listCondition">
+		<dynamic prepend="WHERE">
+			
+		</dynamic>
+	</sql>
+	
+	<select id="selectList" parameterClass="LogRPSVO" resultMap="selectList-resultMap">
+		
+	</select>
+	
+	<select id="selectListCount" parameterClass="LogRPSVO" resultClass="int">
+		
+	</select>
+	
+	<select id="selectRPSChartDataGroupId" parameterClass="LogRPSVO" resultClass="string">
+		SELECT A.GROUP_ID
+		  FROM CURG_LOGRPS A
+		 WHERE STDR_DE = #condStdrDe#
+		<isNotEmpty prepend="AND" property="condGroupId">
+			A.GROUP_ID = #condGroupId#
+		</isNotEmpty>
+		 GROUP BY GROUP_ID
+	</select>
+	
+	<select id="selectRPSChartDataMap" parameterClass="LogRPSVO" resultClass="java.util.HashMap">
+		SELECT STDR_TIME, RPS
+		  FROM CURG_LOGRPS
+		 WHERE GROUP_ID = #condGroupId#
+		   AND STDR_DE = #condStdrDe#
+		 ORDER BY STDR_TIME ASC
+	</select>
+	
+	<insert id="insert" parameterClass="LogRPSVO">
+		INSERT INTO CURG_LOGRPS (
+			GROUP_ID, STDR_DE, STDR_DT, STDR_TIME, RPS
+		)
+		SELECT GROUP_ID, LOG_DATA_CHRCTR_2, LOG_DATA_CHRCTR_3, LOG_DATA_NUMBER_1, COUNT(*) AS RPS
+		  FROM CURG_LOGDETAIL
+		 WHERE GROUP_ID = #groupId#
+		   AND LOG_DATA_CHRCTR_2 = #stdrDe#
+		 GROUP BY GROUP_ID, LOG_DATA_CHRCTR_2, LOG_DATA_CHRCTR_3
+	</insert>
+	
+	<delete id="delete" parameterClass="LogRPSVO">
+		DELETE FROM CURG_LOGRPS
+		 WHERE GROUP_ID = #groupId#
+		   AND STDR_DE = #stdrDe#
+	</delete>
+</sqlMap>

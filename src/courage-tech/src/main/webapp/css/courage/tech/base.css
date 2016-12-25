@@ -1,0 +1,113 @@
+@charset "utf-8";
+
+body, p, h1, h2, h3, h4, h5, h6, menu, ul, ol, li, dl, dt, dd, table, th,
+	td, form, fieldset, legend, input, textarea, button, select {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body, input, textarea, select, button, table {
+	font-family: '돋움', Dotum, Helvetica, sans-serif;
+	font-size: 13px;
+}
+
+img, fieldset {
+	border: 0 none;
+}
+
+menu, ul, ol {
+	list-style: none outside none;
+}
+
+em, address {
+	font-style: normal;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover, a:active, a:focus {
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #2574CA;
+}
+
+strong, b {
+	font-weight: bold;
+}
+
+input, textarea, keygen, select, button, isindex {
+	margin: 0em;
+	font: -webkit-small-control;
+	color: initial;
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-transform: none;
+	text-indent: 0px;
+	text-shadow: none;
+	display: inline-block;
+	text-align: start;
+}
+
+select {
+	padding: 3px;
+	min-height: 27px;
+}
+
+input, input[type="text"], input[type="password"], input[type="search"], isindex {
+	-webkit-appearance: textfield;
+	-webkit-rtl-ordering: logical;
+	-webkit-user-select: text;
+	padding: 6px;
+	background-color: white;
+	border-image: initial;
+	cursor: auto;
+	border: 1px solid;
+	border-color: #A9A9A9;
+}
+
+input[type="radio"], input[type="checkbox"] {
+	padding: initial;
+	background-color: initial;
+	border: initial;
+	vertical-align: middle;
+	background: none;
+}
+
+input[type="radio"] {
+	-webkit-appearance: radio;
+	box-sizing: border-box;
+	margin: 3px 3px 0px 5px;
+}
+
+input[type="checkbox"] {
+	-webkit-appearance: checkbox;
+	box-sizing: border-box;
+	border: 0px;
+}
+
+.text_left {
+	text-align: left !important;
+}
+
+.ime_kor {
+	-webkit-ime-mode: active;
+	-moz-ime-mode: active;
+	-ms-ime-mode: active;
+	ime-mode: active;
+}
+
+.ime_eng {
+	-webkit-ime-mode: inactive;
+	-moz-ime-mode: inactive;
+	-ms-ime-mode: inactive;
+	ime-mode: inactive;
+}

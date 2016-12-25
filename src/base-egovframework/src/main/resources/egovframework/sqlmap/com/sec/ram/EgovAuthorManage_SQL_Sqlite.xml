@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AuthorManage">
+
+    <typeAlias  alias="AuthorManageVO" type="egovframework.com.sec.ram.service.AuthorManageVO"/>
+    <typeAlias  alias="MenuManageVO" type="egovframework.com.sym.mnu.mpm.service.MenuManageVO"/>
+    
+	<resultMap class="MenuManageVO" id="menuManageList-resultMap">
+		<result property="authorCode"			column="AUTHOR_CODE"/>
+		<result property="menuNo"				column="MENU_NO"/>
+		<result property="menuOrdr"				column="MENU_ORDR"/>
+		<result property="menuNm"				column="MENU_NM"/>
+		<result property="upperMenuId"			column="UPPER_MENU_NO"/>
+		<result property="menuDc"				column="MENU_DC"/>
+		<result property="relateImgPath"		column="RELATE_IMG_PATH"/>
+		<result property="relateImgNm"			column="RELATE_IMG_NM"/>
+		<result property="menuLevel"			column="MENU_LEVEL"/>
+		<result property="searchFlag"			column="INQIRE_SETUP"/>
+		<result property="createFlag"			column="REGIST_SETUP"/>
+		<result property="customFlag1"			column="USER_SETUP_1"/>
+		<result property="customFlag2"			column="USER_SETUP_2"/>
+		<result property="customFlag3"			column="USER_SETUP_3"/>
+		<result property="childMenuCnt"			column="CHILD_MENU_CNT"/>
+		<result property="intrmdVriabl"			column="INTRMD_VRIABL"/>
+		<result property="url"					column="URL"/>
+		<result property="menuIndictAt"			column="MENU_INDICT_AT"/>
+	</resultMap>
+	
+    <resultMap  class="AuthorManageVO" id="menuAuthorManage-resultMap">
+    	<result property="menuNo"				column="MENU_NO"/>
+		<result property="searchFlag"			column="INQIRE_SETUP"/>
+		<result property="createFlag"			column="REGIST_SETUP"/>
+		<result property="customFlag1"			column="USER_SETUP_1"/>
+		<result property="customFlag2"			column="USER_SETUP_2"/>
+		<result property="customFlag3"			column="USER_SETUP_3"/>
+    </resultMap>
+
+    <resultMap  class="AuthorManageVO" id="authorManageList-resultMap">
+        <result property="authorCode" 		column="AUTHOR_CODE" />
+        <result property="authorNm" 		column="AUTHOR_NM" />
+        <result property="authorDc" 		column="AUTHOR_DC" />
+        <result property="authorCreatDe" 	column="AUTHOR_CREAT_DE" />
+        <result property="mberBassAuthorYn"	column="MBER_BASS_AUTHOR_YN" />
+    </resultMap>
+    
+    <resultMap  class="AuthorManageVO" id="authorManageDetail-resultMap">
+        <result property="authorCode" 		column="AUTHOR_CODE" />
+        <result property="authorNm" 		column="AUTHOR_NM" />
+        <result property="authorDc" 		column="AUTHOR_DC" />
+        <result property="authorCreatDe" 	column="AUTHOR_CREAT_DE" />
+        <result property="mberBassAuthorYn"	column="MBER_BASS_AUTHOR_YN" />
+        <result property="authorIndexUrl"	column="AUTHOR_INDEX_URL" />
+    </resultMap>
+    
+    <resultMap  class="AuthorManageVO" id="userAuthorDetail-resultMap">
+        <result property="authorCode" 		column="AUTHOR_CODE" />
+        <result property="authorNm" 		column="AUTHOR_NM" />
+        <result property="authorDc" 		column="AUTHOR_DC" />
+        <result property="authorCreatDe" 	column="AUTHOR_CREAT_DE" />
+        <result property="esntlId"		 	column="ESNTL_ID" />
+        <result property="defaultAuthorYn" 	column="DEFAULT_AUTHOR_YN" />
+        <result property="authorIndexUrl" 	column="AUTHOR_INDEX_URL" />
+    </resultMap>
+    
+    <resultMap class="MenuManageVO" id="authorUrlList-resultMap">
+    	<result property="progrmFileNm"		column="PROGRM_FILE_NM"/>
+    	<result property="url"				column="URL"/>
+    	<result property="searchFlag"		column="INQIRE_SETUP"/>
+    	<result property="createFlag"		column="REGIST_SETUP"/>
+    	<result property="progrmFnctSe"		column="PROGRM_FNCT_SE"/>
+    </resultMap>
+    
+	<sql id="incAuthorManageCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condAuthorCode">
+				INSTR(UPPER(REPLACE(AUTHOR_CODE, ' ', '')), UPPER(REPLACE(#condAuthorCode#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condAuthorNm">
+				INSTR(UPPER(REPLACE(AUTHOR_NM, ' ', '')), UPPER(REPLACE(#condAuthorNm#, ' ', ''))) > 0
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+    <select id="authorManageDAO.selectAuthorListTotCnt" parameterClass="AuthorManageVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNAUTHORINFO
+		<include refid="AuthorManage.incAuthorManageCondition"/>
+    </select>
+	
+    <select id="authorManageDAO.selectAuthorList" parameterClass="AuthorManageVO" resultMap="authorManageList-resultMap">
+    	<include refid="courageCommon.prefixPagination"/>
+		SELECT AUTHOR_CODE		, AUTHOR_NM		, AUTHOR_DC		, STRFTIME('%Y%m%d', AUTHOR_CREAT_DE) AS AUTHOR_CREAT_DE,
+			   MBER_BASS_AUTHOR_YN
+		  FROM COMTNAUTHORINFO
+		<include refid="AuthorManage.incAuthorManageCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<include refid="courageCommon.suffixPagination"/>
+    </select>
+
+    <select id="authorManageDAO.selectAuthor" parameterClass="AuthorManageVO" resultMap="authorManageDetail-resultMap">
+		SELECT AUTHOR_CODE		, AUTHOR_NM		, AUTHOR_DC		, STRFTIME('%Y%m%d', AUTHOR_CREAT_DE) AS AUTHOR_CREAT_DE,
+			   MBER_BASS_AUTHOR_YN, AUTHOR_INDEX_URL
+		  FROM COMTNAUTHORINFO
+		 WHERE AUTHOR_CODE = #authorCode#
+    </select>
+
+    <insert id="authorManageDAO.insertAuthor" parameterClass="AuthorManageVO">
+		INSERT INTO COMTNAUTHORINFO (
+			AUTHOR_CODE		, AUTHOR_NM		, AUTHOR_DC 	, AUTHOR_CREAT_DE	,
+			MBER_BASS_AUTHOR_YN, AUTHOR_INDEX_URL
+		) VALUES (
+			#authorCode#	, #authorNm#	, #authorDc#	, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime')	,
+			#mberBassAuthorYn#, #authorIndexUrl#
+		)
+    </insert>
+
+    <update id="authorManageDAO.updateAuthor" parameterClass="AuthorManageVO">
+		UPDATE COMTNAUTHORINFO SET
+			AUTHOR_NM = #authorNm#,
+			AUTHOR_DC = #authorDc#,
+			MBER_BASS_AUTHOR_YN = #mberBassAuthorYn#,
+			AUTHOR_INDEX_URL = #authorIndexUrl#
+		 WHERE AUTHOR_CODE = #authorCode#
+    </update>
+    
+    <delete id="authorManageDAO.deleteAuthor" parameterClass="AuthorManageVO">
+		DELETE FROM COMTNAUTHORINFO
+		 WHERE AUTHOR_CODE = #authorCode#
+    </delete>
+    
+    <insert id="authorManageDAO.insertMenuCreatDtls" parameterClass="AuthorManageVO">
+    	INSERT INTO COMTNMENUCREATDTLS (
+    		MENU_NO			, AUTHOR_CODE	, INQIRE_SETUP	, REGIST_SETUP	,
+    		USER_SETUP_1	, USER_SETUP_2	, USER_SETUP_3
+    	)VALUES(
+    		#menuNo#		, #authorCode#	, #searchFlag#	, #createFlag#	,
+    		#customFlag1#	, #customFlag2#	, #customFlag3#
+    	)
+    </insert>
+    
+    <delete id="authorManageDAO.deleteMenuCreatDtls" parameterClass="AuthorManageVO">
+    	DELETE FROM COMTNMENUCREATDTLS
+    	 WHERE AUTHOR_CODE = #authorCode#
+    </delete>
+    
+    <delete id="authorManageDAO.deleteEmplyrScrtyEstbs" parameterClass="AuthorManageVO">
+    	DELETE FROM COMTNEMPLYRSCRTYESTBS
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="authorCode">
+				AUTHOR_CODE = #authorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="esntlId">
+				ESNTL_ID = #esntlId#
+			</isNotEmpty>
+		</dynamic>
+    </delete>
+    
+    <insert id="authorManageDAO.insertUserAuthManage" parameterClass="AuthorManageVO">
+    	INSERT INTO COMTNEMPLYRSCRTYESTBS (
+    		ESNTL_ID	, AUTHOR_CODE	, DEFAULT_AUTHOR_YN
+    	)VALUES(
+    		#esntlId#	, #authorCode#	, #defaultAuthorYn#
+    	)
+    </insert>
+    
+    <select id="authorManageDAO.selectAuthorMenuList" parameterClass="AuthorManageVO" resultMap="menuManageList-resultMap">
+		WITH RECURSIVE RESULT_MENU (
+			AUTHOR_CODE, MENU_NO, UPPER_MENU_NO, MENU_NM,
+			MENU_ORDR, MENU_DC, RELATE_IMG_PATH, RELATE_IMG_NM,
+			INQIRE_SETUP, REGIST_SETUP, USER_SETUP_1, USER_SETUP_2,
+			USER_SETUP_3, RECURSIVE_LEVEL, MENU_INDICT_AT, INTRMD_VRIABL,
+			CHILD_MENU_CNT, URL
+		) AS (
+				SELECT B.AUTHOR_CODE				, A.MENU_NO				, UPPER_MENU_NO		, MENU_NM			,
+					   MENU_ORDR					, MENU_DC				, RELATE_IMG_PATH	, RELATE_IMG_NM		,
+					   INQIRE_SETUP					, REGIST_SETUP			, USER_SETUP_1		, USER_SETUP_2		,
+					   USER_SETUP_3					, 1 RECURSIVE_LEVEL		, A.MENU_INDICT_AT	, A.INTRMD_VRIABL	,
+					   (SELECT COUNT(1) FROM COMTNMENUINFO WHERE UPPER_MENU_NO = A.MENU_NO) CHILD_MENU_CNT,
+					   (SELECT URL
+						  FROM COMTNPROGRMLIST
+						 WHERE PROGRM_SE = '01'
+						   AND PROGRM_FILE_NM IN (SELECT PROGRM_FILE_NM FROM COMTNMENUPROGRMREF WHERE MENU_NO = A.MENU_NO)) AS URL
+				  FROM COMTNMENUINFO A
+				  LEFT OUTER JOIN COMTNMENUCREATDTLS B
+					ON A.MENU_NO = B.MENU_NO
+				   AND B.AUTHOR_CODE = #authorCode#
+				 WHERE UPPER_MENU_NO IS NULL
+				
+				UNION ALL
+				
+				SELECT D.AUTHOR_CODE				, B.MENU_NO				, B.UPPER_MENU_NO	, B.MENU_NM			,
+					   B.MENU_ORDR					, B.MENU_DC				, B.RELATE_IMG_PATH	, B.RELATE_IMG_NM	,
+					   D.INQIRE_SETUP				, D.REGIST_SETUP		, D.USER_SETUP_1	, D.USER_SETUP_2	,
+					   D.USER_SETUP_3				, RECURSIVE_LEVEL + 1	, B.MENU_INDICT_AT	, B.INTRMD_VRIABL	,
+					   (SELECT COUNT(1) FROM COMTNMENUINFO WHERE UPPER_MENU_NO = B.MENU_NO) CHILD_MENU_CNT,
+					   (SELECT URL
+						  FROM COMTNPROGRMLIST
+						 WHERE PROGRM_SE = '01'
+						   AND PROGRM_FILE_NM IN (SELECT PROGRM_FILE_NM FROM COMTNMENUPROGRMREF WHERE MENU_NO = B.MENU_NO)) AS URL
+				  FROM COMTNMENUINFO B
+				 INNER JOIN RESULT_MENU C
+					ON B.UPPER_MENU_NO = C.MENU_NO
+				  LEFT OUTER JOIN COMTNMENUCREATDTLS D
+					ON B.MENU_NO = D.MENU_NO
+				   AND D.AUTHOR_CODE = #authorCode#
+				 ORDER BY RECURSIVE_LEVEL DESC, MENU_ORDR ASC
+		)
+		SELECT AUTHOR_CODE	, MENU_NO		, UPPER_MENU_NO		, MENU_NM		,
+			   MENU_ORDR	, MENU_DC		, RELATE_IMG_PATH	, RELATE_IMG_NM	,
+			   INQIRE_SETUP	, REGIST_SETUP	, USER_SETUP_1		, USER_SETUP_2	,
+			   USER_SETUP_3	, RECURSIVE_LEVEL AS MENU_LEVEL		, MENU_INDICT_AT, INTRMD_VRIABL,
+			   CHILD_MENU_CNT, URL
+		  FROM RESULT_MENU
+    </select>
+    
+    <select id="authorManageDAO.selectMenuAuthor" parameterClass="AuthorManageVO" resultMap="menuAuthorManage-resultMap">
+		SELECT B.MENU_NO		, B.INQIRE_SETUP		, B.REGIST_SETUP		, B.USER_SETUP_1		, B.USER_SETUP_2	,
+		       B.USER_SETUP_3
+		  FROM COMTNAUTHORINFO A
+		 INNER JOIN COMTNMENUCREATDTLS B
+		    ON A.AUTHOR_CODE = B.AUTHOR_CODE
+    	 WHERE A.AUTHOR_CODE = #authorCode#
+		<isNotEmpty prepend="AND" property="menuNo">
+			B.MENU_NO = #menuNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="progrmFileNm">
+			EXISTS (
+				SELECT 'O'
+				  FROM COMTNMENUPROGRMREF
+				 WHERE MENU_NO = B.MENU_NO
+				   AND PROGRM_FILE_NM = #progrmFileNm#)
+		</isNotEmpty>
+    </select>
+	
+	<select id="authorManageDAO.selectUserAuthorList" parameterClass="AuthorManageVO" resultMap="userAuthorDetail-resultMap">
+		SELECT AUTHORINFO.AUTHOR_CODE		, AUTHORINFO.AUTHOR_NM			, AUTHORINFO.AUTHOR_DC					,
+			   STRFTIME('%Y%m%d', AUTHORINFO.AUTHOR_CREAT_DE) AS AUTHOR_CREAT_DE	, EMPLYRSCRTYESTBS.ESNTL_ID		, EMPLYRSCRTYESTBS.DEFAULT_AUTHOR_YN,
+			   AUTHORINFO.AUTHOR_INDEX_URL
+		  FROM COMTNAUTHORINFO AUTHORINFO
+		  LEFT OUTER JOIN COMTNEMPLYRSCRTYESTBS EMPLYRSCRTYESTBS
+		    ON EMPLYRSCRTYESTBS.AUTHOR_CODE = AUTHORINFO.AUTHOR_CODE
+		   AND EMPLYRSCRTYESTBS.ESNTL_ID = #esntlId#
+	</select>
+	
+	<select id="authorManageDAO.selectLoginUserAuthorList" parameterClass="AuthorManageVO" resultMap="userAuthorDetail-resultMap">
+		SELECT AUTHORINFO.AUTHOR_CODE		, AUTHORINFO.AUTHOR_NM			, AUTHORINFO.AUTHOR_DC					,
+			   STRFTIME('%Y%m%d', AUTHORINFO.AUTHOR_CREAT_DE) AS AUTHOR_CREAT_DE	, EMPLYRSCRTYESTBS.ESNTL_ID		, EMPLYRSCRTYESTBS.DEFAULT_AUTHOR_YN,
+			   AUTHORINFO.AUTHOR_INDEX_URL
+		  FROM COMTNAUTHORINFO AUTHORINFO
+		 INNER JOIN COMTNEMPLYRSCRTYESTBS EMPLYRSCRTYESTBS
+		    ON EMPLYRSCRTYESTBS.AUTHOR_CODE = AUTHORINFO.AUTHOR_CODE
+		   AND EMPLYRSCRTYESTBS.ESNTL_ID = #esntlId#
+	</select>
+	
+	<select id="authorManageDAO.selectAuthorUrlList" parameterClass="MenuManageVO" resultMap="authorUrlList-resultMap">
+		SELECT A.PROGRM_FILE_NM, A.URL, C.INQIRE_SETUP, C.REGIST_SETUP, A.PROGRM_FNCT_SE
+		  FROM COMTNPROGRMLIST A
+		 INNER JOIN COMTNMENUPROGRMREF B
+			ON A.PROGRM_FILE_NM = B.PROGRM_FILE_NM
+		 INNER JOIN COMTNMENUCREATDTLS C
+			ON B.MENU_NO = C.MENU_NO
+		 WHERE C.AUTHOR_CODE = #authorCode#
+	</select>
+	
+	<update id="authorManageDAO.updateSearchAuthorMenu" parameterClass="MenuManageVO">
+		UPDATE COMTNMENUCREATDTLS SET
+			INQIRE_SETUP = 'Y'
+		 WHERE MENU_NO = #menuId#
+		   AND AUTHOR_CODE = #authorCode#
+	</update>
+	
+	<update id="authorManageDAO.updateMberBassAuthorInit">
+		UPDATE COMTNAUTHORINFO SET
+			MBER_BASS_AUTHOR_YN = 'N'
+	</update>
+	
+	<select id="authorManageDAO.selectMberBassAuthor" resultClass="String">
+		SELECT AUTHOR_CODE
+		  FROM COMTNAUTHORINFO
+		 WHERE MBER_BASS_AUTHOR_YN = 'Y'
+	</select>
+	
+	<select id="selectCommonCodeListForAuthorInfo" parameterClass="kr.pe.courage.common.code.CommonCodeVO" resultMap="courageCommonCode.commonOperationCodeList-resultMap">
+		SELECT AUTHOR_CODE AS CODE, AUTHOR_NM AS CODE_NM, 'Y' AS USE_AT
+		  FROM COMTNAUTHORINFO
+		 ORDER BY AUTHOR_NM ASC
+	</select>
+</sqlMap>

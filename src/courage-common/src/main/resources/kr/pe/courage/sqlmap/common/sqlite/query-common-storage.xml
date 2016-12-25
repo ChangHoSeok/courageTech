@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="courageStorage">
+	<typeAlias alias="StorageFile" type="kr.pe.courage.common.storage.StorageFile"/>
+	
+	<resultMap class="StorageFile" id="storageFileList-resultMap">
+		<result property="atchFileId"					column="ATCH_FILE_ID"/>
+		<result property="fileSn"						column="FILE_SN"/>
+		<result property="filePath"						column="FILE_STRE_COURS"/>
+		<result property="uniqFileNm"					column="STRE_FILE_NM"/>
+		<result property="fileNm"						column="ORGINL_FILE_NM"/>
+		<result property="fileExtsn"					column="FILE_EXTSN"/>
+		<result property="fileCn"						column="FILE_CN"/>
+		<result property="fileSize"						column="FILE_SIZE"/>
+		<result property="fileLocation"					column="STRE_LC"/>
+	</resultMap>
+	
+	<resultMap class="StorageFile" id="storageFile-resultMap">
+		<result property="atchFileId"					column="ATCH_FILE_ID"/>
+		<result property="fileSn"						column="FILE_SN"/>
+		<result property="filePath"						column="FILE_STRE_COURS"/>
+		<result property="uniqFileNm"					column="STRE_FILE_NM"/>
+		<result property="fileNm"						column="ORGINL_FILE_NM"/>
+		<result property="fileExtsn"					column="FILE_EXTSN"/>
+		<result property="fileCn"						column="FILE_CN"/>
+		<result property="fileSize"						column="FILE_SIZE"/>
+		<result property="fileLocation"					column="STRE_LC"/>
+	</resultMap>
+	
+	<select id="selectList" parameterClass="StorageFile" resultMap="storageFileList-resultMap">
+		SELECT A.ATCH_FILE_ID, FILE_SN, FILE_STRE_COURS,
+			   STRE_FILE_NM, ORGINL_FILE_NM, FILE_EXTSN,
+			   FILE_CN, FILE_SIZE, STRE_LC
+		  FROM COMTNFILEDETAIL A
+		 INNER JOIN COMTNFILE B
+		 	ON A.ATCH_FILE_ID = B.ATCH_FILE_ID
+		   AND B.USE_AT = 'Y'
+		 WHERE A.ATCH_FILE_ID = #atchFileId#
+		   AND A.USE_AT = 'Y'
+	</select>
+	
+	<select id="selectListCount" parameterClass="StorageFile" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNFILEDETAIL A
+		 INNER JOIN COMTNFILE B
+		 	ON A.ATCH_FILE_ID = B.ATCH_FILE_ID
+		   AND B.USE_AT = 'Y'
+		 WHERE A.ATCH_FILE_ID = #atchFileId#
+		   AND A.USE_AT = 'Y'
+	</select>
+	
+	<select id="getById" parameterClass="StorageFile" resultMap="storageFile-resultMap">
+		SELECT A.ATCH_FILE_ID, FILE_SN, FILE_STRE_COURS,
+			   STRE_FILE_NM, ORGINL_FILE_NM, FILE_EXTSN,
+			   FILE_CN, FILE_SIZE, STRE_LC
+		  FROM COMTNFILEDETAIL A
+		 INNER JOIN COMTNFILE B
+		 	ON A.ATCH_FILE_ID = B.ATCH_FILE_ID
+		   AND B.USE_AT = 'Y'
+		 WHERE A.ATCH_FILE_ID = #atchFileId#
+		   AND FILE_SN = #fileSn#
+		   AND A.USE_AT =  'Y'
+	</select>
+	
+	<select id="isExist" parameterClass="StorageFile" resultClass="int">
+		SELECT COUNT(*)
+		  FROM COMTNFILEDETAIL A
+		 INNER JOIN COMTNFILE B
+		 	ON A.ATCH_FILE_ID = B.ATCH_FILE_ID
+		   AND B.USE_AT = 'Y'
+		 WHERE A.ATCH_FILE_ID = #atchFileId#
+		   AND FILE_SN = #fileSn#
+		   AND A.USE_AT =  'Y'
+	</select>
+	
+	<insert id="insertFileMaster" parameterClass="StorageFile">
+		INSERT INTO COMTNFILE (
+			ATCH_FILE_ID, CREAT_DT, USE_AT
+		) VALUES (
+			#atchFileId#, STRFTIME('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), 'Y'
+		)
+	</insert>
+	
+	<insert id="insert" parameterClass="StorageFile">
+		<selectKey keyProperty="fileSn" resultClass="string">
+			SELECT IFNULL(MAX(FILE_SN), 0) + 1
+			  FROM COMTNFILEDETAIL
+			 WHERE ATCH_FILE_ID = #atchFileId#
+		</selectKey>
+		
+		INSERT INTO COMTNFILEDETAIL (
+			ATCH_FILE_ID, FILE_SN, FILE_STRE_COURS,
+			STRE_FILE_NM, ORGINL_FILE_NM, FILE_EXTSN,
+			FILE_CN, FILE_SIZE, USE_AT, STRE_LC
+		) VALUES (
+			#atchFileId#, #fileSn#, #filePath#,
+			#uniqFileNm#, #fileNm#, #fileExtsn#,
+			#fileCn#, #fileSize#, 'Y', #fileLocation#
+		)
+	</insert>
+	
+	<update id="deleteFileMaster" parameterClass="StorageFile">
+		UPDATE COMTNFILE SET USE_AT = 'N'
+		 WHERE ATCH_FILE_ID = #atchFileId#
+	</update>
+	
+	<update id="delete" parameterClass="StorageFile">
+		UPDATE COMTNFILEDETAIL SET USE_AT = 'N'
+		 WHERE ATCH_FILE_ID = #atchFileId#
+		   AND FILE_SN = #fileSn#
+	</update>
+	
+	<update id="truncateFile" parameterClass="StorageFile">
+		UPDATE COMTNFILEDETAIL SET USE_AT = 'N'
+		 WHERE ATCH_FILE_ID = #atchFileId#
+	</update>
+</sqlMap>

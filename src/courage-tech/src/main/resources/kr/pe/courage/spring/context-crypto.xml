@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+				http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	
+	<bean id="passwordEncoder" class="egovframework.rte.fdl.cryptography.EgovPasswordEncoder">
+		<property name="algorithm" value="SHA-512" />
+		<property name="hashedPassword" value="++J5R7JmGIAZPRXG+5mQ0C43ulbYJcYG3inFdS2wpQ6FsbaEnr1ytuYuBitogW+AjAHb06HX/Da4RSYltgJPbQ==" />
+	</bean>
+	
+	<bean id="ARIACryptoService" class="egovframework.rte.fdl.cryptography.impl.EgovARIACryptoServiceImpl">
+		<property name="passwordEncoder" ref="passwordEncoder" />
+		<property name="blockSize" value="1024" />
+	</bean>
+
+	<bean id="courageARIACryptoService" class="egovframework.rte.fdl.cryptography.impl.CourageARIACryptoServiceImpl">
+		<property name="password" value="++J5R7JmGIAZPRXG+5mQ0C43ulbYJcYG3inFdS2wpQ6FsbaEnr1ytuYuBitogW+AjAHb06HX/Da4RSYltgJPbQ==" />
+		<property name="blockSize" value="1024" />
+	</bean>
+</beans>

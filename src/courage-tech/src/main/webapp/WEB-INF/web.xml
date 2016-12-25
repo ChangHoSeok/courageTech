@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	
+	<display-name>courage-logViewer</display-name>
+	
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>webLoggingFilter</filter-name>
+		<filter-class>kr.pe.courage.common.web.filter.WebLoggingFilter</filter-class>
+		<init-param>
+			<param-name>os-logging</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>mem-logging</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>param-logging</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>javaProperties-logging</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>webLoggingFilter</filter-name>
+		<url-pattern>*.tech</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>webLoggingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>webLoggingFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>webLoggingFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>webLoggingFilter</filter-name>
+		<url-pattern>*.htm</url-pattern>
+	</filter-mapping>
+	
+	<listener>
+		<listener-class>org.springframework.web.util.WebAppRootListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>courage.context.root</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath*:egovframework/spring/context-*.xml
+			classpath*:kr/pe/courage/spring/common/context-*.xml
+			classpath*:kr/pe/courage/spring/context-*.xml
+		</param-value>
+	</context-param>
+	
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				/WEB-INF/config/egovframework/springmvc/dispatcher-servlet.xml,
+				/WEB-INF/config/egovframework/springmvc/urlfilename-servlet.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<description>system config init</description>
+		<servlet-name>systemConfigInitServlet</servlet-name>
+		<servlet-class>kr.pe.courage.common.web.servlet.SystemConfigInitServlet</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>kr/pe/courage/courageProp/system.properties</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<description>Courage common code Init</description>
+		<servlet-name>courageCommonCodeInitServlet</servlet-name>
+		<servlet-class>kr.pe.courage.common.web.servlet.CommonCodeInitServlet</servlet-class>
+		<init-param>
+			<param-name>commonCodeServiceImplId</param-name>
+			<param-value>courageCommonCodeService</param-value>
+		</init-param>
+		<init-param>
+			<param-name>commonDetailCodeServiceImplId</param-name>
+			<param-value>courageCommonDetailCodeService</param-value>
+		</init-param>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<description>uploadify fileupload servlet</description>
+		<servlet-name>uploadifyServlet</servlet-name>
+		<servlet-class>kr.pe.courage.common.web.servlet.UploadifyServlet</servlet-class>
+		<load-on-startup>4</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<description>ckeditor file uploader</description>
+		<servlet-name>ckUploader</servlet-name>
+		<servlet-class>kr.pe.courage.common.web.servlet.CKUploader</servlet-class>
+		<load-on-startup>5</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<display-name>DWR Servlet</display-name>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+		<init-param>
+			<param-name>activeReverseAjaxEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!-- Early Closing Mode, Full Streaming Mode Options -->
+		<init-param>
+			<param-name>maxWaitAfterWrite</param-name>
+			<param-value>1000</param-value> <!-- default 500 (ms) Early Closing Mode, -1 Full Streaming Mode (not available in IE),  -->
+		</init-param>
+		<!-- Polling Mode Options
+		<init-param>
+			<param-name>org.directwebremoting.extend.ServerLoadMonitor</param-name>
+			<param-value>org.directwebremoting.impl.PollingServerLoadMonitor</param-value>
+		</init-param>
+		<init-param>
+			<param-name>disconnectedTime</param-name>
+			<param-value>60000</param-value> 1분마다 Polling
+		</init-param>
+		 -->
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>accessLogLevel</param-name>
+			<param-value>EXCEPTION</param-value>
+		</init-param>
+		<init-param>
+			<param-name>crossDomainSessionSecurity</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowGetForSafariButMakeForgeryEasier</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>config-base</param-name>
+			<param-value>/WEB-INF/config/courage/dwr/dwr-base.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>config-system-code</param-name>
+			<param-value>/WEB-INF/config/courage/dwr/tech/system/code/dwr-commonCode.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>config-system-detailCode</param-name>
+			<param-value>/WEB-INF/config/courage/dwr/tech/system/code/dwr-commonDetailCode.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>config-system-progrm</param-name>
+			<param-value>/WEB-INF/config/courage/dwr/tech/system/progrm/dwr-progrm.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>config-system-menu</param-name>
+			<param-value>/WEB-INF/config/courage/dwr/tech/system/menu/dwr-menu.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>config-system-auth</param-name>
+			<param-value>/WEB-INF/config/courage/dwr/tech/system/auth/dwr-auth.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>config-system-user</param-name>
+			<param-value>/WEB-INF/config/courage/dwr/tech/system/user/dwr-user.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>config-das-log</param-name>
+			<param-value>/WEB-INF/config/courage/dwr/tech/das/log/dwr-log.xml</param-value>
+		</init-param>
+		<load-on-startup>6</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>cxf</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+		<load-on-startup>7</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.tech</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>systemConfigInitServlet</servlet-name>
+		<url-pattern>/systemConfigInitServlet.com</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>courageCommonCodeInitServlet</servlet-name>
+		<url-pattern>/courageCommonCodeInitServlet.com</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>uploadifyServlet</servlet-name>
+		<url-pattern>/uploadify</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ckUploader</servlet-name>
+		<url-pattern>/ckUploader</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>cxf</servlet-name>
+		<url-pattern>/ws/*</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/error/errorSystem.tech</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/error404.tech</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/error505.tech</location>
+	</error-page>
+</web-app>

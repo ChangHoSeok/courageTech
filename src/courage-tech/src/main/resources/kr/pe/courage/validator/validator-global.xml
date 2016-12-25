@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+	<global>
+		<constant>
+			<constant-name>onlyNumber</constant-name>
+			<constant-value>^[0-9]*$</constant-value>
+		</constant>
+		<constant>
+			<constant-name>onlyLetter</constant-name>
+			<constant-value>^[a-zA-Z]*$</constant-value>
+		</constant>
+		<constant>
+			<constant-name>onlyLetterNumber</constant-name>
+			<constant-value>^[0-9a-zA-Z]*$</constant-value>
+		</constant>
+		<constant>
+			<constant-name>onlyLetterNumberSp</constant-name>
+			<constant-value><![CDATA[^[0-9a-zA-Z\\ \'!@#$%^*+=-_,&()-{}|<>\"~]*$]]></constant-value>
+		</constant>
+		<constant>
+			<constant-name>onlyKorea</constant-name>
+			<constant-value>^[ㄱ-힣]*$</constant-value>
+		</constant>
+	</global>
+</form-validation>

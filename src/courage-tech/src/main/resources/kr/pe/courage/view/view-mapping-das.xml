@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>데이터분석 View</comment>
+	 
+	<!-- 로그분류그룹 -->
+	<entry key="formLogClGroupView">courage/tech/das/log/formLogClGroup.courage.tiles</entry>
+	<entry key="logClGroupListView">courage/tech/das/log/logClGroupList</entry>
+
+	<!-- 로그파일접수 -->
+	<entry key="formLogFileRceptView">courage/tech/das/log/formLogFileRcept.courage.tiles</entry>
+	<entry key="logFileRceptListView">courage/tech/das/log/logFileRceptList</entry>
+
+	<entry key="formLogFileRceptPopupView">courage/tech/das/log/formLogFileRceptPopup.courage.popup.tiles</entry>
+	<entry key="logFileRceptCreatePopupView">courage/tech/das/log/logFileRceptCreatePopup</entry>
+	<entry key="logFileRceptDetailPopupView">courage/tech/das/log/logFileRceptDetailPopup</entry>
+	
+	<!-- 로그 View -->
+	<entry key="formLogDetailChartView">courage/tech/das/log/formLogDetailChart.courage.tiles</entry>
+	<entry key="logDetailChartView">courage/tech/das/log/logDetailChart</entry>
+
+	<entry key="formLogRPSChartView">courage/tech/das/log/formLogRPSChart.courage.tiles</entry>
+	<entry key="logRPSChartView">courage/tech/das/log/logRPSChart</entry>
+</properties>

@@ -1,0 +1,392 @@
+@charset "utf-8";
+
+#popup_wrap {
+	border: 1px solid #9b9b9b;
+}
+
+.popup_title h1 {
+	padding-top: 10px;
+	font-size: 19px;
+	color: #333333;
+	text-align: center;
+}
+
+.popup_title a {
+	position: absolute;
+	right: 10px;
+	top: 7px;
+}
+
+.popup_title_sm {
+	position: fixed;
+	float: left;
+	width: 100%;
+	margin: 0 auto;
+	height: 36px;
+	background: url(../../../images/courage/tech/layout/bg_popup_title_sm.gif) repeat-x 0 0;
+}
+
+.popup_title_sm h1 {
+	padding: 10px 0 0 40px;
+	font-size: 14px;
+	color: #293a4d;
+	text-align: left;
+	background: url(../../../images/courage/tech/icon/bl_gray03.gif) no-repeat 20px 13px;
+}
+
+.popup_title_sm a {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+.popup_search_box {
+	background: #f4f4f4 url(../../../images/courage/tech/layout/bg_tbl_searchbox.gif) repeat-x center bottom;
+	padding: 10px;
+	border-top: 1px solid #dfdfdf;
+	border-left: 1px solid #dfdfdf;
+	border-right: 1px solid #dfdfdf;
+}
+
+.popup_search_box table th {
+	font-size: 13px;
+	text-align: right;
+}
+
+.popup_search_box table td {
+	padding: 5px 5px 5px 10px;
+}
+
+.popup_contents {
+	position: fixed;
+	top: 36px;
+	bottom: 57px;
+	padding: 10px 15px;
+	overflow-y: auto;
+}
+
+.popup_contents h2 {
+	font-size: 15px;
+}
+
+.popup_contents h2.step {
+	float: left;
+	padding-right: 3px;
+}
+
+.section_con select,.section_con input[type='text'] {
+	border: 1px soild #999999;
+	height: 25px;
+	vertical-align: middle;
+}
+
+.section_con textarea {
+	border: 1px solid #999999;
+}
+
+.section_con input[type='file'] {
+	font-size: 12px;
+}
+
+.section_con table td {
+	padding: 8px 0;
+}
+
+.section_con th {
+	font-size: 11px;
+	font-weight: normal;
+	padding-top: 3px;
+	text-align: center;
+}
+
+.section_con th,.section_con td {
+	border-bottom: 1px solid #e3e3e3;
+}
+
+.section_con table.oneline th,.section_con table.oneline td {
+	border-bottom: none !important;
+}
+
+tr.last_line th,.section_con tr.last_line td {
+	border-bottom: none;
+}
+
+th span.red {
+	color: #e23858;
+	margin-right: 3px;
+	font-weight: bold;
+}
+
+.section_con table td ul.list li {
+	padding: 2px 0;
+}
+
+.date_txtbox {
+	float: left;
+	padding-top: 4px;
+	padding-left: 5px;
+	width: 100px;
+	height: 21px;
+	font-size: 12px;
+	border: 1px solid #999999; .
+	position: relative;
+}
+
+.search_txtbox {
+	float: left;
+	padding-top: 4px;
+	padding-left: 5px;
+	width: 65px;
+	height: 21px;
+	font-size: 12px;
+	border: 1px solid #999999; .
+	position: relative;
+}
+
+p.blue a {
+	font-size: 11px;
+	color: #0033CC;
+	text-decoration: underline;
+}
+
+.sub_txt {
+	font-size: 11px;
+	color: #e23858;
+	padding-top: 1px !important;
+}
+
+.search_per {
+	float: left;
+	padding: 5px 10px 0 0;
+}
+
+.bottom {
+	width: 100%;
+	margin-top: 10px;
+	border-top: 1px solid #999999;
+	padding-top: 15px;
+}
+
+.bottom_btn {
+	float: right;
+}
+
+.bottom_btn a {
+	padding: 0 5px;
+}
+
+.result_txt {
+	height: 30px;
+	margin-top: 15px;
+	background: url(../../../images/courage/tech/icon/bl_gray02.gif) no-repeat 0 4px;
+	padding-left: 17px;
+	font-family: "돋움체";
+	font-size: 12px;
+}
+
+.result_txt span {
+	font-size: 17px;
+	font-weight: bold;
+	color: #046fba;
+	padding: 0 5px
+}
+
+.tbl_result_list {
+	border-top: 2px solid #a6b4c3;
+	margin-top: 10px;
+}
+
+.tbl_result_list table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+.tbl_result_list thead a {
+	font-weight: bold;
+	color: #3460AF;
+}
+
+.tbl_result_list th {
+	font-family: "돋움체";
+	font-size: 11px;
+	font-weight: bold;
+	background: #f3f5f8;
+}
+
+.tbl_result_list th,.tbl_result_list td {
+	padding: 8px 5px; .
+	padding: 6px 5px;
+	border-bottom: 1px solid #dee0e3;
+	border-left: 1px solid #dee0e3;
+	text-align: center;
+}
+
+.tbl_result_list td a {
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.tbl_result_list th:first-child {
+	border-left: none;
+}
+
+.tbl_result_list td:first-child {
+	border-left: none;
+}
+
+.tbl_result_list td.Ltxt {
+	padding-left: 10px;
+	text-align: left;
+}
+
+.board_page {
+	margin-top: 13px;
+	float: left;
+	position: relative;
+	left: 50%;
+}
+
+.board_page ul {
+	margin: 0 auto;
+	height: 21px;
+	float: left;
+	position: relative;
+	left: -50%;
+}
+
+.board_page ul li {
+	float: left;
+}
+
+.board_page ul li a {
+	padding: 0 4px;
+	font-size: 11px;
+}
+
+.board_page ul li.on a {
+	font-weight: bold;
+	font-size: 13px;
+	border: 1px solid #9c9c9c;
+	padding: 1px 5px;
+	margin: 0 3px;
+}
+
+.popup_bottom {
+	border-top: 1px solid #cfcfcf;
+	padding: 10px;
+	text-align: right;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	margin: 0 auto;
+	background: #fff;
+}
+
+.popup_bottom .popup_btnGroup {
+	padding-right: 30px;
+}
+
+/*접수증_팝업*/
+.popup_receipt {
+	width: 700px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.popup_receipt h1 {
+	font-size: 35px;
+	line-height: 1.5;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.popup_receipt h3 {
+	font-size: 14px;
+	padding-left: 20px;
+}
+
+.popup_receipt h2 {
+	font-size: 20px;
+	line-height: 1.5;
+	text-align: center;
+	margin-top: 15px;
+}
+
+.tbl_receipt {
+	padding: 20px;
+}
+
+.tbl_receipt td {
+	padding-left: 15px;
+}
+
+.tbl_receipt02 {
+	padding: 20px;
+}
+
+.tbl_receipt02 table {
+	border: 1px solid #969696;
+}
+
+.tbl_receipt02 table th,.tbl_receipt02 table td {
+	padding: 10px 0 10px 10px;
+	border-left: 1px solid #969696;
+	text-align: center;
+}
+
+.tbl_receipt02 table th {
+	border-bottom: 1px solid #969696;
+	background: #D9EBFF;
+}
+
+.tbl_receipt02 table th:first-child,.tbl_receipt02 table td:first-child {
+	border-left: none;
+}
+
+.info_message {
+	padding: 5px 5px;
+	color: brown;
+}
+
+.infoNotice {
+	padding: 20px;
+	background: #ededed;
+}
+
+.infoNotice .infoNotice_con {
+	background: #fff url(../../../images/courage/tech/layout/bg_shape.png) no-repeat center center;
+	border: 1px solid #dadada;
+}
+
+.infoNotice h1 {
+	font-size: 20px;
+	text-align: center;
+	margin-top: 30px;
+}
+
+.infoNotice table th {
+	font-size: 12px;
+	border-right: 1px solid #e6e5e5;
+	color: #000;
+}
+
+.infoNotice table th,.infoNotice table td {
+	padding: 10px;
+	border-top: 1px solid #e6e5e5;
+}
+
+.infoNotice table {
+	border-top: 2px solid #d2cdcd;
+	border-bottom: 1px solid #d2cdcd;
+}
+
+.infoNotice .infoNotice_con table .row_last {
+	border-left: 1px solid #e6e5e5;
+	text-align: center;
+}
+
+.infoNotice .infoNotice_con table td span.txt_f11 {
+	display: block;
+	padding-top: 3px;
+	color: #0b5fa7;
+}

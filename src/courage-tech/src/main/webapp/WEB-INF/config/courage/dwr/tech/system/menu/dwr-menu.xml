@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://getahead.org/dwr/dwr30.dtd">
+
+<dwr>
+	<allow>
+		<convert match="egovframework.com.sym.mnu.mpm.service.MenuManageVO" javascript="MenuManageVO" converter="bean" />
+		
+		<create creator="spring" javascript="meunService">
+			<param name="beanName" value="MeunManageService" />
+			<include method="selectMenuManage" />
+		</create>
+		
+		<create creator="spring" javascript="naviService">
+			<param name="beanName" value="MeunManageService" />
+			<include method="selectMenuNaviList" />
+		</create>
+	</allow>
+</dwr>

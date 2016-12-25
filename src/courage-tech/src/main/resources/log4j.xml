@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="true" xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%t] %d-%p-[%C] - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="debugFileDaily" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${courage.context.root}logs/courage-tech-debug.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%t] %d-%p-[%C] - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="sqlFileDaily" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${courage.context.root}logs/courage-tech-sql.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%t] %d-%p-[%C] - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="errorFileDaily" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Threshold" value="ERROR" />
+		<param name="file" value="${courage.context.root}logs/courage-tech-error.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%t] %d-%p-[%C] - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="java.sql">
+		<level value="DEBUG" />
+		<appender-ref ref="sqlFileDaily" />
+	</logger>
+
+	<logger name="com.ibatis">
+		<level value="DEBUG" />
+		<appender-ref ref="sqlFileDaily" />
+	</logger>
+
+	<logger name="kr.pe.courage">
+		<level value="DEBUG" />
+	</logger>
+	
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="console" />
+		<appender-ref ref="debugFileDaily" />
+		<appender-ref ref="errorFileDaily" />
+	</root>
+</log4j:configuration>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://getahead.org/dwr/dwr30.dtd">
+
+<dwr>
+	<allow>
+		<convert match="kr.pe.courage.tech.das.log.service.LogClGroupVO" javascript="LogClGroupVO" converter="bean" />
+		
+		<create creator="spring" javascript="logClGroupService">
+			<param name="beanName" value="logClGroupService" />
+			<include method="selectLogClGroupIdExists" />
+		</create>
+	</allow>
+</dwr>

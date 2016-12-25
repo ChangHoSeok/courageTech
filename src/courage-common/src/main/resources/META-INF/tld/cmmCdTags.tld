@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.1">
+	
+	<description>
+		<![CDATA[<p>Courage Framework Common Code Tag Lib</p>]]>
+	</description>
+	<tlib-version>1.2</tlib-version>
+	<short-name>cmmCd</short-name>
+	<uri>http://tech.courage.pe.kr/cmm/code/tags</uri>
+
+	<tag>
+		<description>
+			-- 공통코드 목록 출력용 select 컨트롤 --
+			showAll : true일 경우'전체' 항목 추가, 생략시 '전체' 출력하지 않음
+			showSelect : true일 경우'선택' 항목 추가, 생략시 '선택' 출력하지 않음
+			codeId : 코드 아이디
+			operation : select를 위해 사용할 오퍼레이션 명
+			use : true일 경우 사용여부가 1인 코드만 출력, 생략시 사용여부에 상관없이 전체 출력
+			defaultCode : 최초에 선택되는 기본 코드 값
+			skipCode : 출력하지 않을 코드
+			name : 컨트롤 이름
+			size : 리스트 형태일 경우 한번에 보여줄 행의 수
+			multiple : true일 경우 다중 선택
+			disabled : true일 경우 비활성화
+			onChange : 선택 항목 변경 시 실행 될 핸들러
+			styleClass : styleClass명
+			id : id명
+		</description>
+		<name>cdSelect</name>
+		<tag-class>kr.pe.courage.common.tags.code.CmmCdSelectTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>codeId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>showAll</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>showSelect</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>operation</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>use</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>defaultCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>skipCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+		</attribute>
+		<attribute>
+			<name>styleClass</name>
+			<required>false</required>
+		</attribute>
+		<attribute>
+			<name>size</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>multiple</name>
+			<required>false</required>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+		</attribute>
+		<attribute>
+			<name>onChange</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>styleClass</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>
+			-- 공통코드 목록 출력용 select 컨트롤 --
+			[codeId] : 코드 아이디
+			[operation] : select를 위해 사용할 오퍼레이션 명
+			[use] : true일 경우 사용여부가 1인 코드만 출력, 생략시 사용여부에 상관없이 전체 출력
+			[defaultChecked]: 체크상태가 on되는 항목들 "," 구분
+			[skipCode] : 출력하지 않을 코드
+			[styleClass] : styleClass명
+			[name] : 컨트롤 이름
+			[columnCnt] : 한줄에 표시할 체크박스 갯수
+			[disabled] : true일 경우 비활성화
+			[onClick] : 선택 항목 클릭 시 실행 될 핸들러
+		</description>
+		<name>cdCheck</name>
+		<tag-class>kr.pe.courage.common.tags.code.CmmCdCheckTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>codeId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>operation</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>use</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>defaultChecked</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>skipCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>styleClass</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>columnCnt</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>onClick</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>
+			-- 공통코드 목록 출력용 radio 컨트롤 --
+			codeId : 코드 아이디
+			operation : select를 위해 사용할 오퍼레이션 명
+			use : true일 경우 사용여부가 1인 코드만 출력, 생략시 사용여부에 상관없이 전체 출력
+			defaultCode : 최초에 선택되는 기본 코드 값
+			skipCode : 출력하지 않을 코드
+			name : 컨트롤 이름
+			size : 리스트 형태일 경우 한번에 보여줄 행의 수
+			disabled : true일 경우 비활성화
+			onClick : 선택 항목 클릭 시 실행 될 핸들러
+			styleClass : styleClass명
+			id : id명
+		</description>
+		<name>cdRadio</name>
+		<tag-class>kr.pe.courage.common.tags.code.CmmCdRadioTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>codeId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>operation</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>use</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>defaultCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>skipCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+		</attribute>
+		<attribute>
+			<name>styleClass</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+		</attribute>
+		<attribute>
+			<name>onClick</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>
+			-- 공통코드의 code_name을 조회 한다. --
+			codeId	: 코드타입
+			code	: 코드
+			operation : select를 위해 사용할 오퍼레이션 명
+		</description>
+		<name>cdValue</name>
+		<tag-class>kr.pe.courage.common.tags.code.CmmCdValueTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>codeId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>code</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>operation</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>
+			-- 계층 코드의 code_name을 조회 한다. --
+			groupId	: 그룹 코드 타입 
+ 			code	: 코드
+			upperCode : 상위 코드 
+		</description>
+		<name>hierCdValue</name>
+		<tag-class>kr.pe.courage.common.tags.code.CmmHierCdValueTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>groupId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>code</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>upperCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>
+			-- 계층 코드의 상위코드를  조회 한다. --
+			groupId	: 그룹 코드 타입 
+ 			code	: 코드
+			upperCode : 상위 코드 
+		</description>
+		<name>upCdValue</name>
+		<tag-class>kr.pe.courage.common.tags.code.CmmUpperCdValueTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>groupId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>code</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>upperCode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>

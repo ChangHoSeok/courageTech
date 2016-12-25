@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="deptDAO">
+	<typeAlias alias="DeptVO" type="kr.pe.courage.tech.uss.org.dept.service.DeptVO"/>
+	
+	<resultMap class="DeptVO" id="selectList-resultMap">
+		<result property="deptCode"					column="DEPT_CODE"/>
+		<result property="allDeptNm"				column="ALL_DEPT_NM"/>
+		<result property="lowestDeptNm"				column="LOWEST_DEPT_NM"/>
+		<result property="atmbUpperDeptCode"		column="ATMB_UPPER_DEPT_CODE"/>
+		<result property="bestDeptCode"				column="BEST_DEPT_CODE"/>
+		<result property="ablSe"					column="ABL_SE"/>
+		<result property="odr"						column="ODR"/>
+		<result property="ord"						column="ORD"/>
+		<result property="psitnDeptOdr"				column="PSITN_DEPT_ODR"/>
+	</resultMap>
+	
+	<resultMap class="DeptVO" id="getById-resultMap" extends="selectList-resultMap">
+		
+	</resultMap>
+	
+	<resultMap class="DeptVO" id="selectDeptTreeList-resultMap" extends="selectList-resultMap">
+		<result property="subDeptCnt"				column="SUB_DEPT_CNT"/>
+	</resultMap>
+	
+	<sql id="listCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condDeptCode">
+				INSTR(DEPT_CODE, #condDeptCode#) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condAllDeptNm">
+				INSTR(ALL_DEPT_NM, #condAllDeptNm#) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condAtmbUpperDeptCode">
+				ATMB_UPPER_DEPT_CODE = #condAtmbUpperDeptCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condBestDeptCode">
+				BEST_DEPT_CODE = #condBestDeptCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condAblSe">
+				ABL_SE = #condAblSe#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	<select id="selectList" parameterClass="DeptVO" resultMap="selectList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT DEPT_CODE, ALL_DEPT_NM, LOWEST_DEPT_NM,
+			   ATMB_UPPER_DEPT_CODE, BEST_DEPT_CODE, ABL_SE,
+			   ODR, ORD, PSITN_DEPT_ODR
+		  FROM CURG_DEPT
+		<include refid="listCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectDeptTreeList" parameterClass="DeptVO" resultMap="selectDeptTreeList-resultMap">
+		SELECT DEPT_CODE, ALL_DEPT_NM, LOWEST_DEPT_NM,
+			   ATMB_UPPER_DEPT_CODE, BEST_DEPT_CODE, ABL_SE,
+			   ODR, ORD, PSITN_DEPT_ODR,
+			   (SELECT COUNT(*)
+			      FROM CURG_DEPT
+			     WHERE ATMB_UPPER_DEPT_CODE = A.DEPT_CODE) AS SUB_DEPT_CNT
+		  FROM CURG_DEPT A
+		<dynamic prepend="WHERE">
+			<isEmpty prepend="AND" property="condAtmbUpperDeptCode">
+				ODR = (SELECT MIN(ODR) FROM CURG_DEPT)
+			</isEmpty>
+			<isNotEmpty prepend="AND" property="condAtmbUpperDeptCode">
+				ATMB_UPPER_DEPT_CODE = #condAtmbUpperDeptCode#
+			</isNotEmpty>
+			<isEmpty prepend="AND" property="condAblSe">
+				ABL_SE = '0'
+			</isEmpty>
+		</dynamic>
+		 ORDER BY ODR ASC, ORD ASC
+	</select>
+	
+	<select id="selectListCount" parameterClass="DeptVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM CURG_DEPT
+		<include refid="listCondition"/>
+	</select>
+	
+	<select id="isExist" parameterClass="DeptVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM CURG_DEPT
+		 WHERE DEPT_CODE = #deptCode#
+	</select>
+	
+	<select id="getById" parameterClass="DeptVO" resultMap="getById-resultMap">
+		SELECT DEPT_CODE, ALL_DEPT_NM, LOWEST_DEPT_NM,
+			   ODR, ORD, ATMB_UPPER_DEPT_CODE,
+			   BEST_DEPT_CODE, PSITN_DEPT_ODR, ABL_SE
+		  FROM CURG_DEPT
+		 WHERE DEPT_CODE = #deptCode#
+	</select>
+	
+	<insert id="insert" parameterClass="DeptVO">
+		INSERT INTO CURG_DEPT (
+			DEPT_CODE, ALL_DEPT_NM, LOWEST_DEPT_NM,
+			ODR, ORD, ATMB_UPPER_DEPT_CODE,
+			BEST_DEPT_CODE, PSITN_DEPT_ODR, ABL_SE
+		) VALUES (
+			#deptCode#, #allDeptNm#, #lowestDeptNm#,
+			#odr#, #ord#, #atmbUpperDeptCode#,
+			#bestDeptCode#, #psitnDeptOdr#, #ablSe#
+		)
+	</insert>
+	
+	<insert id="insertOrReplace" parameterClass="DeptVO">
+		INSERT OR REPLACE INTO CURG_DEPT (
+			DEPT_CODE, ALL_DEPT_NM, LOWEST_DEPT_NM,
+			ODR, ORD, ATMB_UPPER_DEPT_CODE,
+			BEST_DEPT_CODE, PSITN_DEPT_ODR, ABL_SE
+		) VALUES (
+			#deptCode#, #allDeptNm#, #lowestDeptNm#,
+			#odr#, #ord#, #atmbUpperDeptCode#,
+			#bestDeptCode#, #psitnDeptOdr#, #ablSe#
+		)
+	</insert>
+	
+	<update id="update" parameterClass="DeptVO">
+		UPDATE CURG_DEPT SET
+			ALL_DEPT_NM				= #allDeptNm#,
+			LOWEST_DEPT_NM			= #lowestDeptNm#,
+			ODR						= #odr#,
+			ORD						= #ord#,
+			ATMB_UPPER_DEPT_CODE	= #atmbUpperDeptCode#,
+			BEST_DEPT_CODE			= #bestDeptCode#,
+			PSITN_DEPT_ODR			= #psitnDeptOdr#,
+			ABL_SE					= #ablSe#
+		 WHERE DEPT_CODE = #deptCode#
+	</update>
+	
+	<delete id="delete" parameterClass="DeptVO">
+		DELETE FROM CURG_DEPT
+		 WHERE DEPT_CODE = #deptCode#
+	</delete>
+	
+	<delete id="truncateDept">
+		DELETE FROM CURG_DEPT
+	</delete>
+</sqlMap>

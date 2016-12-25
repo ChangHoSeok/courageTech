@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="logClGroupDAO">
+	<typeAlias alias="LogClGroupVO" type="kr.pe.courage.tech.das.log.service.LogClGroupVO"/>
+	
+	<resultMap class="LogClGroupVO" id="selectList-resultMap">
+		<result property="groupId"			column="GROUP_ID"/>
+		<result property="groupNm"			column="GROUP_NM"/>
+		<result property="groupDc"			column="GROUP_DC"/>
+	</resultMap>
+	
+	<resultMap class="LogClGroupVO" id="getById-resultMap">
+		<result property="groupId"			column="GROUP_ID"/>
+		<result property="groupNm"			column="GROUP_NM"/>
+		<result property="groupDc"			column="GROUP_DC"/>
+	</resultMap>
+	
+	<sql id="listCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condGroupId">
+				INSTR(GROUP_ID, #condGroupId#) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condGroupNm">
+				INSTR(GROUP_NM, #condGroupNm#) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condGroupDc">
+				INSTR(GROUP_DC, #condGroupDc#) > 0
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	<select id="selectList" parameterClass="LogClGroupVO" resultMap="selectList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT GROUP_ID, GROUP_NM, GROUP_DC
+		  FROM CURG_LOGCLGROUP
+		<include refid="logClGroupDAO.listCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectListCount" parameterClass="LogClGroupVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM CURG_LOGCLGROUP
+		<include refid="logClGroupDAO.listCondition"/>
+	</select>
+	
+	<select id="getById" parameterClass="LogClGroupVO" resultMap="getById-resultMap">
+		SELECT GROUP_ID, GROUP_NM, GROUP_DC
+		  FROM CURG_LOGCLGROUP
+		 WHERE GROUP_ID = #groupId#
+	</select>
+	
+	<select id="isExist" parameterClass="LogClGroupVO" resultClass="int">
+		SELECT COUNT(*)
+		  FROM CURG_LOGCLGROUP
+		 WHERE GROUP_ID = #groupId#
+	</select>
+	
+	<insert id="insert" parameterClass="LogClGroupVO">
+		INSERT INTO CURG_LOGCLGROUP (
+			GROUP_ID, GROUP_NM, GROUP_DC
+		) VALUES (
+			#groupId#, #groupNm#, #groupDc#
+		)
+	</insert>
+	
+	<update id="update" parameterClass="LogClGroupVO">
+		UPDATE CURG_LOGCLGROUP SET
+			GROUP_NM	= #groupNm#,
+			GROUP_DC	= #groupDc#
+		 WHERE GROUP_ID = #groupId#
+	</update>
+	
+	<delete id="delete" parameterClass="LogClGroupVO">
+		DELETE FROM CURG_LOGCLGROUP
+		 WHERE GROUP_ID = #groupId#
+	</delete>
+	
+	<select id="selectCommonCodeListForLogClGroup" parameterClass="kr.pe.courage.common.code.CommonCodeVO" resultMap="courageCommonCode.commonOperationCodeList-resultMap">
+		SELECT GROUP_ID AS CODE, GROUP_NM AS CODE_NM, 'Y' AS USE_AT
+		  FROM CURG_LOGCLGROUP
+		 ORDER BY GROUP_NM ASC
+	</select>
+</sqlMap>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="myPageDAO">
+	<typeAlias alias="MyPageVO" type="kr.pe.courage.tech.uss.mpe.service.MyPageVO"/>
+	<typeAlias alias="AvatarVO" type="kr.pe.courage.tech.uss.mpe.service.AvatarVO"/>
+	
+	<update id="updateAvatar" parameterClass="AvatarVO">
+		UPDATE COMTNEMPLYRINFO SET
+			AVATAR_URL = #iconPath#
+		 WHERE ESNTL_ID = #esntlId#
+	</update>
+</sqlMap>

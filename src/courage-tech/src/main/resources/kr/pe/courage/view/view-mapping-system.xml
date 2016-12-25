@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>시스템관리 View 매핑</comment>
+	 
+	<!-- 공통코드 -->
+	<entry key="formCommonCodeView">courage/tech/system/code/formCommonCode.courage.tiles</entry>
+	<entry key="commonCodeListView">courage/tech/system/code/commonCodeList</entry>
+	<entry key="commonCodeDetailView">courage/tech/system/code/commonCodeDetail</entry>
+	<entry key="commonCodeCreateView">courage/tech/system/code/commonCodeCreate</entry>
+	<entry key="commonCodeModifyView">courage/tech/system/code/commonCodeCreate</entry>
+	<entry key="commonDetailCodeListView">courage/tech/system/code/_subCommonDetailCodeList</entry>
+	
+	<entry key="formCommonDetailCodePopupView">courage/tech/system/code/formCommonDetailCodePopup.courage.popup.tiles</entry>
+	<entry key="commonDetailCodeDetailView">courage/tech/system/code/commonDetailCodeDetailPopup</entry>
+	<entry key="commonDetailCodeCreateView">courage/tech/system/code/commonDetailCodeCreatePopup</entry>
+	<entry key="commonDetailCodeModifyView">courage/tech/system/code/commonDetailCodeCreatePopup</entry>
+	<entry key="commonDetailCodeListPopupView">courage/tech/system/code/commonDetailCodeListPopup</entry>
+	
+	<!-- 프로그램관리 -->
+	<entry key="formProgrmView">courage/tech/system/progrm/formProgrm.courage.tiles</entry>
+	<entry key="progrmListView">courage/tech/system/progrm/progrmList</entry>
+	<entry key="progrmDetailView">courage/tech/system/progrm/progrmDetail</entry>
+	<entry key="progrmCreateView">courage/tech/system/progrm/progrmCreate</entry>
+	<entry key="progrmModifyView">courage/tech/system/progrm/progrmCreate</entry>
+	
+	<entry key="progrmSubList">courage/tech/system/progrm/_subProgrmList</entry>
+	<entry key="formProgrmPopupView">courage/tech/system/progrm/formProgrmPopup.courage.popup.tiles</entry>
+	<entry key="progrmListPopupView">courage/tech/system/progrm/progrmListPopup</entry>
+	
+	<!-- 메뉴관리 -->
+	<entry key="formMenuView">courage/tech/system/menu/formMenu.courage.tiles</entry>
+	<entry key="menuListView">courage/tech/system/menu/menuList</entry>
+	<entry key="menuDetailView">courage/tech/system/menu/menuDetail</entry>
+	<entry key="menuCreateView">courage/tech/system/menu/menuCreate</entry>
+	<entry key="menuModifyView">courage/tech/system/menu/menuCreate</entry>
+	
+	<entry key="menuIncludeListView">courage/tech/system/menu/menuManageIncludeList</entry>
+	<entry key="formMenuPopupView">courage/tech/system/menu/formMenuPopup.courage.popup.tiles</entry>
+	<entry key="menuListPopupView">courage/tech/system/menu/menuListPopup</entry>
+	
+	<!-- 권한관리 -->
+	<entry key="formAuthView">courage/tech/system/auth/formAuth.courage.tiles</entry>
+	<entry key="authListView">courage/tech/system/auth/authList</entry>
+	<entry key="authDetailView">courage/tech/system/auth/authDetail</entry>
+	<entry key="authCreateView">courage/tech/system/auth/authCreate</entry>
+	<entry key="authModifyView">courage/tech/system/auth/authCreate</entry>
+	<entry key="authMenuListView">courage/tech/system/auth/_subAuthMenuList</entry>
+	
+	<!-- 사용자관리 -->
+	<entry key="formUserView">courage/tech/system/user/formUser.courage.tiles</entry>
+	<entry key="userListView">courage/tech/system/user/userList</entry>
+	<entry key="userDetailView">courage/tech/system/user/userDetail</entry>
+	<entry key="userCreateView">courage/tech/system/user/userCreate</entry>
+	<entry key="userModifyView">courage/tech/system/user/userCreate</entry>
+	
+	<entry key="userSbscrbAgreView">courage/tech/system/user/_subUserSbscrbAgre</entry>
+	<entry key="userSbscrbCreateView">courage/tech/system/user/_subUserSbscrbCreate</entry>
+	<entry key="userSbscrbResultView">courage/tech/system/user/_subUserSbscrbResult</entry>
+	<entry key="userConfirmView">courage/tech/system/user/_subUserConfirm</entry>
+	<entry key="userSbscrbDetailView">courage/tech/system/user/userSbscrbDetail</entry>
+	<entry key="userSecsnView">courage/tech/system/user/_subUserSecsn</entry>
+	
+	<entry key="userSecsnResultView">courage/tech/system/user/userSecsnResult.html5.tiles</entry>
+	
+	<!-- 사용자권한관리 -->
+	<entry key="formUserAuthView">courage/tech/system/userauth/formUserAuth.courage.tiles</entry>
+	<entry key="userAuthListView">courage/tech/system/userauth/userAuthList</entry>
+	<entry key="formUserAuthPopupView">courage/tech/system/userauth/formUserAuthPopup.courage.popup.tiles</entry>
+	<entry key="userAuthCreatePopupView">courage/tech/system/userauth/userAuthCreatePopup</entry>
+	
+	<!-- 계층코드관리 -->
+	<entry key="formHierCodeManageView">courage/tech/system/hiercode/formHierCodeManage.courage.tiles</entry>
+	<entry key="hierCodeManageDetailView">courage/tech/system/hiercode/hierCodeManageDetail</entry>
+	
+	<!-- Push 메시지 -->
+	<entry key="formMessagePushView">courage/tech/system/push/formMessagePush.courage.tiles</entry>
+	<entry key="messagePushListView">courage/tech/system/push/messagePushList</entry>
+	<entry key="formMessagePushPopupView">courage/tech/system/push/formMessagePushPopup.courage.popup.tiles</entry>
+	<entry key="messagePushCreateView">courage/tech/system/push/messagePushCreatePopup</entry>
+</properties>

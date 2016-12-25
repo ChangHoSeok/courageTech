@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<!-- default 공통 template (상속받아서 쓰세요!!) -->
+	<definition name="courage.default.layout" template="/WEB-INF/tiles/courage/tech/layout/default_layout.jsp">
+		<description>Default template</description>
+		<put-attribute name="title" value="" type="string" />
+		<put-attribute name="resource" value="/WEB-INF/tiles/courage/tech/resource/default_resource.jsp" />
+		<put-attribute name="header" value="/WEB-INF/tiles/courage/tech/header/default_header.jsp" />
+		<put-attribute name="left_menu" value="/WEB-INF/tiles/courage/tech/left/default_left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/tiles/courage/tech/common/blank_body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/courage/tech/footer/default_footer.jsp" />
+	</definition>
+	
+	<definition name="courage.html5.layout" template="/WEB-INF/tiles/courage/tech/layout/html5_layout.jsp">
+		<description>Default template</description>
+		<put-attribute name="title" value="" type="string" />
+		<put-attribute name="resource" value="/WEB-INF/tiles/courage/tech/resource/lessStyle_resource.jsp" />
+		<put-attribute name="body" value="/WEB-INF/tiles/courage/tech/common/blank_body.jsp" />
+	</definition>
+	
+	<definition name="courage.popup.layout" template="/WEB-INF/tiles/courage/tech/layout/popup_layout.jsp">
+		<description>error template</description>
+		<put-attribute name="title" value="" type="string" />
+		<put-attribute name="resource" value="/WEB-INF/tiles/courage/tech/resource/popup_resource.jsp" />
+		<put-attribute name="body" value="/WEB-INF/tiles/courage/tech/common/blank_body.jsp" />
+	</definition>
+	
+	<definition name="courage.blank.layout" template="/WEB-INF/tiles/courage/tech/layout/blank_layout.jsp">
+		<description>blank template</description>
+		<put-attribute name="title" value="" type="string" />
+		<put-attribute name="body" value="/WEB-INF/tiles/courage/tech/common/blank_body.jsp" />
+	</definition>
+
+	<definition name="courage.error.layout" template="/WEB-INF/tiles/courage/tech/layout/error_layout.jsp">
+		<description>error template</description>
+		<put-attribute name="title" value="" type="string" />
+		<put-attribute name="resource" value="/WEB-INF/tiles/courage/tech/resource/error_resource.jsp" />
+		<put-attribute name="body" value="/WEB-INF/tiles/courage/tech/common/blank_body.jsp" />
+	</definition>
+	
+	<definition name="*.courage.tiles" extends="courage.default.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+	</definition>
+	<definition name="*/*.courage.tiles" extends="courage.default.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+	</definition>
+	<definition name="*/*/*.courage.tiles" extends="courage.default.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+	</definition>
+	<definition name="*/*/*/*.courage.tiles" extends="courage.default.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*.courage.tiles" extends="courage.default.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*/*.courage.tiles" extends="courage.default.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}/{6}.jsp" />
+	</definition>
+	
+	<definition name="*.html5.tiles" extends="courage.html5.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+	</definition>
+	<definition name="*/*.html5.tiles" extends="courage.html5.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+	</definition>
+	<definition name="*/*/*.html5.tiles" extends="courage.html5.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+	</definition>
+	<definition name="*/*/*/*.html5.tiles" extends="courage.html5.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*.html5.tiles" extends="courage.html5.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*/*.html5.tiles" extends="courage.html5.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}/{6}.jsp" />
+	</definition>
+	
+	<definition name="*.courage.popup.tiles" extends="courage.popup.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+	</definition>
+	<definition name="*/*.courage.popup.tiles" extends="courage.popup.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+	</definition>
+	<definition name="*/*/*.courage.popup.tiles" extends="courage.popup.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+	</definition>
+	<definition name="*/*/*/*.courage.popup.tiles" extends="courage.popup.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*.courage.popup.tiles" extends="courage.popup.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*/*.courage.popup.tiles" extends="courage.popup.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}/{6}.jsp" />
+	</definition>
+	
+	<definition name="*.blank.tiles" extends="courage.blank.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+	</definition>
+	<definition name="*/*.blank.tiles" extends="courage.blank.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+	</definition>
+	<definition name="*/*/*.blank.tiles" extends="courage.blank.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+	</definition>
+	<definition name="*/*/*/*.blank.tiles" extends="courage.blank.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*.blank.tiles" extends="courage.blank.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*/*.blank.tiles" extends="courage.blank.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}/{6}.jsp" />
+	</definition>
+
+	<definition name="*.error.tiles" extends="courage.error.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+	</definition>
+	<definition name="*/*.error.tiles" extends="courage.error.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+	</definition>
+	<definition name="*/*/*.error.tiles" extends="courage.error.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+	</definition>
+	<definition name="*/*/*/*.error.tiles" extends="courage.error.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*.error.tiles" extends="courage.error.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*/*.error.tiles" extends="courage.error.layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}/{6}.jsp" />
+	</definition>
+</tiles-definitions>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+	<formset>
+		<form name="logFileRceptVO">
+			<field property="groupId" depends="required">
+				<arg0 key="로그분류 그룹" />
+			</field>
+			<field property="rceptTy" depends="required">
+				<arg0 key="접수유형" />
+			</field>
+			<field property="uploadAtchFiles" depends="required">
+				<arg0 key="로그파일" />
+			</field>
+		</form>
+	</formset>
+</form-validation>

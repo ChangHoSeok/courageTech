@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!-- 
+	수정일                 수정자                          수정내용
+  =========     =======    =================================================
+  2011.8.22  	서준식     	 	상위 메뉴번호 존재여부 조회 selectUpperMenuNoByPk 추가
+  							
+
+-->
+<sqlMap namespace="MenuManage">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="comDefaultVO" type="egovframework.com.cmm.ComDefaultVO"/>
+	
+	<typeAlias  alias="MenuManageVO" type="egovframework.com.sym.mnu.mpm.service.MenuManageVO"/>
+	<typeAlias  alias="ProgrmManageVO" type="egovframework.com.sym.prm.service.ProgrmManageVO"/>
+	
+	<resultMap class="ProgrmManageVO" id="progrmManageList-resultMap">
+		<result property="progrmFileNm"			column="PROGRM_FILE_NM"/>
+		<result property="progrmStrePath"		column="PROGRM_STRE_PATH"/>
+		<result property="progrmKoreanNm"		column="PROGRM_KOREAN_NM"/>
+		<result property="url"					column="URL"/>
+		<result property="progrmDc"				column="PROGRM_DC"/>
+		<result property="progrmSe"				column="PROGRM_SE"/>
+	</resultMap>
+
+	<resultMap class="MenuManageVO" id="menuManageList-resultMap">
+		<result property="menuNo"				column="MENU_NO"/>
+		<result property="menuId"				column="MENU_NO"/>
+		<result property="menuOrdr"				column="MENU_ORDR"/>
+		<result property="menuNm"				column="MENU_NM"/>
+		<result property="upperMenuId"			column="UPPER_MENU_NO"/>
+		<result property="menuDc"				column="MENU_DC"/>
+		<result property="relateImgPath"		column="RELATE_IMG_PATH"/>
+		<result property="relateImgNm"			column="RELATE_IMG_NM"/>
+		<result property="menuLevel"			column="MENU_LEVEL"/>
+		<result property="childMenuCnt"			column="CHILD_MENU_CNT"/>
+		<result property="menuIndictAt"			column="MENU_INDICT_AT"/>
+	</resultMap>
+	
+	<resultMap class="MenuManageVO" id="menuManageAuthList-resultMap">
+		<result property="menuId"				column="MENU_NO"/>
+		<result property="menuOrdr"				column="MENU_ORDR"/>
+		<result property="menuNm"				column="MENU_NM"/>
+		<result property="upperMenuId"			column="UPPER_MENU_NO"/>
+		<result property="menuDc"				column="MENU_DC"/>
+		<result property="relateImgPath"		column="RELATE_IMG_PATH"/>
+		<result property="relateImgNm"			column="RELATE_IMG_NM"/>
+		<result property="searchFlag"			column="INQIRE_SETUP"/>
+		<result property="createFlag"			column="REGIST_SETUP"/>
+		<result property="customFlag1"			column="USER_SETUP_1"/>
+		<result property="customFlag2"			column="USER_SETUP_2"/>
+		<result property="customFlag3"			column="USER_SETUP_3"/>
+		<result property="menuLevel"			column="MENU_LEVEL"/>
+	</resultMap>
+	
+	<resultMap class="MenuManageVO" id="menuManageDetail-resultMap">
+		<result property="menuId"				column="MENU_NO"/>
+		<result property="menuOrdr"				column="MENU_ORDR"/>
+		<result property="menuNm"				column="MENU_NM"/>
+		<result property="upperMenuId"			column="UPPER_MENU_NO"/>
+		<result property="upperMenuNm"			column="UPPER_MENU_NM"/>
+		<result property="menuDc"				column="MENU_DC"/>
+		<result property="menuIndictAt"			column="MENU_INDICT_AT"/>
+		<result property="relateImgPath"		column="RELATE_IMG_PATH"/>
+		<result property="relateImgNm"			column="RELATE_IMG_NM"/>
+		<result property="intrmdVriabl"			column="INTRMD_VRIABL"/>
+	</resultMap>
+	
+	<resultMap class="MenuManageVO" id="hierMenuManageList-resultMap">
+		<result property="menuId"				column="MENU_NO"/>
+		<result property="menuNm"				column="MENU_NM"/>
+		<result property="searchFlag"			column="INQIRE_SETUP"/>
+		<result property="createFlag"			column="REGIST_SETUP"/>
+		<result property="customFlag1"			column="USER_SETUP_1"/>
+		<result property="customFlag2"			column="USER_SETUP_2"/>
+		<result property="customFlag3"			column="USER_SETUP_3"/>
+		<result property="url"					column="URL"/>
+		<result property="upperMenuId"			column="UPPER_MENU_NO"/>
+		<result property="childMenuCnt"			column="CHILD_MENU_CNT"/>
+		<result property="intrmdVriabl"			column="INTRMD_VRIABL"/>
+	</resultMap>
+	
+	<resultMap class="MenuManageVO" id="menuNaviList-resultMap">
+		<result property="menuNm"				column="MENU_NM"/>
+	</resultMap>
+
+	<sql id="incMenuManageCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condMenuId">
+				INSTR(UPPER(REPLACE(MENU_NO, ' ', '')), UPPER(REPLACE(#condMenuId#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condMenuNm">
+				INSTR(UPPER(REPLACE(MENU_NM, ' ', '')), UPPER(REPLACE(#condMenuNm#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condProgrmFileNm">
+				INSTR(UPPER(REPLACE(PROGRM_FILE_NM, ' ', '')), UPPER(REPLACE(#condProgrmFileNm#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condMenuDc">
+				INSTR(UPPER(REPLACE(MENU_DC, ' ', '')), UPPER(REPLACE(#condMenuDc#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condRelateImgPath">
+				INSTR(UPPER(REPLACE(RELATE_IMG_PATH, ' ', '')), UPPER(REPLACE(#condRelateImgPath#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condRelateImgNm">
+				INSTR(UPPER(REPLACE(RELATE_IMG_NM, ' ', '')), UPPER(REPLACE(#condRelateImgNm#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condUpperMenuNo">
+				INSTR(UPPER(REPLACE(UPPER_MENU_NO, ' ', '')), UPPER(REPLACE(#condUpperMenuNo#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condMenuIndictAt">
+				MENU_INDICT_AT = #condMenuIndictAt#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+
+	<!-- 총건수 조회 -->
+	<select id="selectMenuManageListTotCnt_S" parameterClass="MenuManageVO" resultClass="int">
+		SELECT COUNT(1)
+		  FROM COMTNMENUINFO
+		<include refid="MenuManage.incMenuManageCondition"/>
+	</select>
+	
+	<select id="selectMenuManageList_D" parameterClass="MenuManageVO" resultMap="menuManageList-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		WITH RECURSIVE RESULT_MENU (
+			MENU_NO, UPPER_MENU_NO, MENU_NM, MENU_ORDR,
+			MENU_DC, RELATE_IMG_PATH, RELATE_IMG_NM, RECURSIVE_LEVEL,
+			MENU_INDICT_AT, CHILD_MENU_CNT
+		) AS (
+				SELECT MENU_NO, UPPER_MENU_NO, MENU_NM,
+					   MENU_ORDR, MENU_DC, RELATE_IMG_PATH,
+					   RELATE_IMG_NM, 1 RECURSIVE_LEVEL, MENU_INDICT_AT,
+					   (SELECT COUNT(1) FROM COMTNMENUINFO WHERE UPPER_MENU_NO = A.MENU_NO) AS CHILD_MENU_CNT
+				   FROM COMTNMENUINFO A
+				  WHERE UPPER_MENU_NO IS NULL
+				  
+				UNION ALL
+				
+				SELECT B.MENU_NO, B.UPPER_MENU_NO, B.MENU_NM,
+					   B.MENU_ORDR, B.MENU_DC, B.RELATE_IMG_PATH,
+					   B.RELATE_IMG_NM, RECURSIVE_LEVEL + 1, B.MENU_INDICT_AT,
+					   (SELECT COUNT(1) FROM COMTNMENUINFO WHERE UPPER_MENU_NO = B.MENU_NO) AS CHILD_MENU_CNT
+				   FROM COMTNMENUINFO B
+				  INNER JOIN RESULT_MENU C
+					ON B.UPPER_MENU_NO = C.MENU_NO
+				 ORDER BY RECURSIVE_LEVEL DESC, MENU_ORDR ASC
+		)
+		SELECT MENU_NO, UPPER_MENU_NO, MENU_NM, MENU_ORDR,
+			   MENU_DC, RELATE_IMG_PATH, RELATE_IMG_NM, RECURSIVE_LEVEL AS MENU_LEVEL,
+			   MENU_INDICT_AT, CHILD_MENU_CNT
+		  FROM RESULT_MENU
+		<include refid="MenuManage.incMenuManageCondition"/>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectSearchAuthMenuList" resultMap="menuManageDetail-resultMap">
+		SELECT MENU_NO				, UPPER_MENU_NO		, MENU_NM				,
+			   MENU_ORDR			, MENU_DC			, RELATE_IMG_PATH		,
+			   RELATE_IMG_NM		, MENU_INDICT_AT	, INTRMD_VRIABL			,
+			   (SELECT MENU_NM FROM COMTNMENUINFO WHERE MENU_NO = A.UPPER_MENU_NO) UPPER_MENU_NM
+		  FROM COMTNMENUINFO A
+		 WHERE EXISTS(
+		 		SELECT 'O'
+		 		  FROM COMTNMENUCREATDTLS
+		 		 WHERE MENU_NO = A.MENU_NO
+		 		   AND INQIRE_SETUP = 'Y'
+		 		   AND AUTHOR_CODE = #authorCode#
+		 		)
+	</select>
+
+	<select id="selectMenuManage_D" parameterClass="MenuManageVO" resultMap="menuManageDetail-resultMap">
+		SELECT MENU_NO			, UPPER_MENU_NO		, MENU_NM				,
+			   MENU_ORDR		, MENU_DC			, RELATE_IMG_PATH		,
+			   RELATE_IMG_NM	, MENU_INDICT_AT	, INTRMD_VRIABL			,
+			   (SELECT MENU_NM FROM COMTNMENUINFO WHERE MENU_NO = A.UPPER_MENU_NO) UPPER_MENU_NM
+		  FROM COMTNMENUINFO A
+		 WHERE MENU_NO = #menuId#
+	</select>
+	
+	<select id="selectSubMenuList" parameterClass="MenuManageVO" resultMap="menuManageDetail-resultMap">
+		SELECT MENU_NO			, UPPER_MENU_NO		, MENU_NM				,
+			   MENU_ORDR		, MENU_DC			, RELATE_IMG_PATH		,
+			   RELATE_IMG_NM	, MENU_INDICT_AT	, INTRMD_VRIABL			,
+			   (SELECT MENU_NM FROM COMTNMENUINFO WHERE MENU_NO = A.UPPER_MENU_NO) UPPER_MENU_NM
+		  FROM COMTNMENUINFO A
+		 WHERE UPPER_MENU_NO = #menuId#
+	</select>
+	
+	<!-- 메뉴번호 존재여부 조회 -->
+	<select id="selectMenuNoByPk" parameterClass="MenuManageVO" resultClass="int">
+		SELECT COUNT(MENU_NO)
+		  FROM COMTNMENUINFO
+		 WHERE MENU_NO = #menuId#
+	</select>
+	
+	<insert id="insertMenuManage_S" parameterClass="MenuManageVO">
+		INSERT INTO COMTNMENUINFO (
+			MENU_NO				, MENU_ORDR			, MENU_NM		, UPPER_MENU_NO		, MENU_DC		,
+			RELATE_IMG_PATH		, RELATE_IMG_NM		, MENU_INDICT_AT, INTRMD_VRIABL
+		) VALUES (
+			#menuId#			, #menuOrdr#		, #menuNm#		, #upperMenuId#		, #menuDc#		,
+			#relateImgPath#		, #relateImgNm#		, #menuIndictAt#, #intrmdVriabl#
+		)
+	</insert>
+
+	<update id="updateMenuManage_S" parameterClass="MenuManageVO">
+		UPDATE COMTNMENUINFO SET
+			MENU_ORDR			= #menuOrdr#		,
+			MENU_NM				= #menuNm#			,
+			UPPER_MENU_NO		= #upperMenuId#		,
+			MENU_DC				= #menuDc#			,
+			RELATE_IMG_PATH		= #relateImgPath#	,
+			RELATE_IMG_NM		= #relateImgNm#		,
+			MENU_INDICT_AT		= #menuIndictAt#	,
+			INTRMD_VRIABL		= #intrmdVriabl#
+		 WHERE MENU_NO = #menuId#
+	</update>
+
+	<delete id="deleteMenuManage_S" parameterClass="MenuManageVO">
+		DELETE FROM COMTNMENUINFO 
+		 WHERE MENU_NO = #menuId#                 
+	</delete> 
+	
+	<!-- 상위 메뉴번호 존재여부 조회 -->
+	<select id="selectUpperMenuNoByPk" parameterClass="MenuManageVO" resultClass="int">
+		SELECT COUNT(MENU_NO)
+		  FROM COMTNMENUINFO
+		 WHERE UPPER_MENU_NO = #menuId#
+	</select>
+
+	<select id="selectMenuListT_D" parameterClass="comDefaultVO" resultClass="egovMap">
+		SELECT
+				MENU_NO           AS "menuNo"
+				, MENU_ORDR         AS "menuOrdr"
+				, MENU_NM           AS "menuNm"
+				, UPPER_MENU_NO     AS "upperMenuId"
+				, MENU_DC           AS "menuDc"
+				, RELATE_IMG_PATH AS "relateImgPath"
+				, RELATE_IMG_NM   AS "relateImgNm"
+		  FROM COMTNMENUINFO 
+		 WHERE MENU_NO > 0
+		 ORDER BY MENU_ORDR
+	</select>
+
+	<delete id="deleteAllMenuList" >
+		DELETE FROM COMTNMENUINFO              
+	</delete> 
+
+	<!-- 메뉴정보 총건수 조회 -->
+	<select id="selectMenuListTotCnt" parameterClass="MenuManageVO" resultClass="int">
+		SELECT COUNT(MENU_NO) AS totcnt
+		  FROM COMTNMENUINFO
+	</select>
+
+	<insert id="insertMenuProgrm" parameterClass="MenuManageVO">
+		INSERT INTO COMTNMENUPROGRMREF (
+			MENU_NO		, PROGRM_FILE_NM
+		)VALUES(
+			#menuId#	, #progrmFileNm#
+		)
+	</insert>
+
+	<delete id="deleteMenuProgrm" parameterClass="MenuManageVO">
+		DELETE FROM COMTNMENUPROGRMREF
+		 WHERE MENU_NO = #menuId#
+	</delete>
+	
+	<delete id="deleteMenuCreatDtls" parameterClass="MenuManageVO">
+		DELETE FROM COMTNMENUCREATDTLS
+		 WHERE MENU_NO = #menuId#
+	</delete>
+	
+	<select id="selectMenuManageListPopup" parameterClass="MenuManageVO" resultMap="menuManageList-resultMap">
+		SELECT MENU_NO				, UPPER_MENU_NO		, MENU_NM				,
+			   MENU_ORDR			, MENU_DC			, RELATE_IMG_PATH		, RELATE_IMG_NM,
+			   LEVEL AS MENU_LEVEL	, MENU_INDICT_AT		,
+			   (SELECT COUNT(1) FROM COMTNMENUINFO WHERE UPPER_MENU_NO = A.MENU_NO) AS CHILD_MENU_CNT
+		  FROM COMTNMENUINFO A
+		 WHERE MENU_NO != '0'
+			<isNotEmpty prepend="AND" property="condMenuNm">
+				INSTR(UPPER(REPLACE(MENU_NM, ' ', '')), UPPER(REPLACE(#condMenuNm#, ' ', ''))) > 0
+			</isNotEmpty>
+		 START WITH MENU_NO = '0'
+		CONNECT BY UPPER_MENU_NO = PRIOR MENU_NO
+		 ORDER SIBLINGS BY MENU_ORDR
+		 
+		UNION ALL
+		
+		SELECT MENU_NO				, UPPER_MENU_NO		, MENU_NM				,
+				MENU_ORDR			, MENU_DC			, RELATE_IMG_PATH		, RELATE_IMG_NM,
+				LEVEL AS MENU_LEVEL	, MENU_INDICT_AT		,
+				(SELECT COUNT(1) FROM COMTNMENUINFO WHERE UPPER_MENU_NO = A.MENU_NO) AS CHILD_MENU_CNT
+		  FROM COMTNMENUINFO A
+		 WHERE MENU_NO != '0'
+			<isNotEmpty prepend="AND" property="condMenuNm">
+				INSTR(UPPER(REPLACE(MENU_NM, ' ', '')), UPPER(REPLACE(#condMenuNm#, ' ', ''))) > 0
+			</isNotEmpty>
+		 START WITH MENU_NO = '1'
+		CONNECT BY UPPER_MENU_NO = PRIOR MENU_NO
+		 ORDER SIBLINGS BY MENU_ORDR
+	</select>
+	
+	<select id="selectMenuManageIncludeList" parameterClass="MenuManageVO" resultMap="menuManageAuthList-resultMap">
+		SELECT MENU_NO		, UPPER_MENU_NO		, MENU_NM				,
+			   MENU_ORDR	, MENU_DC			, RELATE_IMG_PATH		, RELATE_IMG_NM	,
+			   (SELECT INQIRE_SETUP FROM COMTNMENUCREATDTLS WHERE AUTHOR_CODE = #authorCode# AND MENU_NO = MENUINFO.MENU_NO) AS INQIRE_SETUP	,
+       		   (SELECT REGIST_SETUP FROM COMTNMENUCREATDTLS WHERE AUTHOR_CODE = #authorCode# AND MENU_NO = MENUINFO.MENU_NO) AS REGIST_SETUP	,
+       		   (SELECT USER_SETUP_1 FROM COMTNMENUCREATDTLS WHERE AUTHOR_CODE = #authorCode# AND MENU_NO = MENUINFO.MENU_NO) AS USER_SETUP_1,
+       		   (SELECT USER_SETUP_2 FROM COMTNMENUCREATDTLS WHERE AUTHOR_CODE = #authorCode# AND MENU_NO = MENUINFO.MENU_NO) AS USER_SETUP_2,
+       		   (SELECT USER_SETUP_3 FROM COMTNMENUCREATDTLS WHERE AUTHOR_CODE = #authorCode# AND MENU_NO = MENUINFO.MENU_NO) AS USER_SETUP_3,
+       		   LEVEL AS MENU_LEVEL
+       	  FROM COMTNMENUINFO MENUINFO
+       	 WHERE MENUINFO.MENU_NO != '0'
+			<isNotEmpty prepend="AND" property="inMenuNoArray">
+				MENUINFO.MENU_NO IN
+					<iterate property="inMenuNoArray" open="(" close=")" conjunction=",">
+						#inMenuNoArray[]#
+					</iterate>
+			</isNotEmpty>
+			<isEmpty prepend="AND" property="inMenuNoArray">
+				MENUINFO.MENU_NO = ''
+			</isEmpty>
+		 START WITH MENU_NO = '0'
+		CONNECT BY UPPER_MENU_NO = PRIOR MENU_NO
+		 ORDER SIBLINGS BY MENU_ORDR
+		 
+		UNION ALL
+		
+		SELECT MENU_NO		, UPPER_MENU_NO		, MENU_NM				,
+			    MENU_ORDR	, MENU_DC			, RELATE_IMG_PATH		, RELATE_IMG_NM	,
+			    (SELECT INQIRE_SETUP FROM COMTNMENUCREATDTLS WHERE AUTHOR_CODE = #authorCode# AND MENU_NO = MENUINFO.MENU_NO) AS INQIRE_SETUP	,
+			    (SELECT REGIST_SETUP FROM COMTNMENUCREATDTLS WHERE AUTHOR_CODE = #authorCode# AND MENU_NO = MENUINFO.MENU_NO) AS REGIST_SETUP	,
+			    (SELECT USER_SETUP_1 FROM COMTNMENUCREATDTLS WHERE AUTHOR_CODE = #authorCode# AND MENU_NO = MENUINFO.MENU_NO) AS USER_SETUP_1,
+			    (SELECT USER_SETUP_2 FROM COMTNMENUCREATDTLS WHERE AUTHOR_CODE = #authorCode# AND MENU_NO = MENUINFO.MENU_NO) AS USER_SETUP_2,
+			    (SELECT USER_SETUP_3 FROM COMTNMENUCREATDTLS WHERE AUTHOR_CODE = #authorCode# AND MENU_NO = MENUINFO.MENU_NO) AS USER_SETUP_3,
+			    LEVEL AS MENU_LEVEL
+		  FROM COMTNMENUINFO MENUINFO
+		 WHERE MENUINFO.MENU_NO != '0'
+			<isNotEmpty prepend="AND" property="inMenuNoArray">
+				MENUINFO.MENU_NO IN
+				<iterate property="inMenuNoArray" open="(" close=")" conjunction=",">
+					#inMenuNoArray[]#
+				</iterate>
+			</isNotEmpty>
+			<isEmpty prepend="AND" property="inMenuNoArray">
+				MENUINFO.MENU_NO = ''
+			</isEmpty>
+		 START WITH MENU_NO = '1'
+		CONNECT BY UPPER_MENU_NO = PRIOR MENU_NO
+		 ORDER SIBLINGS BY MENU_ORDR
+	</select>
+	
+	<select id="selectHierMenuManageList" parameterClass="MenuManageVO" resultMap="hierMenuManageList-resultMap">
+		SELECT A.MENU_NO, A.INQIRE_SETUP, A.REGIST_SETUP,
+			   A.USER_SETUP_1, A.USER_SETUP_2, A.USER_SETUP_3,
+			   B.MENU_NM, B.UPPER_MENU_NO, B.INTRMD_VRIABL,
+			   (SELECT URL
+			      FROM COMTNPROGRMLIST
+			     WHERE PROGRM_SE = '01'
+			       AND PROGRM_FILE_NM IN (SELECT PROGRM_FILE_NM FROM COMTNMENUPROGRMREF WHERE MENU_NO = A.MENU_NO)) AS URL,
+			   (SELECT COUNT(1) FROM COMTNMENUINFO WHERE UPPER_MENU_NO = B.MENU_NO) AS CHILD_MENU_CNT
+		  FROM COMTNMENUCREATDTLS A
+		 INNER JOIN COMTNMENUINFO B
+			ON A.MENU_NO = B.MENU_NO
+		 WHERE AUTHOR_CODE = #authorCode#
+		   AND MENU_INDICT_AT = 'Y'
+		<isNotEmpty prepend="AND" property="upperMenuId">
+			UPPER_MENU_NO = #upperMenuId#
+		</isNotEmpty>
+		<isEmpty prepend="AND" property="upperMenuId">
+			UPPER_MENU_NO IS NULL
+		</isEmpty>
+		<isNotEmpty prepend="AND" property="condSearchFlag">
+			INQIRE_SETUP = #condSearchFlag#
+		</isNotEmpty>
+		 ORDER BY MENU_ORDR
+	</select>
+	
+	<select id="selectTopMenuNo" resultClass="string">
+		SELECT MENU_NO
+		  FROM COMTNMENUINFO
+		 WHERE UPPER_MENU_NO IS NULL
+	</select>
+	
+	<select id="selectMenuNaviList" parameterClass="MenuManageVO" resultMap="menuNaviList-resultMap">
+		WITH RECURSIVE RESULT_MENU (
+			MENU_NM, RECURSIVE_LEVEL, MENU_NO, UPPER_MENU_NO
+		) AS (
+			SELECT MENU_NM, 1 RECURSIVE_LEVEL, A.MENU_NO, UPPER_MENU_NO
+			  FROM COMTNMENUINFO A
+			 WHERE A.MENU_NO > 0
+			   AND A.MENU_NO = #menuNo#
+			
+			UNION ALL
+			
+			SELECT A.MENU_NM, RECURSIVE_LEVEL + 1, A.MENU_NO, A.UPPER_MENU_NO
+			  FROM COMTNMENUINFO A
+			 INNER JOIN RESULT_MENU B
+			 WHERE A.MENU_NO > 0 AND A.MENU_NO = B.UPPER_MENU_NO
+		)
+		SELECT MENU_NM
+		  FROM RESULT_MENU
+		 ORDER BY RECURSIVE_LEVEL DESC
+	</select>
+</sqlMap>

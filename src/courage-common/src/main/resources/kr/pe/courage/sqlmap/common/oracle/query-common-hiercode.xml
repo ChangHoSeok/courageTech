@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="courageHierCode">
+	<typeAlias alias="CommonCodeVO" type="kr.pe.courage.common.code.CommonCodeVO"/>
+	<typeAlias alias="HierCodeVO" type="kr.pe.courage.common.hiercode.HierCodeVO"/>
+	
+	<resultMap class="HierCodeVO" id="hierGroupCode-resultMap">
+		<result property="groupId"					column="GROUP_ID"/>
+		<result property="groupNm"					column="GROUP_NM"/>
+		<result property="groupDc"					column="DC"/>
+		<result property="groupUseAt"				column="USE_AT"/>
+		<result property="groupOrdr"				column="ORDR"/>
+		<result property="registerId"				column="REGISTER_ID"/>
+		<result property="registDt"					column="REGIST_DT"/>
+		<result property="updusrId"					column="UPDUSR_ID"/>
+		<result property="updtDt"					column="UPDT_DT"/>
+		<result property="registerNm"				column="REGISTER_NM"/>
+		<result property="updusrNm"					column="UPDUSR_NM"/>
+	</resultMap>
+	
+	<resultMap class="HierCodeVO" id="hierDetailCode-resultMap">
+		<result property="groupId"					column="GROUP_ID"/>
+		<result property="groupNm"					column="GROUP_NM"/>
+		<result property="code"						column="CODE"/>
+		<result property="codeNm"					column="CODE_NM"/>
+		<result property="codeDc"					column="DC"/>
+		<result property="codeUseAt"				column="USE_AT"/>
+		<result property="codeOrdr"					column="ORDR"/>
+		<result property="upperCode"				column="UPPER_CODE"/>
+		<result property="registerId"				column="REGISTER_ID"/>
+		<result property="registDt"					column="REGIST_DT"/>
+		<result property="updusrId"					column="UPDUSR_ID"/>
+		<result property="updtDt"					column="UPDT_DT"/>
+		<result property="registerNm"				column="REGISTER_NM"/>
+		<result property="updusrNm"					column="UPDUSR_NM"/>
+	</resultMap>
+	
+	<sql id="incHierGroupCodeCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condGroupId">
+				GROUP_ID = #condGroupId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condGroupNm">
+				INSTR(UPPER(REPLACE(GROUP_NM, ' ', '')), UPPER(REPLACE(#condGroupNm#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condGroupUseAt">
+				USE_AT = #condGroupUseAt#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	<select id="selectHierGroupCodeList" parameterClass="HierCodeVO" resultMap="hierGroupCode-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT GROUP_ID, GROUP_NM, DC,
+			   USE_AT, ORDR, REGISTER_ID,
+			   REGIST_DT, UPDUSR_ID, UPDT_DT,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = REGISTER_ID) AS REGISTER_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = UPDUSR_ID) AS UPDUSR_NM
+		  FROM COM_HIER_GROUP_CODE
+		<include refid="incHierGroupCodeCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<isEmpty prepend="ORDER BY" property="condOrder">
+			ORDR ASC
+		</isEmpty>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectHierGroupCodeListCnt" parameterClass="HierCodeVO" resultClass="int">
+		SELECT COUNT(1)
+		  FROM COM_HIER_GROUP_CODE
+		<include refid="incHierGroupCodeCondition"/>
+	</select>
+	
+	<select id="selectHierGroupCodeCom" parameterClass="CommonCodeVO" resultClass="CommonCodeVO">
+		SELECT GROUP_ID AS CODE, GROUP_NM AS CODENM, USE_AT AS USEAT
+		  FROM COM_HIER_GROUP_CODE
+		 ORDER BY ORDR ASC
+	</select>
+	
+	<select id="selectHierGroupCode" parameterClass="HierCodeVO" resultMap="hierGroupCode-resultMap">
+		SELECT GROUP_ID, GROUP_NM, DC,
+			   USE_AT, ORDR, REGISTER_ID,
+			   REGIST_DT, UPDUSR_ID, UPDT_DT,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = REGISTER_ID) AS REGISTER_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = UPDUSR_ID) AS UPDUSR_NM
+		  FROM COM_HIER_GROUP_CODE
+		 WHERE GROUP_ID = #groupId#
+	</select>
+	
+	<select id="isHierGroupCodeExists" parameterClass="HierCodeVO" resultClass="int">
+		SELECT COUNT(1)
+		  FROM COM_HIER_GROUP_CODE
+		 WHERE GROUP_ID = #groupId#
+	</select>
+	
+	<insert id="insertHierGroupCode" parameterClass="HierCodeVO">
+		INSERT INTO COM_HIER_GROUP_CODE (
+			GROUP_ID, GROUP_NM, DC,
+			USE_AT, ORDR, REGISTER_ID,
+			REGIST_DT, UPDUSR_ID, UPDT_DT
+		) VALUES (
+			#groupId#, #groupNm#, #groupDc#,
+			#groupUseAt#, #groupOrdr#, #registerId#,
+			SYSDATE, #registerId#, SYSDATE
+		)
+	</insert>
+	
+	<update id="updateHierGroupCode" parameterClass="HierCodeVO">
+		UPDATE COM_HIER_GROUP_CODE SET
+			GROUP_NM = #groupNm#,
+			DC = #groupDc#,
+			USE_AT = #groupUseAt#,
+			ORDR = #groupOrdr#,
+			UPDUSR_ID = #updusrId#,
+			UPDT_DT = SYSDATE
+		WHERE GROUP_ID = #groupId#
+	</update>
+	
+	<delete id="deleteHierGroupCode" parameterClass="HierCodeVO">
+		DELETE FROM COM_HIER_GROUP_CODE
+		 WHERE GROUP_ID = #groupId#
+	</delete>
+	
+	<delete id="truncateHierGroupCode">
+		DELETE FROM COM_HIER_GROUP_CODE
+	</delete>
+	
+	<sql id="incHierDetailCodeCondition">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="condGroupId">
+				A.GROUP_ID = #condGroupId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condGroupNm">
+				INSTR(UPPER(REPLACE(B.GROUP_NM, ' ', '')), UPPER(REPLACE(#condGroupNm#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condCode">
+				CODE = #condCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condCodeNm">
+				INSTR(UPPER(REPLACE(CODE_NM, ' ', '')), UPPER(REPLACE(#condCodeNm#, ' ', ''))) > 0
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="condCodeUseAt">
+				A.USE_AT = #condCodeUseAt#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	<select id="selectList" parameterClass="HierCodeVO" resultMap="hierDetailCode-resultMap">
+		<include refid="courageCommon.prefixPagination"/>
+		SELECT A.GROUP_ID, CODE, CODE_NM,
+			   A.DC, A.USE_AT, A.ORDR,
+			   UPPER_CODE, A.REGISTER_ID, A.REGIST_DT,
+			   A.UPDUSR_ID, A.UPDT_DT, B.GROUP_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.REGISTER_ID) AS REGISTER_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.UPDUSR_ID) AS UPDUSR_NM
+		  FROM COM_HIER_DETAIL_CODE A
+		 INNER JOIN COM_HIER_GROUP_CODE B
+		 	ON A.GROUP_ID = B.GROUP_ID
+		<include refid="incHierDetailCodeCondition"/>
+		<include refid="courageCommon.orderby"/>
+		<isEmpty prepend="ORDER BY" property="condOrder">
+			A.ORDR ASC
+		</isEmpty>
+		<include refid="courageCommon.suffixPagination"/>
+	</select>
+	
+	<select id="selectListCount" parameterClass="HierCodeVO" resultClass="int">
+		SELECT COUNT(1)
+		  FROM COM_HIER_DETAIL_CODE A
+		 INNER JOIN COM_HIER_GROUP_CODE B
+		 	ON A.GROUP_ID = B.GROUP_ID
+		<include refid="incHierDetailCodeCondition"/>
+	</select>
+	
+	<select id="selectHierCodeTreeList" parameterClass="HierCodeVO" resultMap="hierDetailCode-resultMap">
+		SELECT A.GROUP_ID, CODE, CODE_NM,
+			   A.DC, A.USE_AT, A.ORDR,
+			   UPPER_CODE, A.REGISTER_ID, A.REGIST_DT,
+			   A.UPDUSR_ID, A.UPDT_DT, B.GROUP_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.REGISTER_ID) AS REGISTER_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.UPDUSR_ID) AS UPDUSR_NM
+		  FROM COM_HIER_DETAIL_CODE A
+		 INNER JOIN COM_HIER_GROUP_CODE B
+		 	ON A.GROUP_ID = B.GROUP_ID
+		 WHERE A.GROUP_ID = #groupId#
+		   AND UPPER_CODE = #upperCode#
+		 ORDER BY A.ORDR ASC
+	</select>
+	
+	<select id="getById" parameterClass="HierCodeVO" resultMap="hierDetailCode-resultMap">
+		SELECT A.GROUP_ID, CODE, CODE_NM,
+			   A.DC, A.USE_AT, A.ORDR,
+			   UPPER_CODE, A.REGISTER_ID, A.REGIST_DT,
+			   A.UPDUSR_ID, A.UPDT_DT, B.GROUP_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.REGISTER_ID) AS REGISTER_NM,
+			   (SELECT USER_NM FROM COMTNEMPLYRINFO WHERE ESNTL_ID = A.UPDUSR_ID) AS UPDUSR_NM
+		  FROM COM_HIER_DETAIL_CODE A
+		 INNER JOIN COM_HIER_GROUP_CODE B
+		 	ON A.GROUP_ID = B.GROUP_ID
+		 WHERE A.GROUP_ID = #groupId#
+		   AND A.CODE = #code#
+	</select>
+	
+	<select id="isExist" parameterClass="HierCodeVO" resultClass="int">
+		SELECT COUNT(1)
+		  FROM COM_HIER_DETAIL_CODE A
+		 INNER JOIN COM_HIER_GROUP_CODE B
+		 	ON A.GROUP_ID = B.GROUP_ID
+		 WHERE GROUP_ID = #groupId#
+		   AND CODE = #code#
+	</select>
+	
+	<insert id="insert" parameterClass="HierCodeVO">
+		INSERT INTO COM_HIER_DETAIL_CODE (
+			GROUP_ID, CODE, CODE_NM,
+			DC, USE_AT, ORDR,
+			UPPER_CODE, REGISTER_ID, REGIST_DT,
+			UPDUSR_ID, UPDT_DT
+		) VALUES (
+			#groupId#, #code#, #codeNm#,
+			#codeDc#, #codeUseAt#, #codeOrdr#,
+			#upperCode#, #registerId#, SYSDATE,
+			#updusrId#, #updtDt#
+		)
+	</insert>
+	
+	<update id="update" parameterClass="HierCodeVO">
+		UPDATE COM_HIER_DETAIL_CODE SET
+			CODE_NM = #codeNm#,
+			DC = #codeDc#,
+			USE_AT = #codeUseAt#,
+			ORDR = #codeOrdr#,
+			UPPER_CODE = #upperCode#,
+			UPDUSR_ID = #registerId#,
+			UPDT_DT = SYSDATE
+		 WHERE GROUP_ID = #groupId#
+		   AND CODE = #code#
+	</update>
+	
+	<delete id="delete" parameterClass="HierCodeVO">
+		DELETE FROM COM_HIER_DETAIL_CODE
+		 WHERE GROUP_ID = #groupId#
+		   AND CODE = #code#
+	</delete>
+	
+	<delete id="deleteGroupHierDetailCode" parameterClass="HierCodeVO">
+		DELETE FROM COM_HIER_DETAIL_CODE
+		 WHERE GROUP_ID = #groupId#
+	</delete>
+	
+	<delete id="truncateHierDetailCode" parameterClass="HierCodeVO">
+		DELETE FROM COM_HIER_DETAIL_CODE
+	</delete>
+	
+	<select id="selectBdgtOperationList" parameterClass="CommonCodeVO" resultClass="CommonCodeVO">
+		SELECT CODE AS CODE, CODE_NM AS CODENM
+		  FROM COM_HIER_DETAIL_CODE A
+		 INNER JOIN COM_HIER_GROUP_CODE B
+		    ON A.GROUP_ID = B.GROUP_ID
+		 WHERE A.GROUP_ID = 'BUDGET'
+		   AND UPPER_CODE = '0'
+		 ORDER BY A.ORDR ASC
+	</select>
+	
+	<select id="selectHiercodeList" parameterClass="CommonCodeVO" resultClass="CommonCodeVO">
+		SELECT
+		  CODE,
+		  CODE_NM AS CODENM
+		FROM COM_HIER_DETAIL_CODE
+		WHERE GROUP_ID = #groupId#
+		AND UPPER_CODE = #upperCode#
+		ORDER BY ORDR
+	</select>
+	
+	<select id="selectHiercodeDetailList" parameterClass="HierCodeVO" resultClass="HierCodeVO">
+		SELECT
+		  CODE,
+		  CODE_NM AS CODENM
+		FROM COM_HIER_DETAIL_CODE
+		WHERE GROUP_ID = #groupId#
+		AND UPPER_CODE = #upperCode#
+		ORDER BY ORDR
+	</select>
+	
+	<select id="selectHierGroupIdList" parameterClass="HierCodeVO" resultClass="HierCodeVO">
+		SELECT 
+			GROUP_ID AS GROUPID, 
+			GROUP_NM AS GROUPNM, 
+			DC AS GROUPDC
+		FROM COM_HIER_GROUP_CODE
+		WHERE USE_AT = 'Y'
+		ORDER BY ORDR
+	</select>
+</sqlMap>
