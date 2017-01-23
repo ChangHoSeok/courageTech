@@ -250,7 +250,9 @@
 									<input type="hidden" name="nttCn" id="nttCn" value="<c:out value="${boardVO.nttCn }" />">
 								</form>
 								
-								<iframe name="boardContentsView" id="boardContentsView" scrolling="no" frameborder="0" width="100%" onload="autoHeightIframe(this);" style="min-height: 150px;"></iframe>
+								<div style="overflow: auto; -webkit-overflow-scrolling: touch;">
+									<iframe name="boardContentsView" id="boardContentsView" scrolling="no" frameborder="0" width="100%" onload="autoHeightIframe(this);" style="min-height: 150px;"></iframe>
+								</div>
 							</c:when>
 							<c:otherwise>
 								블라인드 처리된 게시글 입니다.
