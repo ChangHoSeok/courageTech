@@ -8,14 +8,14 @@
  */
 (function($) {
 	// hash event handler
-	$jquery(window).hashchange(function() {
-		if (isEmpty($jquery.url.hashParam('AC'))) {
+	$(window).hashchange(function() {
+		if (isEmpty($.url.hashParam('AC'))) {
 			return false;
 		}
 		
-		$jquery('#' + $jquery.url.hashParam('VA')).ajaxload(
+		$('#' + $.url.hashParam('VA')).ajaxload(
 			'blockLoad',
-			jsContextPath + $jquery.url.hashParam('AC'),
+			jsContextPath + $.url.hashParam('AC'),
 			"POST",
 			"html",
 			location.hash.substring(1, location.hash.length),
@@ -72,7 +72,7 @@
 				}
 			}
 			
-			if ($jquery(this).attr('type') == 'checkbox' || $jquery(this).attr('type') == 'radio') {
+			if ($(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio') {
 				return true;
 			} else {
 				return false;
@@ -127,7 +127,7 @@
 				}
 			}
 			
-			if ($jquery(this).attr('type') == 'checkbox' || $jquery(this).attr('type') == 'radio') {
+			if ($(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio') {
 				return true;
 			} else {
 				return false;

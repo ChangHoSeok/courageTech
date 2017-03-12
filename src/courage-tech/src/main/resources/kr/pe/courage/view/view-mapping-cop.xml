@@ -11,10 +11,17 @@
 	<entry key="boardMasterModifyView">courage/tech/cop/bbs/boardMasterCreate</entry>
 	
 	<!-- 게시판 -->
+	<!-- 
 	<entry key="formBoardView">courage/tech/cop/bbs/formBoard.courage.tiles</entry>
+	 -->
+	 <entry key="formBoardView">courage/tech/cop/bbs/formBoard-gentelella.gentelella.tiles</entry>
 	<entry key="boardListView">courage/tech/cop/bbs/boardList</entry>
 	<entry key="boardDetailView">courage/tech/cop/bbs/boardDetail</entry>
+	
+	<!-- 
 	<entry key="boardContentsView">courage/tech/cop/bbs/boardContents</entry>
+	 -->
+	<entry key="boardContentsView">courage/tech/cop/bbs/boardContents-gentelella</entry>
 	<entry key="boardCreateView">courage/tech/cop/bbs/boardCreate</entry>
 	<entry key="boardModifyView">courage/tech/cop/bbs/boardCreate</entry>
 	<entry key="noticeRollingListView">courage/tech/cop/bbs/_subNoticeRollingList</entry>

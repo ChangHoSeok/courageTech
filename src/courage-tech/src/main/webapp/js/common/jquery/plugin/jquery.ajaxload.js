@@ -27,7 +27,6 @@
 					methods._errorCatch(x, e);
 				},
 				complete	: function() { // 후처리
-					Layout.resize();
 				}
 			});
     	},
@@ -58,7 +57,6 @@
     				},
     				complete	: function() { // 후처리
     					$(content).fadeIn('slow');
-    					Layout.resize();
     				}
     			});
     		});
@@ -67,7 +65,6 @@
     	blockLoad : function(url, type, dataType, data, async) {
     		var content = this;
     		async = typeof async !== 'undefined' ? async : true;
-    		$.block();
     		
     		$.ajax({
 				type		: type,
@@ -85,8 +82,6 @@
 					methods._errorCatch(x, e);
 				},
 				complete	: function() { // 후처리
-					Layout.resize();
-					$.unBlock();
 				}
 			});
     	},

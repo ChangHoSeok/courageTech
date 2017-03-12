@@ -181,8 +181,11 @@ html , body{
 }
 .site_title i {
     border: 1px solid #EAEAEA;
-    padding: 5px 6px;
+    padding: 5px 5px;
     border-radius: 50%
+}
+.site_title span {
+    margin-left: 5px
 }
 .nav-sm .main_container .top_nav {
     display: block;

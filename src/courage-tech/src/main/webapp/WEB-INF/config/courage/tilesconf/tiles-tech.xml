@@ -15,6 +15,18 @@
 		<put-attribute name="footer" value="/WEB-INF/tiles/courage/tech/footer/default_footer.jsp" />
 	</definition>
 	
+	<!-- default 공통 template (상속받아서 쓰세요!!) -->
+	<definition name="gentelella.default.layout" template="/WEB-INF/tiles/courage/tech/layout/gentelella_layout.jsp">
+		<description>gentelella template</description>
+		<put-attribute name="title" value="" type="string" />
+		<put-attribute name="resourcesCSS" value="/WEB-INF/tiles/courage/tech/resource/gentelella_css_resource.jsp" />
+		<put-attribute name="leftArea" value="/WEB-INF/tiles/courage/tech/left/gentelella_left.jsp" />
+		<put-attribute name="topArea" value="/WEB-INF/tiles/courage/tech/header/gentelella_top.jsp" />
+		<put-attribute name="contentArea" value="/WEB-INF/tiles/courage/tech/common/blank_body.jsp" />
+		<put-attribute name="footerArea" value="/WEB-INF/tiles/courage/tech/footer/gentelella_footer.jsp" />
+		<put-attribute name="resourcesJS" value="/WEB-INF/tiles/courage/tech/resource/gentelella_js_resource.jsp" />
+	</definition>
+	
 	<definition name="courage.html5.layout" template="/WEB-INF/tiles/courage/tech/layout/html5_layout.jsp">
 		<description>Default template</description>
 		<put-attribute name="title" value="" type="string" />
@@ -59,6 +71,25 @@
 	</definition>
 	<definition name="*/*/*/*/*/*.courage.tiles" extends="courage.default.layout">
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}/{6}.jsp" />
+	</definition>
+	
+	<definition name="*.gentelella.tiles" extends="gentelella.default.layout">
+		<put-attribute name="contentArea" value="/WEB-INF/jsp/{1}.jsp" />
+	</definition>
+	<definition name="*/*.gentelella.tiles" extends="gentelella.default.layout">
+		<put-attribute name="contentArea" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+	</definition>
+	<definition name="*/*/*.gentelella.tiles" extends="gentelella.default.layout">
+		<put-attribute name="contentArea" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+	</definition>
+	<definition name="*/*/*/*.gentelella.tiles" extends="gentelella.default.layout">
+		<put-attribute name="contentArea" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*.gentelella.tiles" extends="gentelella.default.layout">
+		<put-attribute name="contentArea" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}.jsp" />
+	</definition>
+	<definition name="*/*/*/*/*/*.gentelella.tiles" extends="gentelella.default.layout">
+		<put-attribute name="contentArea" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}/{5}/{6}.jsp" />
 	</definition>
 	
 	<definition name="*.html5.tiles" extends="courage.html5.layout">

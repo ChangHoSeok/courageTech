@@ -103,7 +103,7 @@ public class BoardController {
 
 	@Value("#{copView['noticeRollingListView']}")
 	private String noticeRollingListView;
-
+	
 	@Value("#{pageConfig['board.page.recordCount']}")
 	private int recordCount;
 

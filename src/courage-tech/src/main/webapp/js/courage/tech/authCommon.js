@@ -25,7 +25,7 @@ var AuthCommon = {
 			progrmFileNm : progrmFileNm
 		};
 		
-		$jquery.ajax({
+		$.ajax({
 			type	: "POST",
 			url		: jsContextPath + "/system/auth/retrieveMenuAuthor.tech",
 			data	: paramObj,

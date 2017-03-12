@@ -26,17 +26,16 @@ var Board = {
 	 * @param 
 	 */
 	formInitList : function() {
-		$jquery("#menuNavi").html(Navi.getNaviNm(Board.MENU_NO));
+		$("#menuNavi").html(Navi.getNaviNm(Board.MENU_NO));
 	    
 		// 해당 메뉴의 권한정보 조회
 		AuthCommon.selectMenuAuthor(Board.MENU_NO);
 		
 		if (!AuthCommon.isCreate()) {
-			$jquery('.needCreate').remove();
+			$('.needCreate').remove();
 		}
 		
-		$jquery("#" + Board.FORM_ID).separator('separatorAddForm');
-		showBtnAccessKey();
+		$("#" + Board.FORM_ID).separator('separatorAddForm');
 	},
 	
 	/**
@@ -47,11 +46,9 @@ var Board = {
 	 * @param 
 	 */
 	formInitCreate : function() {
-		$jquery("#" + Board.FORM_ID).separator('separatorAddForm');
+		$("#" + Board.FORM_ID).separator('separatorAddForm');
 		
-		$jquery("#menuNavi").html(Navi.getNaviNm(Board.MENU_NO));
-		
-		showBtnAccessKey();
+		$("#menuNavi").html(Navi.getNaviNm(Board.MENU_NO));
 		
 		var ckeditorInstance = CKEDITOR.instances['nttCn'];
 		if (ckeditorInstance) {
@@ -84,30 +81,29 @@ var Board = {
 	 * @param 
 	 */
 	formInitDetail : function() {
-		$jquery("#menuNavi").html(Navi.getNaviNm(Board.MENU_NO));
+		$("#menuNavi").html(Navi.getNaviNm(Board.MENU_NO));
 		
 		// 해당 메뉴의 권한정보 조회
 		AuthCommon.selectMenuAuthor(Board.MENU_NO);
 		
 		if (!AuthCommon.isCreate()) {
-			$jquery('.needCreate').remove();
+			$('.needCreate').remove();
 		}
 		
-		$jquery("#" + Board.FORM_ID).separator('separatorAddForm');
-		showBtnAccessKey();
+		$("#" + Board.FORM_ID).separator('separatorAddForm');
 		
 		if (Board.USE_AT === "Y") {
-			$jquery("#boardContentsForm").submit();
+			$("#boardContentsForm").submit();
 		}
 		
 		// 댓글 조회
-		if ($jquery("#answerArea").length > 0) {
-			$jquery("#answerArea").ajaxload(
+		if ($("#answerArea").length > 0) {
+			$("#answerArea").ajaxload(
 				"blockLoad",
 				jsContextPath + "/cop/bbs/formAnswer.tech",
 				"POST",
 				"html",
-				$jquery("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize(),
+				$("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize(),
 				false
 			);
 		}
@@ -125,14 +121,13 @@ var Board = {
 		AuthCommon.selectMenuAuthor(Board.MENU_NO);
 		
 		if (!AuthCommon.isCreate()) {
-			$jquery('.needCreate').remove();
+			$('.needCreate').remove();
 		}
 		
-		$jquery("#" + Board.FORM_ID).separator('separatorAddForm');
-		showBtnAccessKey();
+		$("#" + Board.FORM_ID).separator('separatorAddForm');
 		
 		if (Board.USE_AT === "Y") {
-			$jquery("#boardContentsForm").submit();
+			$("#boardContentsForm").submit();
 		}
 	},
 	
@@ -149,7 +144,7 @@ var Board = {
 	 * @param pageIndex
 	 */
 	setPageIndex : function(pageIndex) {
-		$jquery("#" + Board.FORM_ID + " #" + Board.PAGE_INDEX_ID).val(pageIndex);
+		$("#" + Board.FORM_ID + " #" + Board.PAGE_INDEX_ID).val(pageIndex);
 	},
 
 	/**
@@ -160,7 +155,7 @@ var Board = {
 	 * @param thisObj
 	 */
 	refreshList : function(thisObj) {
-		location.hash = "AC=/cop/bbs/retrieveBoardList.tech&VA=content_body&" + $jquery("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
+		location.hash = "AC=/cop/bbs/retrieveBoardList.tech&VA=content_body&" + $("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
 	},
 
 	/**
@@ -183,8 +178,8 @@ var Board = {
 	 * @param thisObj
 	 */
 	detailView : function(thisObj) {
-		$jquery("#" + Board.FORM_ID + " #nttId").val($jquery(thisObj).prop("id"));
-		location.hash = "AC=/cop/bbs/retrieveBoardDetail.tech&VA=content_body&" + $jquery("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
+		$("#" + Board.FORM_ID + " #nttId").val($(thisObj).prop("id"));
+		location.hash = "AC=/cop/bbs/retrieveBoardDetail.tech&VA=content_body&" + $("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
 	},
 
 	/**
@@ -195,7 +190,7 @@ var Board = {
 	 * @param thisObj
 	 */
 	listView : function(thisObj) {
-		location.hash = "AC=/cop/bbs/retrieveBoardList.tech&VA=content_body&" + $jquery("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
+		location.hash = "AC=/cop/bbs/retrieveBoardList.tech&VA=content_body&" + $("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
 	},
 
 	/**
@@ -206,8 +201,8 @@ var Board = {
 	 * @param thisObj
 	 */
 	createView : function(thisObj) {
-		$jquery("#" + Board.FORM_ID + " #nttId").val("0");
-		location.hash = "AC=/cop/bbs/createBoard.tech&VA=content_body&" + $jquery("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
+		$("#" + Board.FORM_ID + " #nttId").val("0");
+		location.hash = "AC=/cop/bbs/createBoard.tech&VA=content_body&" + $("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
 	},
 	
 	/**
@@ -218,7 +213,7 @@ var Board = {
 	 * @param 
 	 */
 	replyView : function(thisObj) {
-		location.hash = "AC=/cop/bbs/createBoard.tech&VA=content_body&" + $jquery("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
+		location.hash = "AC=/cop/bbs/createBoard.tech&VA=content_body&" + $("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
 	},
 
 	/**
@@ -229,7 +224,7 @@ var Board = {
 	 * @param thisObj
 	 */
 	modifyView : function(thisObj) {
-		location.hash = "AC=/cop/bbs/modifyBoard.tech&VA=content_body&" + $jquery("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
+		location.hash = "AC=/cop/bbs/modifyBoard.tech&VA=content_body&" + $("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
 	},
 
 	/**
@@ -240,7 +235,7 @@ var Board = {
 	 * @param thisObj
 	 */
 	modifyCancel : function(thisObj) {
-		location.hash = "AC=/cop/bbs/retrieveBoardDetail.tech&VA=content_body&" + $jquery("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
+		location.hash = "AC=/cop/bbs/retrieveBoardDetail.tech&VA=content_body&" + $("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
 	},
 
 	/**
@@ -255,7 +250,7 @@ var Board = {
 			var isFileExists = false;
 			
 			// 첨부파일 업로드 오류 여부 확인
-			if ($jquery("#" + Board.FORM_ID + " .uploadifyError").length > 0) {
+			if ($("#" + Board.FORM_ID + " .uploadifyError").length > 0) {
 				alert("첨부파일 업로드 오류 파일 삭제 후 저장하세요.");
 				return false;
 			}
@@ -264,19 +259,19 @@ var Board = {
 				Board.atchFile.hasError = false;
 				Board.mvpFile.hasError = false;
 				
-				$jquery("#" + Board.FORM_ID + " .buttonSet").hide();
+				$("#" + Board.FORM_ID + " .buttonSet").hide();
 				
 				// 첨부파일 업로드
-				if($jquery("#" + Board.FORM_ID + " #uploadifyAtchQueue > .uploadifyQueueItem").length > 0) {
-					$jquery("#" + Board.FORM_ID + " #uploadifyAtch").uploadifyUpload();
+				if($("#" + Board.FORM_ID + " #uploadifyAtchQueue > .uploadifyQueueItem").length > 0) {
+					$("#" + Board.FORM_ID + " #uploadifyAtch").uploadifyUpload();
 					isFileExists = true;
 				} else {
 					Board.atchFile.uploadFlag = true;
 				}
 				
 				// 동영상 업로드
-				if($jquery("#" + Board.FORM_ID + " #uploadifyMvpQueue > .uploadifyQueueItem").length > 0) {
-					$jquery("#" + Board.FORM_ID + " #uploadifyMvp").uploadifyUpload();
+				if($("#" + Board.FORM_ID + " #uploadifyMvpQueue > .uploadifyQueueItem").length > 0) {
+					$("#" + Board.FORM_ID + " #uploadifyMvp").uploadifyUpload();
 					isFileExists = true;
 				} else {
 					Board.mvpFile.uploadFlag = true;
@@ -302,17 +297,17 @@ var Board = {
 			return false;
 		}
 		
-		var noticeBgnDe = $jquery("#" + Board.FORM_ID + " #noticeBgnDe").val();
+		var noticeBgnDe = $("#" + Board.FORM_ID + " #noticeBgnDe").val();
 		
 		if (!isEmpty(noticeBgnDe)) {
-			$jquery("#" + Board.FORM_ID + " #noticeEndDe").removeClassRegEx("validate");
-			$jquery("#" + Board.FORM_ID + " #noticeEndDe").addClass("validate[required,future[" + noticeBgnDe + "]]");
+			$("#" + Board.FORM_ID + " #noticeEndDe").removeClassRegEx("validate");
+			$("#" + Board.FORM_ID + " #noticeEndDe").addClass("validate[required,future[" + noticeBgnDe + "]]");
 		}
 		
-		if ($jquery("#" + Board.FORM_ID).validationEngine("CLFValidate")) {
+		if ($("#" + Board.FORM_ID).validationEngine("CLFValidate")) {
 			return true;
 		} else {
-			$jquery.growlUI("warn", "입력값을 확인하세요");
+			$.growlUI("warn", "입력값을 확인하세요");
 			return false;
 		}
 	},
@@ -326,32 +321,32 @@ var Board = {
 	 */
 	saveProc : function() {
 		var url = "/cop/bbs/createBoardProc.tech";
-		var mode = $jquery("#" + Board.FORM_ID + " #mode").val();
+		var mode = $("#" + Board.FORM_ID + " #mode").val();
 		
 		if (mode == "modify") {
 			url = "/cop/bbs/modifyBoardProc.tech";
 		}
 		
-		var noticeAtObj = $jquery("#" + Board.FORM_ID + " #noticeAt");
-		if ($jquery(noticeAtObj).length > 0) {
-			if ($jquery(noticeAtObj).prop("checked")) {
-				$jquery(noticeAtObj).val("Y");
+		var noticeAtObj = $("#" + Board.FORM_ID + " #noticeAt");
+		if ($(noticeAtObj).length > 0) {
+			if ($(noticeAtObj).prop("checked")) {
+				$(noticeAtObj).val("Y");
 			} else {
-				$jquery(noticeAtObj).val("N");
+				$(noticeAtObj).val("N");
 			}
 			
-			$jquery(noticeAtObj).prop("checked", true);
+			$(noticeAtObj).prop("checked", true);
 		}
 		
-		$jquery('#nttCn').val(CKEDITOR.instances['nttCn'].getData());
-		$jquery('#nttCnText').val(CKEDITOR.instances['nttCn'].document.getBody().getText());
+		$('#nttCn').val(CKEDITOR.instances['nttCn'].getData());
+		$('#nttCnText').val(CKEDITOR.instances['nttCn'].document.getBody().getText());
 		
-		$jquery("#content_body").ajaxload(
+		$("#content_body").ajaxload(
 			"blockLoad",
 			jsContextPath + url,
 			"POST",
 			"html",
-			$jquery("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize(),
+			$("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize(),
 			false
 		);
 	},
@@ -365,7 +360,7 @@ var Board = {
 	 */
 	deleteBoard : function(thisObj) {
 		if (confirm("삭제하시겠습니까?")) {
-			location.hash = "AC=/cop/bbs/deleteBoard.tech&VA=content_body&" + $jquery("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
+			location.hash = "AC=/cop/bbs/deleteBoard.tech&VA=content_body&" + $("#" + Board.FORM_ID).separator("separatorRemoveForm").serialize();
 		}
 	}
 };
