@@ -4,7 +4,6 @@
 
 <script type="text/javascript">
 <!--
-	alert('aa');
 	$jquery(document).ready(function() {
 		Board.USE_AT = "${boardVO.useAt }";
 		Board.formInitContent();
