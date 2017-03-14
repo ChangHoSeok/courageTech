@@ -20,8 +20,12 @@
 				beforeSend	: function() { // 전처리
 					
 				},
-				success		: function(data) {
-					$(content).html(data);
+				success		: function(data, textStatus, jqXHR) {
+					if (jqXHR.status == 200) {
+						$(content).html(data);
+					} else if (jqXHR.status == 204) {
+						alert('표시할 컨텐츠 내용이 없습니다.');
+					}
 				},
 				error		: function(x, e) {
 					methods._errorCatch(x, e);
@@ -46,11 +50,11 @@
     				beforeSend	: function() { // 전처리
     					
     				},
-    				success		: function(data) {
-    					if (content != undefined) {
+    				success		: function(data, textStatus, jqXHR) {
+    					if (jqXHR.status == 200) {
     						$(content).html(data);
-    					} else {
-    						return true;
+    					} else if (jqXHR.status == 204) {
+    						alert('표시할 컨텐츠 내용이 없습니다.');
     					}
     				},
     				error		: function(x, e) {
@@ -78,8 +82,12 @@
 				beforeSend	: function() { // 전처리
 					
 				},
-				success		: function(data) {
-					$(content).html(data);
+				success		: function(data, textStatus, jqXHR) {
+					if (jqXHR.status == 200) {
+						$(content).html(data);
+					} else if (jqXHR.status == 204) {
+						alert('표시할 컨텐츠 내용이 없습니다.');
+					}
 				},
 				error		: function(x, e) {
 					methods._errorCatch(x, e);
