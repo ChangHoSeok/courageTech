@@ -22,6 +22,9 @@
 				<tr>
 					<td>
 						<c:choose>
+							<c:when test="${empty boardVO }">
+								설정된 컨텐츠가 없습니다.
+							</c:when>
 							<c:when test="${boardVO.useAt eq 'Y' }">
 								<form action="${ctxPath }/template/jsp/boardContentsView.jsp" name="boardContentsForm" id="boardContentsForm" method="post" target="boardContentsView">
 									<input type="hidden" name="nttCn" id="nttCn" value="<c:out value="${boardVO.nttCn }" />">

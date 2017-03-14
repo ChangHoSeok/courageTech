@@ -297,11 +297,13 @@ public class BoardController {
 		// 게시판 유효상태 확인
 		if (!boardMasterService.validateBoardMaster(boardVO.getBbsId())) {
 			if (WebUtils.isAjaxRequest(request)) {
-				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 				return null;
 			} else {
-				return new ModelAndView("redirect:/error/error404.tech");
+				model.addAttribute("boardVO", null);
+				return new ModelAndView(boardContentsView);
 			}
+			
 		}
 		
 		// 게시판 권한정보 조회

@@ -1182,3 +1182,8 @@ table.innerTable td label {
 	top: -4px;
 	color: #FF1D25;
 }
+
+#data_list_area {
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+}
