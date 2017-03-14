@@ -52,3 +52,5 @@ Globals.Url 속성값을 SQLite db 파일위치로 변경
 
 - src/main/resource/kr/pe/courage/courageProp/system.properties의 설정 변경 <br />
 주석의 설명을 보고 환경에 맞도록 설정
+
+- doc/database/courage/의 db파일을 사용한다.
