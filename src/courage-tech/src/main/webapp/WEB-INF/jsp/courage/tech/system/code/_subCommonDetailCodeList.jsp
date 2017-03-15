@@ -34,14 +34,16 @@
 	<form:hidden path="condAlign"/>
 </form:form>
 
-<div id="data_list_area" class="ct_list_area">
+<div style="display: inline-block; width: 100%;">
 	<h3 id="listSubTitle" class="subTitle left staticHeightArea">공통 상세코드 목록</h3>
 	
 	<div class="buttonSet right">
 		<button type="button" id="modifyCommonCode" class="gen_btn needCreate _command[CommonDetailCode.createView]" accesskey="3">공통 상세코드 등록</button>
 		<button type="button" id="modifyCommonCode" class="gen_btn _command[CommonDetailCode.excelDownload]" accesskey="4"><spring:message code="button.exel" /></button>
 	</div>
+</div>
 	
+<div id="data_list_area" class="ct_list_area">
 	<div id="listArea" class="type_list">
 		<div id="listTableFix" class="list_table_header">
 			<table class="header" cellspacing="0" cellpadding="0" summary="목록 항목입니다.">

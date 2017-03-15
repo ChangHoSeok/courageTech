@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/courage/tech/commonHead.jsp" %>
 
-<div id="data_list_area" class="ct_list_area">
-	<h3 id="listSubTitle" class="subTitle left staticHeightArea">메뉴 목록</h3>
-	
+<h3 id="listSubTitle" class="subTitle staticHeightArea">메뉴 목록</h3>
+
+<div id="data_list_area" class="ct_list_area">	
 	<div id="listArea" class="type_list">
 		<div id="listTableFix" class="list_table_header">
 			<table class="header" cellspacing="0" cellpadding="0">
