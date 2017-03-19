@@ -3,50 +3,32 @@ var LeftMenu = {
 	MENU_LIST : null,
 
 	menuInit : function(){
-		$jquery("#accrodionMenu").html("");
+		$("#accrodionMenu").html("");
 		
-		$jquery("#join").button({
-			icons : {
-				primary : "ui-icon-person"
-			}
-		});
-		
-		$jquery("#login").button({
-			icons : {
-				primary : "ui-icon-key"
-			}
-		});
-		
-		$jquery.post(jsContextPath + "/uat/login/retrieveLoginUserMenuListJson.tech", function(data) {
+		$.post(jsContextPath + "/uat/login/retrieveLoginUserMenuListJson.tech", function(data) {
 			LeftMenu.MENU_LIST = data.menuList;
 			LeftMenu.appendMenu(LeftMenu.MENU_LIST[0]);
 			
-			$jquery(".topnav").accordion({
-				accordion:false,
-				speed: 500,
-				closedSign: '[+]',
-				openedSign: '[-]',
-				cookieId: 'courageMenuInfo'
-			});
+			$("#accrodionMenu").find('li').filter(function () {
+				return this.id == (LeftMenu.MENU_PREFIX + LeftMenu.getMenuNo());
+			}).addClass('current-page').parents('ul').slideDown().parent().addClass('active');
 			
-			$jquery('#scrollMenu').animate({
-				scrollTop : $jquery("#scrollMenu li.active").offset().top - 135
-			}, 500);
+			init_sidebar();
 		});
 	},
 	
 	appendMenu : function(menuObj) {
-		var tagA = $jquery("<a>");
-		var tagLi = $jquery("<li>");
+		var tagA = $("<a>");
+		var tagLi = $("<li>");
+		var tagI = $("<i>");
 		
-		tagA.html(menuObj.menuNm);
+		tagI.attr("class", "fa fa-sitemap");
+		
+		tagA.append(tagI).append(menuObj.menuNm);
 		
 		// 메뉴 연결 링크
 		if (menuObj.url != null) {
 			var linkUrl = jsContextPath + menuObj.url + "?menuNo=" + menuObj.menuId + (isEmpty(menuObj.intrmdVriabl) ? "" : "&" + menuObj.intrmdVriabl);
-			if (menuObj.menuId == LeftMenu.getMenuNo()) {
-				tagLi.attr("class", "active");
-			}
 			
 			tagA.attr("href", linkUrl);
 		} else {
@@ -57,18 +39,20 @@ var LeftMenu = {
 		tagLi.append(tagA);
 		
 		if (menuObj.upperMenuId !== null && menuObj.upperMenuId !== undefined && menuObj.upperMenuId !== "") {
-			if ($jquery("#" + LeftMenu.MENU_PREFIX + menuObj.upperMenuId).length <= 0) {
-				$jquery("#accrodionMenu").append(tagLi);
+			if ($("#" + LeftMenu.MENU_PREFIX + menuObj.upperMenuId).length <= 0) {
+				$("#accrodionMenu").append(tagLi);
 			} else {
-				if ($jquery("#" + LeftMenu.MENU_PREFIX + menuObj.upperMenuId + " > ul").length <= 0) {
-					$jquery("#" + LeftMenu.MENU_PREFIX + menuObj.upperMenuId).append("<ul>");
+				if ($("#" + LeftMenu.MENU_PREFIX + menuObj.upperMenuId + " > ul").length <= 0) {
+					$("#" + LeftMenu.MENU_PREFIX + menuObj.upperMenuId).append('<ul class="nav child_menu">');
 				}
 				
-				$jquery("#" + LeftMenu.MENU_PREFIX + menuObj.upperMenuId + " > ul").append(tagLi);
+				$("#" + LeftMenu.MENU_PREFIX + menuObj.upperMenuId + " > ul").append(tagLi);
 			}
 		}
 		
 		if (menuObj.subMenuList != null && menuObj.subMenuList.length > 0) {
+			tagA.append('<span class="fa fa-chevron-down">');
+			
 			for(var i = 0; i < menuObj.subMenuList.length; i++) {
 				LeftMenu.appendMenu(menuObj.subMenuList[i]);
 			}

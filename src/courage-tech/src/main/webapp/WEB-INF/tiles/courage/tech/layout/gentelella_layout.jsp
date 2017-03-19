@@ -46,5 +46,5 @@
 	</div>
 	
 	<!-- template 관련 공통 모듈 -->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/vendors/gentelella-master/js/custom.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/vendors/gentelella-master/js/custom_courage.js"></script>
 </body>

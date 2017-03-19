@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@page import="kr.pe.courage.common.prop.PropertiesMap"%>
 <%@ include file="/WEB-INF/jsp/courage/tech/commonHead.jsp" %>
+
+<%
+	//SessionKey 설정
+	pageContext.setAttribute("sessionKey", PropertiesMap.getInstance().getValue("system.session.key"));
+	pageContext.setAttribute("authorAnonymous", PropertiesMap.getInstance().getValue("system.author.anonymous"));
+%>
 
 <script type="text/javascript">
 <!--
@@ -16,7 +23,20 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li class="">
 				<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-					<img src="${ctxPath }/images/courage/tech/icon/feeling/anonymous.png" alt="">John Doe
+					<c:set var="avatarUrl" value="${ctxPath }/images/courage/tech/icon/feeling/anonymous.png" />
+					<c:if test="${!empty sessionScope[sessionKey].avatarUrl }">
+						<c:set var="avatarUrl" value="${sessionScope[sessionKey].avatarUrl }" />
+					</c:if>
+					
+					<c:choose>
+						<c:when test="${sessionScope['authorCode'] eq authorAnonymous }">
+							<img alt="사진" src="${avatarUrl }">Anonymous
+						</c:when>
+						<c:otherwise>
+							<img alt="사진" src="${avatarUrl }">${sessionScope['userNm'] }
+						</c:otherwise>
+					</c:choose>
+					
 					<span class=" fa fa-angle-down"></span>
 				</a>
 				

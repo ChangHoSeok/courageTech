@@ -379,6 +379,9 @@ body .container.body .right_col {
     .right_col {
         padding: 10px !important
     }
+    .x_title h2 small {
+        display: none
+    }
 }
 @media (max-width: 1200px) {
     .x_title h2 {
@@ -389,11 +392,6 @@ body .container.body .right_col {
     .graph {
         zoom: 85%;
         height: inherit
-    }
-}
-@media (max-width: 1270px) and (min-width: 192px) {
-    .x_title h2 small {
-        display: none
     }
 }
 .left_col .mCSB_scrollTools {
@@ -881,8 +879,7 @@ a:focus {
     padding: 9px
 }
 .panel_toolbox {
-    float: right;
-    min-width: 70px
+    float: right
 }
 .panel_toolbox>li {
     float: left;
@@ -4241,4 +4238,49 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 
 .dataTables_wrapper > .row{
   overflow:auto !important; /*prevent datatables overflowing its container*/
+}
+
+.mR5 {
+	margin-right: 5px;
+}
+
+.mR10 {
+	margin-right: 10px;
+}
+
+.mL5 {
+	margin-left: 5px;
+}
+
+.mL10 {
+	margin-left: 10px;
+}
+
+.mT5 {
+	margin-top: 5px;
+}
+
+.mT10 {
+	margin-top: 10px;
+}
+
+.mB5 {
+	margin-bottom: 5px;
+}
+
+.mB10 {
+	margin-bottom: 10px;
+}
+
+.fR {
+	float: right;
+}
+
+.fL {
+	float: left;
+}
+
+.readonly {
+	color: #908C8C;
+	background-color: gainsboro !important;
 }

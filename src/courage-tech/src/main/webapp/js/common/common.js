@@ -1418,5 +1418,5 @@ function whatKindOfBrowser() {
 }
 
 function autoHeightIframe(iframeObj) {
-	iframeObj.style.height = (iframeObj.contentWindow.document.body.scrollHeight + 50) + "px";
+	iframeObj.style.height = (iframeObj.contentWindow.document.body.scrollHeight + 25) + "px";
 }
