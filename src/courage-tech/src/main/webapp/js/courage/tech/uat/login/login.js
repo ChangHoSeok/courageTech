@@ -11,8 +11,8 @@ var Login = {
 	 * @param 
 	 */
 	formInit : function() {
-		if (!isEmpty($jquery("#" + Login.FORM_ID + " #emplyrId").val())) {
-			$jquery("#" + Login.FORM_ID + " #password").focus();
+		if (!isEmpty($("#" + Login.FORM_ID + " #emplyrId").val())) {
+			$("#" + Login.FORM_ID + " #password").focus();
 		}
 	},
 	
@@ -28,8 +28,8 @@ var Login = {
 			location.reload();
 		}
 		
-		if (!isEmpty($jquery("#" + Login.FORM_ID + " #emplyrId").val())) {
-			$jquery("#" + Login.FORM_ID + " #password").focus();
+		if (!isEmpty($("#" + Login.FORM_ID + " #emplyrId").val())) {
+			$("#" + Login.FORM_ID + " #password").focus();
 		}
 	},
 	
@@ -41,7 +41,7 @@ var Login = {
 	 * @param 
 	 */
 	loginPopupFormInit : function() {
-		$jquery("#dialog-login").dialog({
+		$("#dialog-login").dialog({
 			autoOpen: false,
 			resizable: false,
 			draggable: false,
@@ -56,7 +56,7 @@ var Login = {
 			},
 			buttons: {
 				'취소': function() {
-					$jquery(this).dialog('close');
+					$(this).dialog('close');
 				}
 			}
 		});
@@ -70,9 +70,9 @@ var Login = {
 	 * @param 
 	 */
 	showLoginPopupForm : function(thisObj) {
-		$jquery("#dialog-login").dialog("open");
+		$("#dialog-login").dialog("open");
 		
-		$jquery("#dialog-login").ajaxload(
+		$("#dialog-login").ajaxload(
 			"blockLoad",
 			jsContextPath + "/uat/login/subFormLogin.tech",
 			"POST",
@@ -101,25 +101,25 @@ var Login = {
 	onLogin : function(thisObj) {
 		var actionUrl = jsContextPath + "/uat/login/userLogin.tech";
 		
-		$jquery.block();
+		$.block();
 		
 		if (Login._formValidate()) {
-			if ($jquery(thisObj).prop("id") === "form") {
-				$jquery("#" + Login.FORM_ID).attr("action", actionUrl);
-				$jquery("#" + Login.FORM_ID).submit();
-			} else if ($jquery(thisObj).prop("id") === "layerPopup") {
-				$jquery.ajax({
+			if ($(thisObj).prop("id") === "form") {
+				$("#" + Login.FORM_ID).attr("action", actionUrl);
+				$("#" + Login.FORM_ID).submit();
+			} else if ($(thisObj).prop("id") === "layerPopup") {
+				$.ajax({
 					type	: "POST",
 					url		: actionUrl,
-					data	: $jquery("#" + Login.FORM_ID).separator('separatorRemoveForm').serialize(),
+					data	: $("#" + Login.FORM_ID).separator('separatorRemoveForm').serialize(),
 					dataType: "html",
 					success	: function (html) {
-						$jquery("#dialog-login").html(html);
-						$jquery.unBlock();
+						$("#dialog-login").html(html);
+						$.unBlock();
 					},
 					error	: function(x, e) {
 						alert("오류가 발생되었습니다.");
-						$jquery.unBlock();
+						$.unBlock();
 					}
 				});
 			}
@@ -134,7 +134,7 @@ var Login = {
 	 * @param 
 	 */
 	_formValidate : function() {
-		if ($jquery("#" + Login.FORM_ID).validationEngine('validate')) {
+		if ($("#" + Login.FORM_ID).validationEngine('validate')) {
 			return true;
 		} else {
 			return false;

@@ -12,7 +12,7 @@
 <script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/leftMenu.js"></script>
 <script type="text/javascript">
 <!--
-	$("#scrollMenu").ready(function() {
+	$(document).ready(function() {
 		LeftMenu.menuInit();
 	});
 //-->
@@ -58,44 +58,27 @@
 	<!-- sidebar menu -->
 	<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 		<div class="menu_section">
-			<ul id="accrodionMenu" class="nav side-menu">
-				<li>
-					<a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-					
-					<ul class="nav child_menu">
-						<li><a href="#level1_1">Level One</a></li>
-						<li><a>Level One<span class="fa fa-chevron-down"></span></a>
-							<ul class="nav child_menu">
-								<li class="sub_menu"><a href="level2.html">Level Two</a></li>
-								<li><a href="#level2_1">Level Two</a></li>
-								<li><a href="#level2_2">Level Two<span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="#level2_1">Level Two</a>
-									</ul></li>
-							</ul>
-						</li>
-						<li><a href="#level1_2">Level One</a></li>
-					</ul>
-				</li>
-			</ul>
+			<ul id="accrodionMenu" class="nav side-menu"></ul>
 		</div>
 	</div>
 	<!-- /sidebar menu -->
 
 	<!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
-          </div>
+	<!-- 
+	<div class="sidebar-footer hidden-small">
+		<a data-toggle="tooltip" data-placement="top" title="Settings">
+			<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+		</a>
+		<a data-toggle="tooltip" data-placement="top" title="FullScreen">
+			<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+		</a>
+		<a data-toggle="tooltip" data-placement="top" title="Lock">
+			<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+		</a>
+		<a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+			<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+		</a>
+	</div>
+	 -->
+	<!-- /menu footer buttons -->
+</div>

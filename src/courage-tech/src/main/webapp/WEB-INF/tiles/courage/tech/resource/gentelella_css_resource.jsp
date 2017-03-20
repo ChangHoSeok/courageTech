@@ -14,3 +14,8 @@
     
 <!-- Custom styling plus plugins -->
 <link href="${ctxPath}/vendors/gentelella-master/css/custom.css" rel="stylesheet">
+
+<!-- jquery ui : begin -->
+<link href="${pageContext.request.contextPath}/<spring:eval expression="@systemConfig['system.css.basePath']" />/common/jquery/ui/flick/jquery.ui.theme.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="${pageContext.request.contextPath}/<spring:eval expression="@systemConfig['system.css.basePath']" />/common/jquery/ui/flick/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+<!-- jquery ui : end -->

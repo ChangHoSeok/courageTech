@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
 <!--
-	$jquery(document).ready(function() {
+	$(document).ready(function() {
 		Login.ACTION_STATUS = "${actionStatus }";
 		Login.subFormInit();
 	});
@@ -47,5 +47,3 @@
 		
 	</form:form>
 </div>
-
-<c:import url="/WEB-INF/jsp/courage/tech/commonAjaxHead.jsp" />
