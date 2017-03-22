@@ -22,9 +22,13 @@ var LeftMenu = {
 		var tagLi = $("<li>");
 		var tagI = $("<i>");
 		
-		tagI.attr("class", "fa fa-sitemap");
+		// 최상위 메뉴 아이콘 설정
+		if ($("#" + LeftMenu.MENU_PREFIX + menuObj.upperMenuId).length <= 0) {
+			tagI.attr("class", "fa fa-sitemap");
+			tagA.append(tagI);
+		}
 		
-		tagA.append(tagI).append(menuObj.menuNm);
+		tagA.append(menuObj.menuNm);
 		
 		// 메뉴 연결 링크
 		if (menuObj.url != null) {

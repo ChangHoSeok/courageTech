@@ -49,6 +49,16 @@ var Login = {
 			title: 'Login to Courage Tech',
 			width: 470,
 			height: 400,
+			show: {
+				effect: "drop",
+				direction : "up",
+				duration: 800
+			},
+			hide: {
+				effect: "drop",
+				direction : "up",
+				duration: 800
+			},
 			position: {
 				my: "center top+30",
 				at: "center top",

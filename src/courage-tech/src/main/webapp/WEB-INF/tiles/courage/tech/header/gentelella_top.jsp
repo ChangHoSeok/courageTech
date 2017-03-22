@@ -68,4 +68,4 @@
 	</nav>
 </div>
 
-<div id="dialog-login" title="Login to Courage Tech" style="display: none;"></div>
+<div id="dialog-login" title="Login to Courage Tech" style="display: none;" class="col-xs-12"></div>
