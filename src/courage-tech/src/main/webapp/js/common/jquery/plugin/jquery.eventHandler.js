@@ -72,11 +72,13 @@
 				}
 			}
 			
+			/*
 			if ($(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio') {
 				return true;
 			} else {
 				return false;
 			}
+			*/
 		}
 		
 		return true;

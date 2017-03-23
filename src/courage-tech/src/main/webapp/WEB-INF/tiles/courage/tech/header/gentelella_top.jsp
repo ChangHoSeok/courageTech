@@ -12,7 +12,7 @@
 <script type="text/javascript">
 <!--
 	$(document).ready(function() {
-		Login.loginPopupFormInit();
+		//Login.loginPopupFormInit();
 	});
 //-->
 </script>
@@ -47,18 +47,18 @@
 					<c:choose>
 						<c:when test="${sessionScope['authorCode'] eq authorAnonymous }">
 							<li>
-								<a href="javascript:;" class="_command[Login.showLoginPopupForm]"><i class="fa fa-sign-in pull-right"></i> Log In</a>
+								<a href="#" class="_command[Login.showLoginPopupForm]" data-toggle="modal" data-target="#dialog-login"><i class="fa fa-sign-in pull-right"></i> Log In</a>
 							</li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="javascript:;"> Profile</a></li>
+							<li><a href="#"> Profile</a></li>
 							<li>
-								<a href="javascript:;">
+								<a href="#">
 									<span class="badge bg-red pull-right">50%</span>
 									<span>Settings</span>
 								</a>
 							</li>
-							<li><a href="javascript:;">Help</a></li>
+							<li><a href="#">Help</a></li>
 							<li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
 						</c:otherwise>
 					</c:choose>
@@ -68,4 +68,5 @@
 	</nav>
 </div>
 
-<div id="dialog-login" title="Login to Courage Tech" style="display: none;" class="col-xs-12"></div>
+<!-- loginModal -->
+<div id="dialog-login" class="modal fade" role="dialog"></div>

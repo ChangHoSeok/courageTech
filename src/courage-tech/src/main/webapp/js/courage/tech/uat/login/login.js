@@ -80,7 +80,7 @@ var Login = {
 	 * @param 
 	 */
 	showLoginPopupForm : function(thisObj) {
-		$("#dialog-login").dialog("open");
+		//$("#dialog-login").dialog("open");
 		
 		$("#dialog-login").ajaxload(
 			"blockLoad",

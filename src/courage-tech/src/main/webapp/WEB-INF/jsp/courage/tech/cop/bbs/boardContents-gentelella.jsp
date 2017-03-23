@@ -25,7 +25,7 @@
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-						<ul class="dropdown-menu" role="menu">
+						<ul class="dropdown-menu pull-right" role="menu">
 							<li><a href="#"><i class="fa fa-pencil-square-o mR5"></i>수정</a></li>
 							<li><a href="#"><i class="fa fa-trash mR5"></i>삭제</a></li>
 						</ul>
