@@ -28,7 +28,9 @@ var Login = {
 			location.reload();
 		}
 		
-		if (!isEmpty($("#" + Login.FORM_ID + " #emplyrId").val())) {
+		if (isEmpty($("#" + Login.FORM_ID + " #emplyrId").val())) {
+			$("#" + Login.FORM_ID + " #emplyrId").focus();
+		} else {
 			$("#" + Login.FORM_ID + " #password").focus();
 		}
 	},

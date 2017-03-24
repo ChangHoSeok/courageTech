@@ -69,4 +69,4 @@
 </div>
 
 <!-- loginModal -->
-<div id="dialog-login" class="modal fade" role="dialog"></div>
+<div id="dialog-login" class="modal fade" role="dialog" aria-labelledby="Login to CourageTech" aria-hidden="true"></div>
