@@ -36,45 +36,6 @@ var Login = {
 	},
 	
 	/**
-	 * 개요 : 팝업 로그인 폼 초기화
-	 * 
-	 * @Author : ChangHo Seok
-	 * @Date : 2016. 11. 22.
-	 * @param 
-	 */
-	loginPopupFormInit : function() {
-		$("#dialog-login").dialog({
-			autoOpen: false,
-			resizable: false,
-			draggable: false,
-			modal: true,
-			title: 'Login to Courage Tech',
-			width: 470,
-			height: 400,
-			show: {
-				effect: "drop",
-				direction : "up",
-				duration: 800
-			},
-			hide: {
-				effect: "drop",
-				direction : "up",
-				duration: 800
-			},
-			position: {
-				my: "center top+30",
-				at: "center top",
-				of: window
-			},
-			buttons: {
-				'취소': function() {
-					$(this).dialog('close');
-				}
-			}
-		});
-	},
-	
-	/**
 	 * 개요 : 로그인 팝업 폼 조회
 	 * 
 	 * @Author : ChangHo Seok
@@ -82,8 +43,6 @@ var Login = {
 	 * @param 
 	 */
 	showLoginPopupForm : function(thisObj) {
-		//$("#dialog-login").dialog("open");
-		
 		$("#dialog-login").ajaxload(
 			"blockLoad",
 			jsContextPath + "/uat/login/subFormLogin.tech",
@@ -112,14 +71,13 @@ var Login = {
 	 */
 	onLogin : function(thisObj) {
 		var actionUrl = jsContextPath + "/uat/login/userLogin.tech";
-		
-		$.block();
+		var loginType = $(thisObj).data('login-type');
 		
 		if (Login._formValidate()) {
-			if ($(thisObj).prop("id") === "form") {
+			if (loginType === "form") {
 				$("#" + Login.FORM_ID).attr("action", actionUrl);
 				$("#" + Login.FORM_ID).submit();
-			} else if ($(thisObj).prop("id") === "layerPopup") {
+			} else if (loginType === "layerPopup") {
 				$.ajax({
 					type	: "POST",
 					url		: actionUrl,
@@ -127,15 +85,24 @@ var Login = {
 					dataType: "html",
 					success	: function (html) {
 						$("#dialog-login").html(html);
-						$.unBlock();
 					},
 					error	: function(x, e) {
 						alert("오류가 발생되었습니다.");
-						$.unBlock();
 					}
 				});
 			}
 		}
+	},
+	
+	/**
+	 * 개요 : 모달 종료 처리
+	 * 
+	 * @Author : ChangHo Seok
+	 * @Date : 2017. 3. 24.
+	 * @param 
+	 */
+	modalDestroy : function(thisObj) {
+		$("#" + Login.FORM_ID).validationEngine('hideAll');
 	},
 	
 	/**

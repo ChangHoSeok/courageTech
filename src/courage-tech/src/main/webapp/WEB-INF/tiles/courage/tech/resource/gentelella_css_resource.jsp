@@ -19,3 +19,7 @@
 <link href="${pageContext.request.contextPath}/<spring:eval expression="@systemConfig['system.css.basePath']" />/common/jquery/ui/flick/jquery.ui.theme.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="${pageContext.request.contextPath}/<spring:eval expression="@systemConfig['system.css.basePath']" />/common/jquery/ui/flick/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
 <!-- jquery ui : end -->
+
+<!-- jquery validation : begin -->
+<link href="${pageContext.request.contextPath}/<spring:eval expression="@systemConfig['system.css.basePath']" />/common/jquery/validation/validationEngine.jquery.css" rel="stylesheet" type="text/css" media="screen" />
+<!-- jquery validation : end -->

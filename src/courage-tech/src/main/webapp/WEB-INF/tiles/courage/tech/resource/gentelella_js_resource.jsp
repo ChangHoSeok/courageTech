@@ -43,6 +43,11 @@
 <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/common/jquery/ui/jquery-ui-1.10.2.custom.js"></script>
 <!-- jquery ui : end -->
 
+<!-- jquery validation : begin -->
+<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/common/jquery/validation/jquery.validationEngine-ko.js"></script>
+<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/common/jquery/validation/jquery.validationEngine.js"></script>
+<!-- jquery validation : end -->
+
 <!-- dwr : begin -->
 <script type="text/javascript" charset="utf-8" src='${pageContext.request.contextPath}/dwr/engine.js'></script>
 <script type="text/javascript" charset="utf-8" src='${pageContext.request.contextPath}/dwr/util.js'></script>

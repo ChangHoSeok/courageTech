@@ -8,6 +8,7 @@
 	pageContext.setAttribute("authorAnonymous", PropertiesMap.getInstance().getValue("system.author.anonymous"));
 %>
 
+<script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/system/user/userSbscrb.js"></script>
 <script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/uat/login/login.js"></script>
 <script type="text/javascript">
 <!--
@@ -47,6 +48,9 @@
 					<c:choose>
 						<c:when test="${sessionScope['authorCode'] eq authorAnonymous }">
 							<li>
+								<a href="#" class="_command[UserSbscrb.showUserSbscrbForm]" data-toggle="modal" data-target="#dialog-userSbscrb"><i class="fa fa-user pull-right"></i> 회원가입</a>
+							</li>
+							<li>
 								<a href="#" class="_command[Login.showLoginPopupForm]" data-toggle="modal" data-target="#dialog-login"><i class="fa fa-sign-in pull-right"></i> Log In</a>
 							</li>
 						</c:when>
@@ -69,4 +73,6 @@
 </div>
 
 <!-- loginModal -->
-<div id="dialog-login" class="modal fade" role="dialog" aria-labelledby="Login to CourageTech" aria-hidden="true"></div>
+<div id="dialog-login" class="modal fade" role="dialog" aria-labelledby="Login to CourageTech" data-backdrop="static" aria-hidden="true"></div>
+<!-- joinModal -->
+<div id="dialog-userSbscrb" class="modal fade" role="dialog" aria-labelledby="Join" data-backdrop="static" aria-hidden="true"></div>

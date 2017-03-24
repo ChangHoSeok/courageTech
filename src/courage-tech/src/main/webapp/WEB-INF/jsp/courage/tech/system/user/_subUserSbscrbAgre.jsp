@@ -2,25 +2,32 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/courage/tech/commonHead.jsp" %>
 
-<div id="loginForm">
+<div class="modal-dialog modal-lg">
 	<form:form name="formUser" id="formUser" action="${ctxPath }/system/user/createUserSbscrb.tech" method="post" commandName="userVO">
-		<div class="container">
-			<div class="login">
-
-				<p><span style="margin: 10px 0; font-size: 1.2em; font-weight: bold;">개인정보처리방침</span></p>
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">회원가입</h4>
+			</div>
+			<div class="modal-body">
+				<span class="section">개인정보처리방침</span>
 				
-				<div style="border: 1px solid #BBBBBB; width: 100%; height: 200px; margin-top: 20px; overflow: auto; -webkit-overflow-scrolling: touch;">
-					<iframe name="sbscrbStplat" id="sbscrbStplat" src="${ctxPath }/html/privacy.html" scrolling="yes" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+				<div class="embed-responsive embed-responsive-16by9">
+					<iframe name="sbscrbStplat" id="sbscrbStplat" class="embed-responsive-item ifrm_border" src="${ctxPath }/html/privacy.html"></iframe>
 				</div>
 				
 				<p class="submit" style="margin: 40px 0 0; text-align: center;">
-					<input type="submit" name="agre" value="동  의" class="_command[UserSbscrb.sbscrbAgre]">
-					<input type="submit" name="disagre" style="margin-left: 15px;" value="비동의" class="_command[UserSbscrb.sbscrbAgre]">
+					<button type="button" class="btn btn-warning _command[UserSbscrb.sbscrbAgre]" data-agre="disagre">비동의</button>
+					<button type="button" class="btn btn-success _command[UserSbscrb.sbscrbAgre]" data-agre="agre">동 의</button>
 				</p>
 			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			</div>
 		</div>
-		
 	</form:form>
 </div>
 
-<c:import url="/WEB-INF/jsp/courage/tech/commonAjaxHead.jsp" />
+<c:import url="/WEB-INF/jsp/courage/tech/commonActionMessage.jsp" />

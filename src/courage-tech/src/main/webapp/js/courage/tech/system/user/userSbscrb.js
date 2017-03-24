@@ -15,16 +15,16 @@ var UserSbscrb = {
 	 * @param
 	 */
 	formInitSbscrbDetail : function() {
-		$jquery("#progrmNm").html(Navi.getProgrmNm(UserSbscrb.SBSCRB_DETAIL_ID));
+		$("#progrmNm").html(Navi.getProgrmNm(UserSbscrb.SBSCRB_DETAIL_ID));
 		
-		$jquery("#" + UserSbscrb.FORM_ID).separator('separatorAddForm');
+		$("#" + UserSbscrb.FORM_ID).separator('separatorAddForm');
 		showBtnAccessKey();
 		
 		UserSbscrb.userConfirmFormInit();
 		UserSbscrb.userSecsnPopupFormInit();
 		
 		if (UserSbscrb.ACTION_STATUS === "success") {
-			$jquery.growlUI("info", "저장되었습니다.");
+			$.growlUI("info", "저장되었습니다.");
 		}
 	},
 	
@@ -37,12 +37,12 @@ var UserSbscrb = {
 	 */
 	modifySbscrb : function(thisObj) {
 		UserSbscrb.IS_EMPLYR_ID_DUPLECATE = true;
-		$jquery("#" + UserSbscrb.FORM_ID + " #passwordConfirm").removeClassRegEx("validate");
+		$("#" + UserSbscrb.FORM_ID + " #passwordConfirm").removeClassRegEx("validate");
 		
-		if (!isEmpty($jquery("#" + UserSbscrb.FORM_ID + " #password").val())) {
-			$jquery("#" + UserSbscrb.FORM_ID + " #passwordConfirm").addClass("validate[required,custom[password],equals[newPassword]]");
+		if (!isEmpty($("#" + UserSbscrb.FORM_ID + " #password").val())) {
+			$("#" + UserSbscrb.FORM_ID + " #passwordConfirm").addClass("validate[required,custom[password],equals[newPassword]]");
 		} else {
-			$jquery("#" + UserSbscrb.FORM_ID + " #passwordConfirm").addClass("validate[custom[password],equals[newPassword]]");
+			$("#" + UserSbscrb.FORM_ID + " #passwordConfirm").addClass("validate[custom[password],equals[newPassword]]");
 		}
 		
 		if (UserSbscrb._sbscrbFormValidate("CLFValidate")) {
@@ -59,14 +59,14 @@ var UserSbscrb = {
 	 * @param 
 	 */
 	showSecsn : function(thisObj) {
-		$jquery("#dialog-userSecsn").ajaxload(
+		$("#dialog-userSecsn").ajaxload(
 			"blockLoad",
 			jsContextPath + "/system/user/retrieveSecsnInfo.tech",
 			"POST",
 			"html"
 		);
 		
-		$jquery("#dialog-userSecsn").dialog("open");
+		$("#dialog-userSecsn").dialog("open");
 	},
 	
 	/**
@@ -77,7 +77,7 @@ var UserSbscrb = {
 	 * @param 
 	 */
 	secsn : function() {
-		if ($jquery("#secsnAgre").prop("checked")) {
+		if ($("#secsnAgre").prop("checked")) {
 			UserSbscrb.CONFIRM_MODE = "secsn";
 			UserSbscrb.showUserConfirm();
 		} else {
@@ -94,34 +94,34 @@ var UserSbscrb = {
 	 * @param
 	 */
 	userConfirm : function(thisObj) {
-		if (!$jquery("#" + UserSbscrb.CONFIRM_FORM_ID).validationEngine("validate")) {
+		if (!$("#" + UserSbscrb.CONFIRM_FORM_ID).validationEngine("validate")) {
 			return false;
 		}
 		
-		$jquery.ajax({
+		$.ajax({
 			type	: "POST",
 			url		: jsContextPath + "/system/user/retrieveUserConfirmProc.tech",
-			data	: $jquery("#" + UserSbscrb.CONFIRM_FORM_ID).separator("separatorRemoveForm").serialize(),
+			data	: $("#" + UserSbscrb.CONFIRM_FORM_ID).separator("separatorRemoveForm").serialize(),
 			dataType: "json",
 			success	: function (confirmFlag) {
 				if (confirmFlag) {
-					$jquery("#dialog-userConfirm").dialog("close");
+					$("#dialog-userConfirm").dialog("close");
 					
 					if (UserSbscrb.CONFIRM_MODE === "modify") {
-						$jquery("#content_body").ajaxload(
+						$("#content_body").ajaxload(
 							"blockLoad",
 							jsContextPath + "/system/user/modifyUserSbscrbProc.tech",
 							"POST",
 							"html",
-							$jquery("#" + UserSbscrb.FORM_ID).separator("separatorRemoveForm").serialize()
+							$("#" + UserSbscrb.FORM_ID).separator("separatorRemoveForm").serialize()
 						);
 					} else if(UserSbscrb.CONFIRM_MODE === "secsn") {
 						location.href = jsContextPath + "/system/user/userSecsnProc.tech";
 					}
 				} else {
 					alert("사용자 패스워드 인증을 실패했습니다.\n비밀번호를 다시 확인해주세요.");
-					$jquery("#" + UserSbscrb.CONFIRM_FORM_ID + " #password").val("");
-					$jquery("#" + UserSbscrb.CONFIRM_FORM_ID + " #password").focus();
+					$("#" + UserSbscrb.CONFIRM_FORM_ID + " #password").val("");
+					$("#" + UserSbscrb.CONFIRM_FORM_ID + " #password").focus();
 				}
 			},
 			error	: function(x, e) {
@@ -138,7 +138,7 @@ var UserSbscrb = {
 	 * @param
 	 */
 	showUserConfirm : function() {
-		$jquery("#dialog-userConfirm").ajaxload(
+		$("#dialog-userConfirm").ajaxload(
 			"blockLoad",
 			jsContextPath + "/system/user/retrieveUserConfirm.tech",
 			"POST",
@@ -147,7 +147,7 @@ var UserSbscrb = {
 			true
 		);
 		
-		$jquery("#dialog-userConfirm").dialog("open");
+		$("#dialog-userConfirm").dialog("open");
 	},
 	
 	/**
@@ -163,12 +163,12 @@ var UserSbscrb = {
 				UserSbscrb.sbscrbSaveProc();
 			}
 		} else {
-			$jquery.growlUI("warn", "입력값을 확인하세요");
+			$.growlUI("warn", "입력값을 확인하세요");
 		}
 	},
 
 	_sbscrbFormValidate : function(validateTy) {
-		if ($jquery("#" + UserSbscrb.FORM_ID).validationEngine(validateTy)) {
+		if ($("#" + UserSbscrb.FORM_ID).validationEngine(validateTy)) {
 			if (!UserSbscrb.IS_EMPLYR_ID_DUPLECATE) {
 				return false;
 			}
@@ -192,27 +192,27 @@ var UserSbscrb = {
 			emplyrId : userId
 		};
 		
-		if ($jquery("#" + UserSbscrb.FORM_ID).validationEngine("validateField", $jquery("#emailId"))
-				&& $jquery("#" + UserSbscrb.FORM_ID).validationEngine("validateField", $jquery("#emailDomain"))) {
+		if ($("#" + UserSbscrb.FORM_ID).validationEngine("validateField", $("#emailId"))
+				&& $("#" + UserSbscrb.FORM_ID).validationEngine("validateField", $("#emailDomain"))) {
 			
 			userService.selectUserIdExists(paramObj, {
 				callback : function (returnObj) {
 					if (returnObj) {
-						$jquery("#emailId").removeClass("validT");
-						$jquery("#emailDomain").removeClass("validT");
+						$("#emailId").removeClass("validT");
+						$("#emailDomain").removeClass("validT");
 						
-						$jquery("#emailId").addClass("validF");
-						$jquery("#emailDomain").addClass("validF");
+						$("#emailId").addClass("validF");
+						$("#emailDomain").addClass("validF");
 						
-						$jquery("#idValidMsg").show();
+						$("#idValidMsg").show();
 					} else {
-						$jquery("#emailId").removeClass("validF");
-						$jquery("#emailDomain").removeClass("validF");
+						$("#emailId").removeClass("validF");
+						$("#emailDomain").removeClass("validF");
 						
-						$jquery("#emailId").addClass("validT");
-						$jquery("#emailDomain").addClass("validT");
+						$("#emailId").addClass("validT");
+						$("#emailDomain").addClass("validT");
 						
-						$jquery("#idValidMsg").hide();
+						$("#idValidMsg").hide();
 						UserSbscrb.IS_EMPLYR_ID_DUPLECATE = true;
 					}
 				},
@@ -231,13 +231,13 @@ var UserSbscrb = {
 	 * @param
 	 */
 	sbscrbSaveProc : function() {
-		$jquery.ajax({
+		$.ajax({
 			type	: "POST",
 			url		: jsContextPath + "/system/user/createUserSbscrbProc.tech",
-			data	: $jquery("#" + UserSbscrb.FORM_ID).separator("separatorRemoveForm").serialize(),
+			data	: $("#" + UserSbscrb.FORM_ID).separator("separatorRemoveForm").serialize(),
 			dataType: "html",
 			success	: function (html) {
-				$jquery("#dialog-userSbscrb").html(html);
+				$("#dialog-userSbscrb").html(html);
 			},
 			error	: function(x, e) {
 				alert("오류가 발생되었습니다.");
@@ -253,106 +253,16 @@ var UserSbscrb = {
 	 * @param
 	 */
 	setEmailDomain : function(thisObj, domainObjId) {
-		if ($jquery(thisObj).find("option:selected").val() != "1") {
-			$jquery("#" + UserSbscrb.FORM_ID + " #" + domainObjId).val($jquery(thisObj).find("option:selected").text());
-			$jquery("#" + UserSbscrb.FORM_ID + " #" + domainObjId).attr('readonly', true);
-			$jquery("#" + UserSbscrb.FORM_ID + " #" + domainObjId).addClass('readonly');
+		if ($(thisObj).find("option:selected").val() != "1") {
+			$("#" + UserSbscrb.FORM_ID + " #" + domainObjId).val($(thisObj).find("option:selected").text());
+			$("#" + UserSbscrb.FORM_ID + " #" + domainObjId).attr('readonly', true);
+			$("#" + UserSbscrb.FORM_ID + " #" + domainObjId).addClass('readonly');
 		} else {
-			$jquery("#" + UserSbscrb.FORM_ID + " #" + domainObjId).val('');
-			$jquery("#" + UserSbscrb.FORM_ID + " #" + domainObjId).attr('readonly', false);
-			$jquery("#" + UserSbscrb.FORM_ID + " #" + domainObjId).removeClassRegEx('readonly');
-			$jquery("#" + UserSbscrb.FORM_ID + " #" + domainObjId).focus();
+			$("#" + UserSbscrb.FORM_ID + " #" + domainObjId).val('');
+			$("#" + UserSbscrb.FORM_ID + " #" + domainObjId).attr('readonly', false);
+			$("#" + UserSbscrb.FORM_ID + " #" + domainObjId).removeClassRegEx('readonly');
+			$("#" + UserSbscrb.FORM_ID + " #" + domainObjId).focus();
 		}
-	},
-	
-	/**
-	 * 개요 : 사용자 인증 팝업 폼 초기화
-	 * 
-	 * @Author : schkk
-	 * @Date : 2016. 12. 2.
-	 * @param
-	 */
-	userConfirmFormInit : function() {
-		$jquery("#dialog-userConfirm").dialog({
-			autoOpen: false,
-			resizable: false,
-			draggable: false,
-			modal: true,
-			title: '사용자 인증',
-			width: 400,
-			height: 350,
-			position: {
-				my: "center top+30",
-				at: "center top",
-				of: window
-			},
-			buttons: {
-				'취소': function() {
-					$jquery(this).dialog('close');
-				}
-			}
-		});
-	},
-	
-	/**
-	 * 개요 : 회원가입 팝업 폼 초기화
-	 * 
-	 * @Author : schkk
-	 * @Date : 2016. 11. 29.
-	 * @param
-	 */
-	userSbscrlPopupFormInit : function() {
-		$jquery("#dialog-userSbscrb").dialog({
-			autoOpen: false,
-			resizable: false,
-			draggable: false,
-			modal: true,
-			title: '회원가입',
-			width: 650,
-			height: 500,
-			position: {
-				my: "center top+30",
-				at: "center top",
-				of: window
-			},
-			buttons: {
-				'취소': function() {
-					$jquery(this).dialog('close');
-				}
-			}
-		});
-	},
-	
-	/**
-	 * 개요 : 회원탈퇴 팝업 폼 초기화
-	 * 
-	 * @Author : ChangHo Seok
-	 * @Date : 2016. 12. 4.
-	 * @param 
-	 */
-	userSecsnPopupFormInit : function() {
-		$jquery("#dialog-userSecsn").dialog({
-			autoOpen: false,
-			resizable: false,
-			draggable: false,
-			modal: true,
-			title: '회원탈퇴',
-			width: 650,
-			height: 450,
-			position: {
-				my: "center top+30",
-				at: "center top",
-				of: window
-			},
-			buttons: {
-				'회원탈퇴': function() {
-					UserSbscrb.secsn();
-				},
-				'취소': function() {
-					$jquery(this).dialog('close');
-				}
-			}
-		});
 	},
 	
 	/**
@@ -363,7 +273,7 @@ var UserSbscrb = {
 	 * @param
 	 */
 	showUserSbscrbForm : function(thisObj) {
-		$jquery("#dialog-userSbscrb").ajaxload(
+		$("#dialog-userSbscrb").ajaxload(
 			"blockLoad",
 			jsContextPath + "/system/user/retrieveUserSbscrbAgre.tech",
 			"POST",
@@ -371,12 +281,6 @@ var UserSbscrb = {
 			"",
 			true
 		);
-		
-		$jquery("#dialog-userSbscrb").dialog({
-			height: 500
-		});
-		
-		$jquery("#dialog-userSbscrb").dialog("open");
 	},
 	
 	/**
@@ -387,22 +291,20 @@ var UserSbscrb = {
 	 * @param
 	 */
 	sbscrbAgre : function(thisObj) {
-		if ($jquery(thisObj).prop("name") === "agre") {
-			$jquery("#dialog-userSbscrb").ajaxload(
+		var agre = $(thisObj).data('agre');
+		
+		if (agre === "agre") {
+			$("#dialog-userSbscrb").ajaxload(
 				"blockLoad",
 				jsContextPath + "/system/user/createUserSbscrb.tech",
 				"POST",
 				"html",
-				{"sbscrbAgre" : $jquery(thisObj).prop("name")},
+				{"sbscrbAgre" : agre},
 				true
 			);
-			
-			$jquery("#dialog-userSbscrb").dialog({
-				height: 600
-			});
-		} else if ($jquery(thisObj).prop("name") === "disagre") {
+		} else if (agre === "disagre") {
 			if (confirm("개인정보처리방침에 동의하지 않으면 회원가입을 할 수 없습니다.\n회원가입을 취소하시겠습니까?")) {
-				$jquery("#dialog-userSbscrb").dialog("close");
+				$('#dialog-userSbscrb').modal('hide');
 			}
 		}
 	},
@@ -420,7 +322,7 @@ var UserSbscrb = {
 		} catch(error) {
 			alert("페이지 연결이 잘못되었습니다.\n관리자에게 문의하세요.");
 		} finally {
-			$jquery("#dialog-userSbscrb").dialog("close");
+			$("#dialog-userSbscrb").dialog("close");
 		}
 	}
 };

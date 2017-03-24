@@ -4279,3 +4279,9 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 	color: #908C8C;
 	background-color: gainsboro !important;
 }
+
+.ifrm_border {
+	border-top: 1px solid #e5e5e5 !important;
+	border-bottom: 1px solid #e5e5e5 !important;
+	padding: 10px 0 10px 0
+}

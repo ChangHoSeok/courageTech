@@ -7,9 +7,7 @@
 
 <script type="text/javascript">
 <!--
-	$jquery(document).ready(function() {
-		_jqueryUIInit();
-		_listOrderInit();
+	$(document).ready(function() {
 		
 		var message = ''; 
 		if ('${actionMessage }' != '') {
@@ -28,8 +26,6 @@
 		} else if ('${param.actionMessage }' != '') {
 			alert('${param.actionMessage }');
 		}
-		
-		$jquery("body").animate({scrollTop:0}, '500');
 	});
 //-->
 </script>

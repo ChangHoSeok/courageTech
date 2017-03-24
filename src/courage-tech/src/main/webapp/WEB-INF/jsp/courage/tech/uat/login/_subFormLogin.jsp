@@ -36,8 +36,8 @@
 			</div>
 			
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary _command[Login.onLogin]">로그인</button>
+				<button type="button" class="btn btn-default _command[Login.modalDestroy]" data-dismiss="modal">닫기</button>
+				<button type="button" id="btnLogin" class="btn btn-primary _command[Login.onLogin]" data-login-type="layerPopup">로그인</button>
 			</div>
 		</div>
 	</form:form>
@@ -51,3 +51,5 @@
 	});
 //-->
 </script>
+
+<c:import url="/WEB-INF/jsp/courage/tech/commonActionMessage.jsp" />
