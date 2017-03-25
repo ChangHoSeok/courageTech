@@ -23,3 +23,7 @@
 <!-- jquery validation : begin -->
 <link href="${pageContext.request.contextPath}/<spring:eval expression="@systemConfig['system.css.basePath']" />/common/jquery/validation/validationEngine.jquery.css" rel="stylesheet" type="text/css" media="screen" />
 <!-- jquery validation : end -->
+
+<!-- jquery blockUI : begin -->
+<link href="${pageContext.request.contextPath}/<spring:eval expression="@systemConfig['system.css.basePath']" />/common/jquery/blockUI/blockUI.css" rel="stylesheet" type="text/css" media="screen" />
+<!-- jquery blockUI : end -->

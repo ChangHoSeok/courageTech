@@ -10,7 +10,7 @@ var UserSbscrb = {
 	/**
 	 * 개요 : 회원정보 조회 초기화
 	 * 
-	 * @Author : schkk
+	 * @Author : ChangHo Seok
 	 * @Date : 2016. 12. 2.
 	 * @param
 	 */
@@ -26,6 +26,18 @@ var UserSbscrb = {
 		if (UserSbscrb.ACTION_STATUS === "success") {
 			$.growlUI("info", "저장되었습니다.");
 		}
+	},
+	
+	/**
+	 * 개요 : 회원가입 팝업 초기화
+	 * 
+	 * @Author : ChangHo Seok
+	 * @Date : 2017. 3. 25.
+	 * @param 
+	 */
+	formInitSbscrbCreatePopup : function() {
+		$("#" + UserSbscrb.FORM_ID + " #emailIdValidMsg").hide();
+		$("#" + UserSbscrb.FORM_ID + " #emailId").focus();
 	},
 	
 	/**
@@ -192,27 +204,20 @@ var UserSbscrb = {
 			emplyrId : userId
 		};
 		
-		if ($("#" + UserSbscrb.FORM_ID).validationEngine("validateField", $("#emailId"))
-				&& $("#" + UserSbscrb.FORM_ID).validationEngine("validateField", $("#emailDomain"))) {
+		if ($("#" + UserSbscrb.FORM_ID).validationEngine("validateField", $("#emailId"))) {
 			
 			userService.selectUserIdExists(paramObj, {
 				callback : function (returnObj) {
 					if (returnObj) {
-						$("#emailId").removeClass("validT");
-						$("#emailDomain").removeClass("validT");
+						$("#emailId").parents('.form-group').addClass("has-error");
+						$("#emailId").parents('.form-group').removeClass("has-success");
 						
-						$("#emailId").addClass("validF");
-						$("#emailDomain").addClass("validF");
-						
-						$("#idValidMsg").show();
+						$("#emailIdValidMsg").show('fade');
 					} else {
-						$("#emailId").removeClass("validF");
-						$("#emailDomain").removeClass("validF");
+						$("#emailId").parents('.form-group').removeClass("has-error");
+						$("#emailId").parents('.form-group').addClass("has-success");
 						
-						$("#emailId").addClass("validT");
-						$("#emailDomain").addClass("validT");
-						
-						$("#idValidMsg").hide();
+						$("#emailIdValidMsg").hide('fade');
 						UserSbscrb.IS_EMPLYR_ID_DUPLECATE = true;
 					}
 				},
@@ -324,5 +329,16 @@ var UserSbscrb = {
 		} finally {
 			$("#dialog-userSbscrb").dialog("close");
 		}
+	},
+	
+	/**
+	 * 개요 : 모달 종료 처리
+	 * 
+	 * @Author : ChangHo Seok
+	 * @Date : 2017. 3. 25.
+	 * @param 
+	 */
+	modalDestroy : function(thisObj) {
+		$("#" + UserSbscrb.FORM_ID).validationEngine('hideAll');
 	}
 };
