@@ -526,7 +526,7 @@ public class UserController {
 		}
 		
 		// 사용자 ID는 Email로 대체
-		userVO.setEmplyrId(userVO.getEmailId() + "@" + userVO.getEmailDomain());
+		userVO.setEmplyrId(userVO.getEmailId());
 		userVO.setNcnm(userVO.getUserNm());
 		
 		if (userService.selectUserIdExists(userVO)) {

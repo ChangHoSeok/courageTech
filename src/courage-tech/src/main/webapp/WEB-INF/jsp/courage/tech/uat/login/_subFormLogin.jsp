@@ -22,11 +22,11 @@
 			<div class="modal-body">
 				<div class="form-group">
 					<label for="emplyrId">아이디</label>
-					<form:input path="emplyrId" placeholder="Username" cssClass="form-control validate[required]" maxlength="50"/>
+					<form:input path="emplyrId" placeholder="Username" cssClass="form-control validate[required] _enter[Login.onLogin]" data-login-type="layerPopup" maxlength="50"/>
 				</div>
 				<div class="form-group">
 					<label for="password">비밀번호</label>
-					<input type="password" name="password" id="password" value="" class="form-control validate[required]" maxlength="30" placeholder="Password">
+					<input type="password" name="password" id="password" value="" class="form-control validate[required] _enter[Login.onLogin]" data-login-type="layerPopup" maxlength="30" placeholder="Password">
 				</div>
 				<div class="checkbox">
 					<label>

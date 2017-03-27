@@ -13,8 +13,11 @@
 		<div class="modal-body">
 			<span class="section">회원가입 완료</span>
 			
-			<p style="text-align: center; font-size: 1.3em; font-weight: bold; color: #676767;">
-				감사합니다.<br />회원가입이 완료되었습니다
+			<p class="text-center lead">
+				감사합니다.
+			</p>
+			<p class="text-center lead">
+				회원가입이 완료되었습니다
 			</p>
 		</div>
 		

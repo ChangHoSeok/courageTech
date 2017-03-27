@@ -15,25 +15,47 @@
 			
 			<div class="modal-body">
 				<span class="section">회원 정보입력</span>
-				<div class="form-group">
-					<c:if test="${validateCheck eq 'error' }">
-						<div class="alert alert-danger fade in" role="alert">
-							<form:errors path="emplyrId"/>
-						</div>
-						<div class="alert alert-danger fade in" role="alert">
-							<form:errors path="userNm"/>
-						</div>
-						<div class="alert alert-danger fade in" role="alert">
-							<form:errors path="emailId"/>
-						</div>
-						<div class="alert alert-danger fade in" role="alert">
-							<form:errors path="emailDomain"/>
-						</div>
-						<div class="alert alert-danger fade in" role="alert">
-							<form:errors path="password"/>
-						</div>
-					</c:if>
-				</div>
+				
+				<c:if test="${validateCheck eq 'error' }">
+					<div class="form-group">
+						<c:set var="errEmplyrId"><form:errors path="emplyrId" /></c:set>
+						<c:set var="errUserNm"><form:errors path="userNm" /></c:set>
+						<c:set var="errEmailId"><form:errors path="emailId" /></c:set>
+						<c:set var="errEmailDomain"><form:errors path="emailDomain" /></c:set>
+						<c:set var="errPassword"><form:errors path="password" /></c:set>
+						
+						<c:if test="${!empty errEmplyrId }">
+							<div class="alert alert-danger fade in" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								${errEmplyrId }
+							</div>
+						</c:if>
+						<c:if test="${!empty errUserNm }">
+							<div class="alert alert-danger fade in" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								${errUserNm }
+							</div>
+						</c:if>
+						<c:if test="${!empty errEmailId }">
+							<div class="alert alert-danger fade in" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								${errEmailId }
+							</div>
+						</c:if>
+						<c:if test="${!empty errEmailDomain }">
+							<div class="alert alert-danger fade in" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								${errEmailDomain }
+							</div>
+						</c:if>
+						<c:if test="${!empty errPassword }">
+							<div class="alert alert-danger fade in" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								${errPassword }
+							</div>
+						</c:if>
+					</div>
+				</c:if>
 				
 				<div class="form-group">
 					<label for="emailId" class="col-xs-12 col-sm-3 control-label">아이디</label>

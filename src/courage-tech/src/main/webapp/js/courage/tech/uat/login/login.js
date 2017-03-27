@@ -113,7 +113,7 @@ var Login = {
 	 * @param 
 	 */
 	_formValidate : function() {
-		if ($("#" + Login.FORM_ID).validationEngine('validate')) {
+		if ($("#" + Login.FORM_ID).validationEngine('CLFValidate')) {
 			return true;
 		} else {
 			return false;

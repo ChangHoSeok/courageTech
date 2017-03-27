@@ -563,7 +563,7 @@
             // first radio/checkbox of the group
             var fieldType = field.prop("type");
 
-            if ((fieldType == "radio" || fieldType == "checkbox") && $("input[name='" + fieldName + "']").size() > 1) {
+            if ((fieldType == "radio" || fieldType == "checkbox") && $("input[name='" + fieldName + "']").length > 1) {
                 field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
                 options.showArrow = false;
             }
@@ -836,7 +836,7 @@
             // first radio/checkbox of the group
             var fieldType = field.prop("type");
 
-            if ((fieldType == "radio" || fieldType == "checkbox") && $("input[name='" + fieldName + "']").size() > 1) {
+            if ((fieldType == "radio" || fieldType == "checkbox") && $("input[name='" + fieldName + "']").length > 1) {
                 field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
                 options.showArrow = false;
             }
@@ -846,7 +846,7 @@
                 	$('[id="validator-error-' + field.prop("id") + '"]').remove();
                 	
                 	// 사용자 지정 오류표시 영역이 있으면 해당 영역에 추가
-                	if ($("#" + fieldName + "_validate_errorArea").size() <= 0) {
+                	if ($("#" + fieldName + "_validate_errorArea").length <= 0) {
                 		field.parent().append('<div id="validator-error-' + field.prop("id") + '" class="validator-error">' + promptText + '</div>');
                 	} else {
                 		$("#" + fieldName + "_validate_errorArea").append('<div id="validator-error-' + field.prop("id") + '" class="validator-error">' + promptText + '</div>');
@@ -880,9 +880,9 @@
                 case "radio":
                 case "checkbox":
                     var name = field.attr("name");
-                    if ($("input[name='" + name + "']:checked").size() === 0) {
+                    if ($("input[name='" + name + "']:checked").length === 0) {
 
-                        if ($("input[name='" + name + "']").size() === 1)
+                        if ($("input[name='" + name + "']").length === 1)
                             return options.allrules[rules[i]].alertTextCheckboxe;
                         else
                             return options.allrules[rules[i]].alertTextCheckboxMultiple;
@@ -1177,7 +1177,7 @@
 
             var nbCheck = rules[i + 1];
             var groupname = field.attr("name");
-            var groupSize = $("input[name='" + groupname + "']:checked").size();
+            var groupSize = $("input[name='" + groupname + "']:checked").length;
             if (groupSize > nbCheck) {
                 options.showArrow = false;
                 return options.allrules.maxCheckbox.alertText + " " + nbCheck + " " +
@@ -1198,7 +1198,7 @@
 
             var nbCheck = rules[i + 1];
             var groupname = field.attr("name");
-            var groupSize = $("input[name='" + groupname + "']:checked").size();
+            var groupSize = $("input[name='" + groupname + "']:checked").length;
             if (groupSize < nbCheck) {
                 options.showArrow = false;
                 return options.allrules.minCheckbox.alertText + " " + nbCheck + " " +

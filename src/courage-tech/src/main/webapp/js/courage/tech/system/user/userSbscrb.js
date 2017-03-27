@@ -106,7 +106,7 @@ var UserSbscrb = {
 	 * @param
 	 */
 	userConfirm : function(thisObj) {
-		if (!$("#" + UserSbscrb.CONFIRM_FORM_ID).validationEngine("validate")) {
+		if (!$("#" + UserSbscrb.CONFIRM_FORM_ID).validationEngine("CLFValidate")) {
 			return false;
 		}
 		
@@ -170,7 +170,7 @@ var UserSbscrb = {
 	 * @param
 	 */
 	sbscrbSave : function(thisObj) {
-		if (UserSbscrb._sbscrbFormValidate("validate")) {
+		if (UserSbscrb._sbscrbFormValidate("CLFValidate")) {
 			if (confirm("회원가입 하시겠습니까?")) {
 				UserSbscrb.sbscrbSaveProc();
 			}
@@ -204,7 +204,7 @@ var UserSbscrb = {
 			emplyrId : userId
 		};
 		
-		if ($("#" + UserSbscrb.FORM_ID).validationEngine("validateField", $("#emailId"))) {
+		if ($("#" + UserSbscrb.FORM_ID).validationEngine("CLFValidateField", $("#emailId"))) {
 			
 			userService.selectUserIdExists(paramObj, {
 				callback : function (returnObj) {
@@ -324,10 +324,11 @@ var UserSbscrb = {
 	showLoginPopupForm : function(thisObj) {
 		try {
 			Login.showLoginPopupForm();
+			$('#dialog-login').modal('show');
 		} catch(error) {
 			alert("페이지 연결이 잘못되었습니다.\n관리자에게 문의하세요.");
 		} finally {
-			$("#dialog-userSbscrb").dialog("close");
+			$('#dialog-userSbscrb').modal('hide');
 		}
 	},
 	

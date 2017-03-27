@@ -19,7 +19,7 @@
 </script>
 <div class="left_col scroll-view">
 	<div class="navbar nav_title" style="border: 0;">
-		<a href="index.html" class="site_title"><i class="fa fa-code"></i><span>Courage Tech</span></a>
+		<a href="${ctxPath }" class="site_title"><i class="fa fa-code"></i><span>Courage Tech</span></a>
 	</div>
 
 	<div class="clearfix"></div>
@@ -50,6 +50,15 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
+		
+		<div style="padding: 7px;">
+			<select id="userAuthor" class="form-control" required>
+				<option value="">Choose..</option>
+				<option value="press">Press</option>
+				<option value="net">Internet</option>
+				<option value="mouth">Word of mouth</option>
+			</select>
+		</div>
 	</div>
 	<!-- /menu profile quick info -->
 
@@ -58,6 +67,7 @@
 	<!-- sidebar menu -->
 	<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 		<div class="menu_section">
+			<h3>접근메뉴</h3>
 			<ul id="accrodionMenu" class="nav side-menu"></ul>
 		</div>
 	</div>

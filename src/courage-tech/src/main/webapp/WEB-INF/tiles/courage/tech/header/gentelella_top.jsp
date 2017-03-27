@@ -63,7 +63,7 @@
 								</a>
 							</li>
 							<li><a href="#">Help</a></li>
-							<li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+							<li><a href="#" class="_command[LeftMenu.logout]"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>

@@ -20,9 +20,6 @@
 			<field property="emailId" depends="required">
 				<arg0 key="이메일 아아디" />
 			</field>
-			<field property="emailDomain" depends="required">
-				<arg0 key="이메일 도메인" />
-			</field>
 			<field property="password" depends="required">
 				<arg0 key="비밀번호" />
 			</field>
