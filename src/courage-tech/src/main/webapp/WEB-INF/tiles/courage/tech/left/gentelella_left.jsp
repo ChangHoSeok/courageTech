@@ -9,14 +9,6 @@
 	pageContext.setAttribute("authorAnonymous", PropertiesMap.getInstance().getValue("system.author.anonymous"));
 %>
 
-<script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/leftMenu.js"></script>
-<script type="text/javascript">
-<!--
-	$(document).ready(function() {
-		LeftMenu.menuInit();
-	});
-//-->
-</script>
 <div class="left_col scroll-view">
 	<div class="navbar nav_title" style="border: 0;">
 		<a href="${ctxPath }" class="site_title"><i class="fa fa-code"></i><span>Courage Tech</span></a>
@@ -51,14 +43,21 @@
 			</c:otherwise>
 		</c:choose>
 		
-		<div style="padding: 7px;">
-			<select id="userAuthor" class="form-control" required>
-				<option value="">Choose..</option>
-				<option value="press">Press</option>
-				<option value="net">Internet</option>
-				<option value="mouth">Word of mouth</option>
-			</select>
-		</div>
+		<div class="clearfix"></div>
+		
+		<c:if test="${sessionScope['authorCode'] ne authorAnonymous }">
+			<div style="padding: 10px;">
+				<form name="authorForm" id="authorForm" action="${ctxPath }/uat/login/loginUserAuthorChange.tech" method="post">
+					<input type="hidden" name="authorId" id="authorId">
+					
+					<select name="authorList" id="authorList" class="form-control">
+						<c:forEach var="author" items="${sessionScope['authorList'] }">
+							<option value="${author.authorCode }" ${sessionScope['authorCode'] eq author.authorCode ? 'selected="selected"' : '' }>${author.authorNm}</option>
+						</c:forEach>
+					</select>
+				</form>
+			</div>
+		</c:if>
 	</div>
 	<!-- /menu profile quick info -->
 
@@ -72,23 +71,18 @@
 		</div>
 	</div>
 	<!-- /sidebar menu -->
-
-	<!-- /menu footer buttons -->
-	<!-- 
-	<div class="sidebar-footer hidden-small">
-		<a data-toggle="tooltip" data-placement="top" title="Settings">
-			<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-		</a>
-		<a data-toggle="tooltip" data-placement="top" title="FullScreen">
-			<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-		</a>
-		<a data-toggle="tooltip" data-placement="top" title="Lock">
-			<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-		</a>
-		<a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-			<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-		</a>
-	</div>
-	 -->
-	<!-- /menu footer buttons -->
 </div>
+
+<script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/leftMenu.js"></script>
+<script type="text/javascript">
+<!--
+	$(document).ready(function() {
+		LeftMenu.menuInit();
+		
+		$("#authorList").on("change", function() {
+			$("#authorId").val($(this).val());
+			document.authorForm.submit();
+		});
+	});
+//-->
+</script>
