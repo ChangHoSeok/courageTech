@@ -70,7 +70,7 @@
 				<div class="form-group">
 					<label for="userNm" class="col-xs-12 col-sm-3 control-label">닉네임</label>
 					<div class="col-xs-12 col-sm-9">
-						<form:input path="userNm" placeholder="닉네임" cssClass="form-control validate[required]" maxlength="50"/>
+						<form:input path="userNm" placeholder="닉네임" cssClass="form-control validate[required,custom[onlyKoreaEng]]" maxlength="50"/>
 					</div>
 				</div>
 				<div class="form-group">

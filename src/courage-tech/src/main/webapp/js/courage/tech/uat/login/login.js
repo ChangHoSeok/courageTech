@@ -36,22 +36,6 @@ var Login = {
 	},
 	
 	/**
-	 * 개요 : 로그인 팝업 폼 조회
-	 * 
-	 * @Author : ChangHo Seok
-	 * @Date : 2016. 11. 22.
-	 * @param 
-	 */
-	showLoginPopupForm : function(thisObj) {
-		$("#dialog-login").ajaxload(
-			"blockLoad",
-			jsContextPath + "/uat/login/subFormLogin.tech",
-			"POST",
-			"html"
-		);
-	},
-	
-	/**
 	 * 개요 : 홈페이지 이동
 	 * 
 	 * @Author : schkk
@@ -84,7 +68,7 @@ var Login = {
 					data	: $("#" + Login.FORM_ID).separator('separatorRemoveForm').serialize(),
 					dataType: "html",
 					success	: function (html) {
-						$("#dialog-login").html(html);
+						$("#dialog-login .modal-content").html(html);
 					},
 					error	: function(x, e) {
 						alert("오류가 발생되었습니다.");

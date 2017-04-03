@@ -106,16 +106,5 @@ var LeftMenu = {
 		}
 		
 		return undefined;
-	},
-	
-	/**
-	 * 개요 : 마이페이지 조회
-	 * 
-	 * @Author : schkk
-	 * @Date : 2016. 12. 2.
-	 * @param 
-	 */
-	myInfo : function(thisObj) {
-		location.hash = "AC=/system/user/retrieveUserSbscrbDetail.tech&VA=content_body";
-	}
+	}	
 };

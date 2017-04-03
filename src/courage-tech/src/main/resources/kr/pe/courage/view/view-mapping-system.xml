@@ -58,7 +58,7 @@
 	<entry key="userSbscrbCreateView">courage/tech/system/user/_subUserSbscrbCreate</entry>
 	<entry key="userSbscrbResultView">courage/tech/system/user/_subUserSbscrbResult</entry>
 	<entry key="userConfirmView">courage/tech/system/user/_subUserConfirm</entry>
-	<entry key="userSbscrbDetailView">courage/tech/system/user/userSbscrbDetail</entry>
+	<entry key="userSbscrbDetailView">courage/tech/system/user/_subUserSbscrbDetail</entry>
 	<entry key="userSecsnView">courage/tech/system/user/_subUserSecsn</entry>
 	
 	<entry key="userSecsnResultView">courage/tech/system/user/userSecsnResult.html5.tiles</entry>

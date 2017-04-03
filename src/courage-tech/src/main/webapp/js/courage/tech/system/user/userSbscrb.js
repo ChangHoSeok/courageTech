@@ -18,10 +18,6 @@ var UserSbscrb = {
 		$("#progrmNm").html(Navi.getProgrmNm(UserSbscrb.SBSCRB_DETAIL_ID));
 		
 		$("#" + UserSbscrb.FORM_ID).separator('separatorAddForm');
-		showBtnAccessKey();
-		
-		UserSbscrb.userConfirmFormInit();
-		UserSbscrb.userSecsnPopupFormInit();
 		
 		if (UserSbscrb.ACTION_STATUS === "success") {
 			$.growlUI("info", "저장되었습니다.");
@@ -271,24 +267,6 @@ var UserSbscrb = {
 	},
 	
 	/**
-	 * 개요 : 회원가입 팝업 조회
-	 * 
-	 * @Author : schkk
-	 * @Date : 2016. 11. 29.
-	 * @param
-	 */
-	showUserSbscrbForm : function(thisObj) {
-		$("#dialog-userSbscrb").ajaxload(
-			"blockLoad",
-			jsContextPath + "/system/user/retrieveUserSbscrbAgre.tech",
-			"POST",
-			"html",
-			"",
-			true
-		);
-	},
-	
-	/**
 	 * 개요 : 개인정보처리방침 동의/비동의 이벤트 처리
 	 * 
 	 * @Author : ChangHo Seok
@@ -311,24 +289,6 @@ var UserSbscrb = {
 			if (confirm("개인정보처리방침에 동의하지 않으면 회원가입을 할 수 없습니다.\n회원가입을 취소하시겠습니까?")) {
 				$('#dialog-userSbscrb').modal('hide');
 			}
-		}
-	},
-	
-	/**
-	 * 개요 : 로그인 화면 호출
-	 * 
-	 * @Author : schkk
-	 * @Date : 2016. 11. 30.
-	 * @param
-	 */
-	showLoginPopupForm : function(thisObj) {
-		try {
-			Login.showLoginPopupForm();
-			$('#dialog-login').modal('show');
-		} catch(error) {
-			alert("페이지 연결이 잘못되었습니다.\n관리자에게 문의하세요.");
-		} finally {
-			$('#dialog-userSbscrb').modal('hide');
 		}
 	},
 	

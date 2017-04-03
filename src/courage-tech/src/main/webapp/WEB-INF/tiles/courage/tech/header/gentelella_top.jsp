@@ -8,16 +8,6 @@
 	pageContext.setAttribute("authorAnonymous", PropertiesMap.getInstance().getValue("system.author.anonymous"));
 %>
 
-<script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/system/user/userSbscrb.js"></script>
-<script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/uat/login/login.js"></script>
-<script type="text/javascript">
-<!--
-	$(document).ready(function() {
-		//Login.loginPopupFormInit();
-	});
-//-->
-</script>
-
 <div class="nav_menu">
 	<nav>
 		<div class="nav toggle">
@@ -48,22 +38,15 @@
 					<c:choose>
 						<c:when test="${sessionScope['authorCode'] eq authorAnonymous }">
 							<li>
-								<a href="#" class="_command[UserSbscrb.showUserSbscrbForm]" data-toggle="modal" data-target="#dialog-userSbscrb"><i class="fa fa-user pull-right"></i> 회원가입</a>
+								<a href="${ctxPath }/system/user/retrieveUserSbscrbAgre.tech" data-toggle="modal" data-target="#dialog-userSbscrb"><i class="fa fa-user pull-right"></i>회원가입</a>
 							</li>
 							<li>
-								<a href="#" class="_command[Login.showLoginPopupForm]" data-toggle="modal" data-target="#dialog-login"><i class="fa fa-sign-in pull-right"></i> Log In</a>
+								<a href="${ctxPath }/uat/login/subFormLogin.tech" data-toggle="modal" data-target="#dialog-login"><i class="fa fa-sign-in pull-right"></i>Log In</a>
 							</li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="#"> Profile</a></li>
-							<li>
-								<a href="#">
-									<span class="badge bg-red pull-right">50%</span>
-									<span>Settings</span>
-								</a>
-							</li>
-							<li><a href="#">Help</a></li>
-							<li><a href="#" class="_command[LeftMenu.logout]"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+							<li><a data-toggle="modal" href="${ctxPath }/system/user/retrieveUserSbscrbDetail.tech" data-target="#dialog-profile"><i class="fa fa-cog pull-right"></i>Profile</a></li>
+							<li><a href="#" class="_command[LeftMenu.logout]"><i class="fa fa-sign-out pull-right"></i>Log Out</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -73,6 +56,28 @@
 </div>
 
 <!-- loginModal -->
-<div id="dialog-login" class="modal fade" role="dialog" aria-labelledby="Login to CourageTech" data-backdrop="static" aria-hidden="true"></div>
+<div id="dialog-login" class="modal fade" role="dialog" aria-labelledby="Login to CourageTech" data-backdrop="static" aria-hidden="true">
+	<div class="modal-dialog modal-sm"><div class="modal-content"></div></div>
+</div>
+
 <!-- joinModal -->
-<div id="dialog-userSbscrb" class="modal fade" role="dialog" aria-labelledby="Join" data-backdrop="static" aria-hidden="true"></div>
+<div id="dialog-userSbscrb" class="modal fade" role="dialog" aria-labelledby="Join" data-backdrop="static" aria-hidden="true">
+	<div class="modal-dialog"><div class="modal-content"></div></div>
+</div>
+
+<!-- userProfile -->
+<div id="dialog-profile" class="modal fade" role="dialog" aria-labelledby="User Profile" data-backdrop="static" aria-hidden="true">
+	<div class="modal-dialog"><div class="modal-content"></div></div>
+</div>
+
+<script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/system/user/userSbscrb.js"></script>
+<script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/uat/login/login.js"></script>
+<script type="text/javascript">
+<!--
+	$(document).ready(function() {
+		$(document).on('hidden.bs.modal', '.modal', function () {
+			$(this).removeData('bs.modal');
+		});
+	});
+//-->
+</script>
