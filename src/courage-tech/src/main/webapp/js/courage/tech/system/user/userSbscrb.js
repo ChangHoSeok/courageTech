@@ -45,12 +45,13 @@ var UserSbscrb = {
 	 */
 	modifySbscrb : function(thisObj) {
 		UserSbscrb.IS_EMPLYR_ID_DUPLECATE = true;
+		
 		$("#" + UserSbscrb.FORM_ID + " #passwordConfirm").removeClassRegEx("validate");
 		
 		if (!isEmpty($("#" + UserSbscrb.FORM_ID + " #password").val())) {
-			$("#" + UserSbscrb.FORM_ID + " #passwordConfirm").addClass("validate[required,custom[password],equals[newPassword]]");
+			$("#" + UserSbscrb.FORM_ID + " #passwordConfirm").addClass("validate[required,custom[password],equals[password]]");
 		} else {
-			$("#" + UserSbscrb.FORM_ID + " #passwordConfirm").addClass("validate[custom[password],equals[newPassword]]");
+			$("#" + UserSbscrb.FORM_ID + " #passwordConfirm").addClass("validate[custom[password],equals[password]]");
 		}
 		
 		if (UserSbscrb._sbscrbFormValidate("CLFValidate")) {
@@ -155,7 +156,7 @@ var UserSbscrb = {
 			true
 		);
 		
-		$("#dialog-userConfirm").dialog("open");
+		$("#dialog-userConfirm").modal('show');
 	},
 	
 	/**

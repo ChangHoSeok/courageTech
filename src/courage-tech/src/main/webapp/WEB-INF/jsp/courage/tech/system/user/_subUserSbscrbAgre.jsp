@@ -6,6 +6,7 @@
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
 	<h4 class="modal-title">회원가입</h4>
 </div>
+
 <div class="modal-body">
 	<form:form name="formUser" id="formUser" action="${ctxPath }/system/user/createUserSbscrb.tech" method="post" commandName="userVO">
 		<span class="section">개인정보처리방침</span>

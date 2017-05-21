@@ -12,7 +12,6 @@
 		<input type="hidden" name="emplyrId" value="dummy">
 		<input type="hidden" name="emailId" value="dummy">
 		<input type="hidden" name="emailDomain" value="dummy">
-		<input type="hidden" name="password" value="dummy">
 		
 		<c:if test="${validateCheck eq 'error' }">
 			<div class="form-group">

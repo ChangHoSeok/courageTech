@@ -70,14 +70,10 @@
 	<div class="modal-dialog"><div class="modal-content"></div></div>
 </div>
 
+<!-- userConfirm -->
+<div id="dialog-userConfirm" class="modal fade fadeup" role="dialog" aria-labelledby="User Confirm" data-backdrop="static" aria-hidden="true">
+	<div class="modal-dialog"><div class="modal-content"></div></div>
+</div>
+
 <script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/system/user/userSbscrb.js"></script>
 <script type="text/javascript" charset="utf-8" src="${ctxPath}/<spring:eval expression="@systemConfig['system.js.basePath']" />/courage/tech/uat/login/login.js"></script>
-<script type="text/javascript">
-<!--
-	$(document).ready(function() {
-		$(document).on('hidden.bs.modal', '.modal', function () {
-			$(this).removeData('bs.modal');
-		});
-	});
-//-->
-</script>
