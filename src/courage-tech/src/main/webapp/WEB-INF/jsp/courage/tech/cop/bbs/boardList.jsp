@@ -82,7 +82,7 @@
 				<col style="width:80px;"/>
 				<col/>
 				<col style="width:120px;"/>
-				<col style="width:130px;"/>
+				<col style="width:150px;"/>
 				<col style="width:100px;"/>
 			</colgroup>
 			
@@ -104,7 +104,7 @@
 				<col style="width:80px;"/>
 				<col/>
 				<col style="width:120px;"/>
-				<col style="width:130px;"/>
+				<col style="width:150px;"/>
 				<col style="width:82px;#width:100px;"/><!-- Header size보다 18px 작게 잡아야함. 스크롤 영역 (동적처리는 IE 미지원으로 고정값 설정) -->
 			</colgroup>
 			

@@ -40,7 +40,7 @@
 				<col style="width:80px;"/>
 				<col/>
 				<col style="width:120px;"/>
-				<col style="width:130px;"/>
+				<col style="width:150px;"/>
 				<col style="width:100px;"/>
 			</colgroup>
 			

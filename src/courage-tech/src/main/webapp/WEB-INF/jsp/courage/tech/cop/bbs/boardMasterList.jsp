@@ -86,7 +86,7 @@
 	<div id="listTableFix" class="list_table_header">
 		<table class="header" cellspacing="0" cellpadding="0" summary="목록 항목입니다.">
 			<colgroup>
-				<col style="width:160px;"/>
+				<col style="width:180px;"/>
 				<col/>
 				<col style="width:120px;"/>
 				<col style="width:120px;"/>
@@ -114,7 +114,7 @@
 	<div id="table_list" class="list_table_box">
 		<table cellspacing="0" cellpadding="0">
 			<colgroup>
-				<col style="width:160px;"/>
+				<col style="width:180px;"/>
 				<col/>
 				<col style="width:120px;"/>
 				<col style="width:120px;"/>
